@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { FiLogOut } from "react-icons/fi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
-import Tickets from "./Tickets";
+import Appointments from "../components/Appointments";
 
 function Profile() {
   return (
@@ -75,7 +75,7 @@ function Profile() {
           </div>
         </main>
       </div>
-      <Tickets />
+      <Appointments />
     </div>
   );
 }

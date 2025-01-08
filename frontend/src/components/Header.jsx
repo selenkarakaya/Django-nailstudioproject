@@ -35,7 +35,7 @@ function Header() {
             to="/bookNow"
             className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
           >
-            Book Now
+            Our Services
           </Link>
           <Link
             to="/contact"
