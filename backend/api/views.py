@@ -6,17 +6,42 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Appt
 from datetime import datetime
 from django.core.mail import send_mail
-# views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.http import JsonResponse
 
+# Token'ı HTTP-only cookie'ye koyuyoruz
+def set_cookie(response, token):
+    response.set_cookie(
+        'access_token',
+        token,
+        httponly=True,
+        secure=True,  # Güvenli bağlantı (https) ile erişilebilmesini sağlıyoruz
+        samesite='Strict',
+        max_age=60*60*24  # 1 gün süreyle geçerli
+    )
 # Create your views here.
-class CreateUserView(generics.CreateAPIView): #Automatically provides support for HTTP POST requests to create a new resource.
-    queryset = User.objects.all()             #Defines the database query this view will work with.
-    serializer_class = UserSerializer         #Specifies the serializer to use for this view.
-    permission_classes = [AllowAny]           #Defines who can access this view.
+class CreateUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        
+        return Response({
+            'user': UserSerializer(user).data,
+            'access': access_token,
+            'refresh': str(refresh)
+        })
+
+
+
+ 
+
 
 
 
