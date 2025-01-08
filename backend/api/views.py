@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Appt
 from datetime import datetime
 from django.core.mail import send_mail
+
+
 # Create your views here.
 class CreateUserView(generics.CreateAPIView): #Automatically provides support for HTTP POST requests to create a new resource.
     queryset = User.objects.all()             #Defines the database query this view will work with.
