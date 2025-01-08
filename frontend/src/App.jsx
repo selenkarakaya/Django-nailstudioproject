@@ -1,14 +1,36 @@
-import react from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Profile from "./pages/Profile";
+import OurServices from "./pages/OurServices";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Checkout from "./pages/Checkout";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
     <>
-      <div className="flex items-center justify-center bg-gray-100">
-        <h1 className="text-sm font-bold text-blue-600">
-          Vite + React + Tailwind CSS
-        </h1>
-      </div>
-      <h1 className="text-red-600">selen</h1>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/ourservices" element={<OurServices />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </Router>
+      <ToastContainer />
     </>
   );
 }

@@ -411,11 +411,11 @@ footer {
 /* benim */
 
 .home-main {
-  background-image: url("./components/image/home-main.png");
+  background-image: url("../assets/image/home-main.png");
 }
 
 .booknow {
-  background-image: url("./components/image/booking.png");
+  background-image: url("../assets/image/booking.png");
 }
 
 .profile {
