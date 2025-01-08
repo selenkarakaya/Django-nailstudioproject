@@ -1,12 +1,12 @@
-import Extension from "../components/image/extension.png";
-import Gel from "../components/image/gel.png";
-import Natural from "../components/image/natural.png";
-import Manicure from "../components/image/manicure.png";
-import Remove from "../components/image/remove.png";
-import Repair from "../components/image/repair.png";
-import Pedicure from "../components/image/pedi.png";
-import Spa from "../components/image/spa.png";
 import { Link } from "react-router-dom";
+import Extension from "../assets/image/extension.png";
+import Gel from "../assets/image/gel.png";
+import Natural from "../assets/image/natural.png";
+import Manicure from "../assets/image/manicure.png";
+import Remove from "../assets/image/remove.png";
+import Repair from "../assets/image/repair.png";
+import Pedicure from "../assets/image/pedi.png";
+import Spa from "../assets/image/spa.png";
 
 function OurServices() {
   return (

@@ -2,7 +2,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { RiUserHeartLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Logo from "./image/logo.png";
+import Logo from "../assets/image/logo.png";
 
 function Header() {
   return (
