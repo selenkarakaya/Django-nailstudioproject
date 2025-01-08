@@ -4,7 +4,7 @@ from .models import Appt
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model=User
+        model = User
         fields = ["id", "username", "email", "password"]
         extra_kwargs = {"password": {"write_only": True}}
         
@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         print(validated_data)
         user = User.objects.create_user(**validated_data)
         return user
-        
+     
 
 class ApptSerializer(serializers.ModelSerializer):
     class Meta:

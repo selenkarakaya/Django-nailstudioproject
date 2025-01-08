@@ -1,4 +1,42 @@
+import api from "../api";
+import { useState } from "react";
+
 function Register() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    const userData = {
+      username,
+      email,
+      password,
+    };
+    console.log("Gönderilen Veriler:", userData);
+
+    try {
+      const response = await api.post("/user/register/", userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // Cookie gönderimi gerekiyorsa
+      });
+
+      console.log(response.data); // Backend'den gelen yanıtı kontrol et
+      alert("Registration successful. You can now log in.");
+    } catch (error) {
+      console.error("Registration failed:", error.response); // Hata mesajını kontrol et
+      setError("Registration failed. Please try again.");
+    }
+  };
   return (
     <>
       <section className="flex flex-col items-center ">
@@ -6,10 +44,7 @@ function Register() {
         <p>Please create an account</p>
       </section>
       <section className="form">
-        <form>
-          <img alt="not found" width={"250px"} />
-          <label htmlFor="avatar">Choose a profile picture:</label>
-          <input accept="image/*" id="profilePhoto" type="file" />
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="text"
@@ -17,6 +52,8 @@ function Register() {
               id="name"
               name="name"
               placeholder="Enter your name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -28,20 +65,10 @@ function Register() {
               name="email"
               placeholder="Enter your email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <textarea
-              type="text"
-              className="form-control"
-              id="address"
-              name="address"
-              rows="3"
-              placeholder="Enter your address"
-              required
-            />
-          </div>
-
           <div className="form-group">
             <input
               type="password"
@@ -50,6 +77,8 @@ function Register() {
               name="password"
               placeholder="Enter password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -60,6 +89,8 @@ function Register() {
               name="password2"
               placeholder="Confirm password"
               required
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
             />
           </div>
           <div className="form-group text-center">
