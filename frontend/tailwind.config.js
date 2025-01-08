@@ -20,7 +20,7 @@ module.exports = {
         lightBg: "#FEFAF6",
       },
       backgroundImage: {
-        main: "url('../image/main2.jpg')",
+        main: "url('./assets/image/home-main.png')",
       },
       size: {
         45: "45rem",

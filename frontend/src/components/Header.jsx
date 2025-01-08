@@ -32,7 +32,7 @@ function Header() {
             About
           </Link>
           <Link
-            to="/bookNow"
+            to="/ourservices"
             className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
           >
             Our Services

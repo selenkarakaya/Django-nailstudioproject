@@ -6,7 +6,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Appt
 from datetime import datetime
 from django.core.mail import send_mail
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView): #Automatically provides support for HTTP POST requests to create a new resource.
@@ -18,12 +22,10 @@ class CreateUserView(generics.CreateAPIView): #Automatically provides support fo
 
 '''Purpose of CreateUserView
 This view is specifically designed for user registration in an application.
-
 It allows clients to send a POST request to create a new user.
 Typical use case:
 A registration page or form in a frontend application (e.g., React, Angular) sends user details (e.g., username, password) to this endpoint.
 The user is then created in the database.'''   
-
 
 # note add sending welcome emaol
 
@@ -54,6 +56,7 @@ class ApptDelete(generics.DestroyAPIView):
         return Appt.objects.filter(author=user)
     
 class ApptUpdate(generics.UpdateAPIView):
+
     serializer_class = ApptSerializer
     permission_classes = [IsAuthenticated]
 
@@ -99,3 +102,22 @@ class ApptUpdate(generics.UpdateAPIView):
         )
     else:
         print(serializer.errors)'''
+    
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # Kullanıcının refresh token'ını alıyoruz
+            refresh_token = request.data.get('refresh_token')
+
+            # Refresh token geçerliyse, onu blacklist'e ekliyoruz
+            token = RefreshToken(refresh_token)
+            token.blacklist()  # Simple JWT'de blacklisting işlemi yapılabilir
+
+            return Response({"message": "Successfully logged out"}, status=200)
+
+        except Exception as e:
+            return Response({"error": "Invalid token or error during logout"}, status=400)
