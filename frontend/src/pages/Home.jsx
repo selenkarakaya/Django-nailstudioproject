@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import Contact from "../components/image/contact.png";
-
+import Contact from "../assets/image/contact.png";
 function Home() {
   return (
     <>

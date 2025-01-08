@@ -1,4 +1,4 @@
-import Logo from "./image/logo.png";
+import Logo from "../assets/image/logo.png";
 
 function Footer() {
   const footerYear = new Date().getFullYear();

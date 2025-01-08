@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaQuestionCircle, FaTicketAlt } from "react-icons/fa";
 
-import React from "react";
-
 function ApptBook() {
   return (
     <div>
