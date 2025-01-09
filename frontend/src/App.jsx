@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
+import ApptForm from "./components/ApptForm";
 
 function App() {
   return (
@@ -23,10 +24,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/ourservices" element={<OurServices />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/apppintment-form" element={<ApptForm />} />
         </Routes>
         <Footer />
       </Router>

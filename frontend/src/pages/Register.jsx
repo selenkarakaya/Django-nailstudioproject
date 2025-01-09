@@ -23,7 +23,7 @@ function Register() {
     console.log("Gönderilen Veriler:", userData);
 
     try {
-      const response = await api.post("/user/register/", userData, {
+      const response = await api.post("user/register/", userData, {
         headers: {
           "Content-Type": "application/json",
         },

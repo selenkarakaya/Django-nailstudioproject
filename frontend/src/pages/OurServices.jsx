@@ -106,7 +106,7 @@ function OurServices() {
       <div className="flex flex-col items-center">
         <button>
           <Link
-            to="/new-ticket"
+            to="/apppintment-form"
             className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
           >
             Book your appointments here! 💅🏻
