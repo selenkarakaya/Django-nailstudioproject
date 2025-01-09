@@ -3,8 +3,25 @@ import { RiUserHeartLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Logo from "../assets/image/logo.png";
+import api from "../api";
 
 function Header() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      // Backend'e logout isteği gönder
+      const response = await api.post("logout/");
+
+      if (response.status === 200) {
+        console.log("Logout successful");
+        // Burada kullanıcıyı login sayfasına yönlendirebilirsiniz
+        window.location.href = "/login"; // veya react-router kullanıyorsanız Navigate ile yönlendirme yapabilirsiniz
+      }
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
   return (
     <>
       <div className="flex justify-center">
@@ -59,7 +76,7 @@ function Header() {
                 <button
                   type="button"
                   className=" text-white "
-                  // onClick={onLogout}
+                  onClick={handleLogout}
                 >
                   Log out
                 </button>

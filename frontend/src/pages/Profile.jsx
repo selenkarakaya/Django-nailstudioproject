@@ -1,15 +1,58 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 // eslint-disable-next-line
 
 import { FiLogOut } from "react-icons/fi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
+import api from "../api";
 
 function Profile() {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const getAccessTokenFromCookies = () => {
+    const cookies = document.cookie.split("; ");
+    const accessCookie = cookies.find((cookie) =>
+      cookie.startsWith("access_token")
+    );
+    console.log("selen");
+    console.log(document.cookie);
+    return accessCookie ? accessCookie.split("=")[1] : null;
+  };
+
+  getAccessTokenFromCookies();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await api.get("profile/", { withCredentials: true });
+        setUser(response.data); // Kullanıcı bilgilerini alıyoruz
+        console.log("selen");
+      } catch (error) {
+        setError("Unable to fetch user data");
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="mb-5">
+        <p>
+          <strong>Username:</strong> {user.username}
+        </p>
         <header className="flex items-center space-x-8">
           <p className="pl-2 text-xl">My Account • </p>
           <Link
@@ -40,7 +83,7 @@ function Profile() {
                   >
                     Full name
                   </label>
-                  <input type="text" id="name" />
+                  <input type="text" id="name" value={user.username} />
                 </div>
                 <div className="w-full">
                   <label
@@ -58,18 +101,8 @@ function Profile() {
                   >
                     Address
                   </label>
-                  <input type="text" id="address" />
+                  <input type="text" id="address" value={user.email} />
                 </div>
-                <h1>image</h1>
-                <img alt="not found" width={"250px"} />
-                <label htmlFor="avatar">Choose a profile picture:</label>
-
-                <input
-                  type="file"
-                  id="avatar"
-                  name="avatar"
-                  accept="image/png, image/jpeg"
-                />
               </form>
             </div>
           </div>

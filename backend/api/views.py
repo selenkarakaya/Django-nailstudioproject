@@ -10,6 +10,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import LoginSerializer
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework import status
+
+from .authentication import CookieJWTAuthentication
 
 # Token'ı HTTP-only cookie'ye koyuyoruz
 def set_cookie(response, token):
@@ -38,13 +45,64 @@ class CreateUserView(generics.CreateAPIView):
             'refresh': str(refresh)
         })
 
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        access_token = response.data.get('access')
+        refresh_token = response.data.get('refresh')
+        
+        if not access_token or not refresh_token:
+            print(f"Token generation failed: access={access_token}, refresh={refresh_token}")
+            return Response({"error": "Token generation failed"}, status=400)
 
+        response.set_cookie(
+            key='access_token',
+            value= access_token,
+            httponly=False,
+            secure=True,
+            samesite=None,
+            max_age=60*60*24
+        )
 
+        response.set_cookie(
+            'refresh_token',
+            refresh_token,
+            httponly=False,
+            secure=True,
+            samesite=None,
+            max_age=60*60*24
+        )
+
+        return response
+
+class LogoutView(APIView):
+    authentication_classes = [CookieJWTAuthentication] 
+    permission_classes = [IsAuthenticated]  # Sadece kimliği doğrulanmış kullanıcılar çıkış yapabilir
+
+    def post(self, request):
+        # Kullanıcıyı çıkış yaptırmak için cookie'leri temizle
+        response = Response({"message": "Logout successful"}, status=200)
+        
+        # Cookie'leri temizleyin
+        response.delete_cookie('access_token')
+        response.delete_cookie('refresh_token')
+        
+        return response
+
+class ProfileView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]  # Kullanıcı doğrulaması yapılacak
+    def get(self, request):
+        user = request.user  # Şu anda oturum açmış kullanıcıyı alıyoruz
+        user_data = {
+            'email': user.email,
+            'username': user.username,
+            # Diğer profil bilgilerini buraya ekleyebilirsiniz
+        }
+        return Response(user_data) 
  
-
-
-
-
+    
 '''Purpose of CreateUserView
 This view is specifically designed for user registration in an application.
 It allows clients to send a POST request to create a new user.
@@ -128,21 +186,3 @@ class ApptUpdate(generics.UpdateAPIView):
     else:
         print(serializer.errors)'''
     
-
-
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        try:
-            # Kullanıcının refresh token'ını alıyoruz
-            refresh_token = request.data.get('refresh_token')
-
-            # Refresh token geçerliyse, onu blacklist'e ekliyoruz
-            token = RefreshToken(refresh_token)
-            token.blacklist()  # Simple JWT'de blacklisting işlemi yapılabilir
-
-            return Response({"message": "Successfully logged out"}, status=200)
-
-        except Exception as e:
-            return Response({"error": "Invalid token or error during logout"}, status=400)
