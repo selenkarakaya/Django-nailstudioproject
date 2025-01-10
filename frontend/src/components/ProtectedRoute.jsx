@@ -78,7 +78,7 @@ function ProtectedRoute({ children }) {
     }
 
     try {
-      const res = await api.post("/api/token/refresh/", {
+      const res = await api.post("/token/refresh/", {
         refresh: refreshToken,
       });
       if (res.status === 200) {

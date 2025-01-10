@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BackButton from "../components/BackButton";
 import api from "../api";
 
 function ApptForm() {
   const [service, setService] = useState("");
   const [message, setMessage] = useState("");
-  const createNote = (e) => {
-    e.preventDefault();
 
+  const createAppointment = (e) => {
+    e.preventDefault();
+    const data = {
+      service,
+      message,
+    };
     api
-      .post("appointment/", { service, message })
+      .post("appointment/create", data)
       .then((res) => {
-        if (res.status === 201) alert("Note created!");
-        else alert("Failed to make note.");
-        getNotes();
+        if (res.status === 201) alert("appointment created!");
+        else alert("Failed to make appointment.");
       })
       .catch((err) => alert(err));
   };
@@ -34,7 +37,7 @@ function ApptForm() {
           <label htmlFor="email">Your Email</label>
           <input type="text" className="form-control" disabled />
         </div>
-        <form onSubmit={createNote}>
+        <form onSubmit={createAppointment}>
           {/* <div className="form-group">
             <label htmlFor="product">Services</label>
             <select name="product" id="product">
