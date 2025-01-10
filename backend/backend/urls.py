@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path,include
-from api.views import CreateUserView, LoginView ,ProfileView,LogoutView
+from api.views import CreateUserView, LoginView ,ProfileView,LogoutView,ApptCreate
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 

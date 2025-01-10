@@ -17,11 +17,8 @@ function Profile() {
     const accessCookie = cookies.find((cookie) =>
       cookie.startsWith("access_token")
     );
-    console.log("selen");
-    console.log(document.cookie);
     return accessCookie ? accessCookie.split("=")[1] : null;
   };
-
   getAccessTokenFromCookies();
 
   useEffect(() => {
@@ -29,13 +26,11 @@ function Profile() {
       try {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); // Kullanıcı bilgilerini alıyoruz
-        console.log("selen");
       } catch (error) {
         setError("Unable to fetch user data");
         console.error("Error fetching profile:", error);
       }
     };
-
     fetchUserData();
   }, []);
 

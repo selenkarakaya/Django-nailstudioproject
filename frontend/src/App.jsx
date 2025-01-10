@@ -13,6 +13,9 @@ import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import ApptForm from "./components/ApptForm";
+import Appointments from "./components/Appointments";
+import Appointment from "./components/Appointment";
+import ApptUpdateForm from "./components/ApptUpdateForm";
 
 function App() {
   return (
@@ -37,6 +40,12 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/apppintment-form" element={<ApptForm />} />
+          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/appointment" element={<Appointment />} />
+          <Route
+            path="/editAppointment-form/:id"
+            element={<ApptUpdateForm />}
+          />
         </Routes>
         <Footer />
       </Router>

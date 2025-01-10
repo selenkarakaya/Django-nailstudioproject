@@ -115,6 +115,7 @@ The user is then created in the database.'''
 class ApptCreate(generics.CreateAPIView):
     serializer_class=ApptSerializer
     permission_classes=[IsAuthenticated] 
+    authentication_classes = [CookieJWTAuthentication]
 
     def get_queryset(self):
         user = self.request.user
@@ -122,13 +123,14 @@ class ApptCreate(generics.CreateAPIView):
     
 
     def perform_create(self, serializer):
-        if serializer.is_valid():
-        
+        if serializer.is_valid():      
+            serializer.save(author=self.request.user)
             if len(serializer.validated_data['service']) < 10:
                 raise serializers.ValidationError("Service must be at least 10 characters long.")
             serializer.save(author=self.request.user)
         else:
-            print(serializer.errors)
+            print("Serializer Errors:", serializer.errors)  # Hataları yazdır
+            raise serializers.ValidationError(serializer.errors)
 
 class ApptDelete(generics.DestroyAPIView):
     serializer_class = ApptSerializer
@@ -166,7 +168,14 @@ class ApptUpdate(generics.UpdateAPIView):
         else:
             print(serializer.errors)
 
-
+class ApptRetrieve(generics.RetrieveAPIView):
+    queryset = Appt.objects.all()
+    serializer_class = ApptSerializer
+    permission_classes = [IsAuthenticated]
+    
+    # This will ensure the appointment is fetched for the authenticated user
+    def get_queryset(self):
+        return Appt.objects.filter(author=self.request.user)
 #Notes:
     ''' The permission_classes is used to define who can create a new instance of a class.'''    
     ''' The get_queryset method ensures that users can only see their own appointments.'''
@@ -185,4 +194,14 @@ class ApptUpdate(generics.UpdateAPIView):
         )
     else:
         print(serializer.errors)'''
-    
+class ApptListView(generics.ListAPIView):
+    serializer_class = ApptSerializer
+    permission_classes = [IsAuthenticated]  # Kullanıcının kimliği doğrulanmalı
+    authentication_classes = [CookieJWTAuthentication]  # CookieJWT doğrulaması
+
+    def get_queryset(self):
+        """
+        Kullanıcının kendi randevularını döndürür.
+        """
+        user = self.request.user
+        return Appt.objects.filter(author=user)    
