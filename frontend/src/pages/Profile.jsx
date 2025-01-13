@@ -1,9 +1,5 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-// eslint-disable-next-line
-
-import { FiLogOut } from "react-icons/fi";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
@@ -12,14 +8,6 @@ import api from "../api";
 function Profile() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const getAccessTokenFromCookies = () => {
-    const cookies = document.cookie.split("; ");
-    const accessCookie = cookies.find((cookie) =>
-      cookie.startsWith("access_token")
-    );
-    return accessCookie ? accessCookie.split("=")[1] : null;
-  };
-  getAccessTokenFromCookies();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,7 +15,7 @@ function Profile() {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); // Kullanıcı bilgilerini alıyoruz
       } catch (error) {
-        setError("Unable to fetch user data");
+        setError("Unable to fetch user data, please try again");
         console.error("Error fetching profile:", error);
       }
     };
@@ -41,13 +29,9 @@ function Profile() {
   if (!user) {
     return <div>Loading...</div>;
   }
-
-  return (
+  return user ? (
     <div>
       <div className="mb-5">
-        <p>
-          <strong>Username:</strong> {user.username}
-        </p>
         <header className="flex items-center space-x-8">
           <p className="pl-2 text-xl">My Account • </p>
           <Link
@@ -78,7 +62,7 @@ function Profile() {
                   >
                     Full name
                   </label>
-                  <input type="text" id="name" value={user.username} />
+                  <input type="text" id="name" value={user.username} readOnly />
                 </div>
                 <div className="w-full">
                   <label
@@ -87,7 +71,7 @@ function Profile() {
                   >
                     Email
                   </label>
-                  <input type="text" id="email" />
+                  <input type="text" id="email" value={user.email} readOnly />
                 </div>
                 <div className="w-full">
                   <label
@@ -96,7 +80,7 @@ function Profile() {
                   >
                     Address
                   </label>
-                  <input type="text" id="address" value={user.email} />
+                  <input type="text" id="address" />
                 </div>
               </form>
             </div>
@@ -105,6 +89,8 @@ function Profile() {
       </div>
       <Appointments />
     </div>
+  ) : (
+    <p>selen</p>
   );
 }
 
