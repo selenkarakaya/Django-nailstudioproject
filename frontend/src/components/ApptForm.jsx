@@ -1,10 +1,26 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import api from "../api";
 
 function ApptForm() {
+  const [user, setUser] = useState(null);
   const [service, setService] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await api.get("profile/", { withCredentials: true });
+        setUser(response.data); // Kullanıcı bilgilerini alıyoruz
+      } catch (error) {
+        setError("Unable to fetch user data, please try again");
+        console.error("Error fetching profile:", error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const createAppointment = (e) => {
     e.preventDefault();
@@ -15,8 +31,10 @@ function ApptForm() {
     api
       .post("appointment/create", data)
       .then((res) => {
-        if (res.status === 201) alert("appointment created!");
-        else alert("Failed to make appointment.");
+        if (res.status === 201) {
+          toast.success(`Hello 🫂  appointment created!!`);
+          navigate("/profile");
+        } else toast.error(`Hello 🫂  Failed to make appointment!!`);
       })
       .catch((err) => alert(err));
   };
@@ -31,16 +49,31 @@ function ApptForm() {
       <section className="form">
         <div className="form-group">
           <label htmlFor="name">Your Name</label>
-          <input type="text" className="form-control" disabled />
+          <input
+            type="text"
+            className="form-control"
+            value={user.username}
+            readOnly
+          />
         </div>
         <div className="form-group">
           <label htmlFor="email">Your Email</label>
-          <input type="text" className="form-control" disabled />
+          <input
+            type="text"
+            className="form-control"
+            value={user.email}
+            readOnly
+          />
         </div>
         <form onSubmit={createAppointment}>
-          {/* <div className="form-group">
+          <div className="form-group">
             <label htmlFor="product">Services</label>
-            <select name="product" id="product">
+            <select
+              name="product"
+              id="product"
+              onChange={(e) => setService(e.target.value)}
+              value={service}
+            >
               <option value="Select service">Select service</option>
               <option value="Gel nail extensions full set">
                 Gel nail extensions full set
@@ -65,8 +98,8 @@ function ApptForm() {
                 Removal of gel polish/builder gel
               </option>
             </select>
-          </div> */}
-          <div className="form-group">
+          </div>
+          {/* <div className="form-group">
             <label htmlFor="service">service</label>
             <textarea
               name="service"
@@ -76,7 +109,7 @@ function ApptForm() {
               onChange={(e) => setService(e.target.value)}
               value={service}
             ></textarea>
-          </div>
+          </div> */}
           <div className="form-group">
             <label htmlFor="message">Message</label>
             <textarea

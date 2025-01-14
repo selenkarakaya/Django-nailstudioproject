@@ -1,8 +1,8 @@
-import Spinner from "./Spinner";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import api from "../api";
 import BackButton from "./BackButton";
 import Appointment from "./Appointment";
-import { useState, useEffect } from "react";
-import api from "../api";
 
 function Appointments() {
   //appointments cagrilacak ve appointment'a gonderilecek
@@ -30,14 +30,14 @@ function Appointments() {
     api
       .delete(`appointment/delete/${id}`)
       .then((res) => {
-        if (res.status === 204) alert("appt delete");
-        else alert("Failed to delete");
+        if (res.status === 204)
+          toast.success(`Your appointment was canceled in successfully!`);
+        else toast.error(`Failed to cancel!`);
         getAppointments();
       })
       .catch((err) => alert(err));
   };
 
-  const onEdit = (id) => {};
   return (
     <div>
       <BackButton />
@@ -54,7 +54,6 @@ function Appointments() {
             key={appointment.id}
             appointment={appointment}
             onDelete={onDelete}
-            onEdit={onEdit}
           />
         ))}
       </div>
