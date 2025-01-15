@@ -11,23 +11,45 @@ function Header() {
 
   const [user, setUser] = useState(null);
 
+  // useEffect(() => {
+  //   if (!user) {
+  //     return; //If there is no user, do not run fetchUserData.
+  //   }
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await api.get("profile/", { withCredentials: true });
+  //       setUser(response.data); //We are fetching user data.
+  //     } catch (error) {}
+  //   };
+  //   fetchUserData();
+  // }, [user]);
   useEffect(() => {
     const fetchUserData = async () => {
+      // Eğer kullanıcı login olmuşsa, profil verisini çek
+      if (!user) {
+        // Kullanıcı yoksa, fetchUserData çalıştırma
+      }
+
       try {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); // Kullanıcı bilgilerini alıyoruz
-        console.log("selen");
       } catch (error) {
-        setError("Unable to fetch user data");
-        console.error("Error fetching profile:", error);
+        if (error.response && error.response.status === 403) {
+          toast.error("You need to log in to view your profile.");
+          navigate("/login"); // Kullanıcıyı login sayfasına yönlendir
+        } else {
+          console.error("Error fetching profile:", error);
+          toast.error("Unable to fetch profile data, please try again.");
+        }
       }
     };
+
     fetchUserData();
-  }, []);
+  }, [user, navigate]); // 'user' state'ini bağımlılık olarak ekliyoruz
 
   const handleLogout = async () => {
     try {
-      // Backend'e logout isteği gönder
+      //Send a logout request to the backend.
       const response = await api.post("logout/");
       if (response.status === 200) {
         toast("Bye for now", {
@@ -39,7 +61,7 @@ function Header() {
           progress: undefined,
           theme: "light",
         });
-        // Burada kullanıcıyı login sayfasına yönlendirebilirsiniz
+        //You can redirect the user to the login page here.
         navigate("/login");
       }
     } catch (error) {
@@ -48,7 +70,6 @@ function Header() {
   };
   return (
     <>
-      {user ? <p>var</p> : <p>yok</p>}
       <div className="flex justify-center">
         <Link to="/">
           <img src={Logo} alt="logo" className="w-60 h-60" />
@@ -91,7 +112,7 @@ function Header() {
             {user ? (
               <div className="flex">
                 <Link
-                  to="/Profile"
+                  to="/profile"
                   className="flex items-center space-x-1 px-3 py-1 hover:bg-darkBlue hover:text-white rounded-lg"
                 >
                   <RiUserHeartLine className="animate-bounce" />
@@ -112,10 +133,10 @@ function Header() {
               </div>
             ) : (
               <div>
-                <button className=" text-white  bg-darkBlue px-3 py-1 hover:scale-105 hover:bg-mediumBlue rounded-lg mr-1">
+                <button className="bg-darkBlue border-2 border-darkBlue px-4 py-2 rounded-lg text-center hover:bg-transparent hover:text-darkBlue transition duration-1000 delay-150 mr-1">
                   <Link to="/login">Log in</Link>
                 </button>
-                <button className=" text-white rounded-lg bg-darkBlue px-3 py-1 hover:scale-105 hover:bg-mediumBlue animate-bounce">
+                <button className="bg-darkBlue border-2 border-darkBlue px-4 py-2 rounded-lg text-center hover:bg-transparent hover:text-darkBlue transition duration-1000 delay-150">
                   <Link to="/register">Register</Link>
                 </button>
               </div>
