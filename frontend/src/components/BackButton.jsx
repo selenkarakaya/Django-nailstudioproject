@@ -6,14 +6,11 @@ import { useNavigate } from "react-router-dom";
 const BackButton = () => {
   const navigate = useNavigate();
   return (
-    <button className="btn btn-reverse btn-back" onClick={() => navigate(-1)}>
-      <FaArrowCircleLeft /> Back
-    </button>
+    <div className="flex items-center justify-center bg-darkBlue border-2 border-darkBlue w-1/6  mx-1 py-2 space-x-2 rounded-lg text-center text-white hover:bg-transparent  hover:text-darkBlue transition duration-1000 delay-150">
+      <FaArrowCircleLeft />
+      <button onClick={() => navigate(-1)}>Back</button>
+    </div>
   );
 };
 
 export default BackButton;
-
-//onClick={() => navigate(-1)
-//or
-//<Link to{url} lassName='btn btn-reverse btn-back' > <FaArrowCircleLeft /> Back  </Link> (link tagi ile url verilip de yapilir)

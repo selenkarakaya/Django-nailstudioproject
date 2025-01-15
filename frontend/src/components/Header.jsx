@@ -1,51 +1,24 @@
 import { FaSignOutAlt } from "react-icons/fa";
 import { RiUserHeartLine } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Logo from "../assets/image/logo.png";
 import api from "../api";
 
 function Header() {
-  const navigate = useNavigate();
+  const [user, setUser] = useState();
 
-  const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   if (!user) {
-  //     return; //If there is no user, do not run fetchUserData.
-  //   }
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await api.get("profile/", { withCredentials: true });
-  //       setUser(response.data); //We are fetching user data.
-  //     } catch (error) {}
-  //   };
-  //   fetchUserData();
-  // }, [user]);
   useEffect(() => {
     const fetchUserData = async () => {
-      // Eğer kullanıcı login olmuşsa, profil verisini çek
-      if (!user) {
-        // Kullanıcı yoksa, fetchUserData çalıştırma
-      }
-
       try {
         const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); // Kullanıcı bilgilerini alıyoruz
-      } catch (error) {
-        if (error.response && error.response.status === 403) {
-          toast.error("You need to log in to view your profile.");
-          navigate("/login"); // Kullanıcıyı login sayfasına yönlendir
-        } else {
-          console.error("Error fetching profile:", error);
-          toast.error("Unable to fetch profile data, please try again.");
-        }
-      }
+        setUser(response.data); //We are retrieving user data.
+      } catch (error) {}
     };
 
     fetchUserData();
-  }, [user, navigate]); // 'user' state'ini bağımlılık olarak ekliyoruz
+  }, [user]); //We are adding the 'user' state as a dependency.
 
   const handleLogout = async () => {
     try {
