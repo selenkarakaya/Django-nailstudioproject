@@ -7,24 +7,35 @@ import api from "../api";
 
 function Profile() {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
 
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await api.get("profile/", { withCredentials: true });
+  //       setUser(response.data); // Kullanıcı bilgilerini alıyoruz
+  //     } catch (error) {
+  //       setError("Unable to fetch user data, please try again");
+  //       console.error("Error fetching profile:", error);
+  //     }
+  //   };
+  //   fetchUserData();
+  // }, []);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); // Kullanıcı bilgilerini alıyoruz
       } catch (error) {
-        setError("Unable to fetch user data, please try again");
-        console.error("Error fetching profile:", error);
+        if (error.response && error.response.status === 403) {
+          toast.error(`You must be logged in to view this page`);
+        } else {
+          toast.error(`Unable to fetch user data, please try again.`);
+        }
       }
     };
+
     fetchUserData();
   }, []);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   if (!user) {
     return <div>Loading...</div>;

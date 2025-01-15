@@ -99,17 +99,6 @@ function ApptForm() {
               </option>
             </select>
           </div>
-          {/* <div className="form-group">
-            <label htmlFor="service">service</label>
-            <textarea
-              name="service"
-              id="service"
-              className="form-control"
-              placeholder="service"
-              onChange={(e) => setService(e.target.value)}
-              value={service}
-            ></textarea>
-          </div> */}
           <div className="form-group">
             <label htmlFor="message">Message</label>
             <textarea
