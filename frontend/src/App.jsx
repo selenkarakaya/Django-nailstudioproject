@@ -35,7 +35,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/ourservices" element={<OurServices />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />

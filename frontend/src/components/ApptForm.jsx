@@ -13,9 +13,9 @@ function ApptForm() {
     const fetchUserData = async () => {
       try {
         const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); // Kullanıcı bilgilerini alıyoruz
+        setUser(response.data); //We are retrieving user data.
       } catch (error) {
-        setError("Unable to fetch user data, please try again");
+        setError("Unable to fetch user data, please try again.");
         console.error("Error fetching profile:", error);
       }
     };
@@ -28,15 +28,14 @@ function ApptForm() {
       service,
       message,
     };
-    api
-      .post("appointment/create", data)
-      .then((res) => {
-        if (res.status === 201) {
-          toast.success(`Hello 🫂  appointment created!!`);
-          navigate("/profile");
-        } else toast.error(`Hello 🫂  Failed to make appointment!!`);
-      })
-      .catch((err) => alert(err));
+    api.post("appointment/create", data).then((res) => {
+      if (res.status === 201) {
+        toast.success(
+          `Yay! Your appointment is confirmed. Get ready for a great experience!💅✨`
+        );
+        navigate("/profile");
+      } else toast.error(`Whoops! Let’s give it another try! 🤷‍♂️`);
+    });
   };
 
   return (
