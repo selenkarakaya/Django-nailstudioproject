@@ -56,7 +56,7 @@ function Header() {
       <header className="flex flex-col lg:flex-row lg:justify-between items-center justify-center mb-4">
         <div>
           <Link to="/" className="text-darkBlue">
-            Selene Nail Studio
+            Selena Nail Studio
           </Link>
         </div>
         <div className="space-x-2 flex">
