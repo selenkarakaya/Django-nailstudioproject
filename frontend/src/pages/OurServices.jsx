@@ -7,7 +7,6 @@ import Remove from "../assets/image/remove.png";
 import Repair from "../assets/image/repair.png";
 import Pedicure from "../assets/image/pedi.png";
 import Spa from "../assets/image/spa.png";
-import Button from "../components/Button";
 
 function OurServices() {
   return (
@@ -118,3 +117,5 @@ function OurServices() {
 }
 
 export default OurServices;
+
+// <Button text="Book your appointments here! 💅🏻" />

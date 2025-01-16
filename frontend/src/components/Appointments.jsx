@@ -29,20 +29,22 @@ function Appointments() {
           toast.success(
             `Uh-oh! Your appointment was canceled, but we’ll make sure to reschedule it at your convenience! 😔`
           );
-        else
-          toast.error(
-            `Oops! Looks like we hit a snag while canceling. Try once more! 🤞`
-          );
+
         getAppointments();
       })
-      .catch((err) => alert(err));
+      .catch((err) =>
+        toast.error(
+          `Oops! Looks like we hit a snag while canceling. Try once more! 🤞`
+        )
+      );
   };
 
   return (
     <>
-      <div>
-        <h1>Your Appointments</h1>
-      </div>
+      <h1 className="text-lightOrange text-center text-lg">
+        Your Appointments
+      </h1>
+
       <table className="table-fixed w-3/4 mx-auto">
         <thead className="border-b-2 border-darkBlue">
           <tr>
