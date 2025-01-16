@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import api from "../api";
 import Appointment from "./Appointment";
 import { Link } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { ImCancelCircle } from "react-icons/im";
+import { MdEditNote } from "react-icons/md";
 
 function Appointments() {
   //Appointments will be called and sent to the appointment.
@@ -80,15 +81,17 @@ function Appointments() {
               <td>{appointment.message}</td>
               <td>1961</td>
               <td>open</td>
-              <button className="btn" onClick={() => onDelete(appointment.id)}>
-                cancel {appointment.id}
+              <button className="" onClick={() => onDelete(appointment.id)}>
+                <ImCancelCircle
+                  style={{ color: "red", fontSize: "2rem", margin: "10px" }}
+                />
               </button>
               <button className="btn">
                 <Link
                   to={`/editAppointment-form/${appointment.id}`}
-                  className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
+                  className=""
                 >
-                  edit {appointment.id} 💅🏻
+                  <MdEditNote />
                 </Link>
               </button>
             </tr>
