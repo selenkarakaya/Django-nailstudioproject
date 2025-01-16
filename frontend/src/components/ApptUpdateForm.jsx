@@ -1,7 +1,9 @@
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import React, { useState, useEffect } from "react";
 import BackButton from "../components/BackButton";
+import Button from "./Button";
 import api from "../api";
-import { useParams, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 
 function ApptUpdateForm({}) {
   const [appointment, setAppointment] = useState({
@@ -10,7 +12,7 @@ function ApptUpdateForm({}) {
   });
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams(); // Get the appointment ID from the URL params
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the current appointment data to populate the form
@@ -26,9 +28,8 @@ function ApptUpdateForm({}) {
       .catch((err) => alert(err));
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const updateAppointment = (e) => {
     e.preventDefault();
-
     const updatedData = {
       service: appointment.service,
       message: appointment.message,
@@ -37,10 +38,12 @@ function ApptUpdateForm({}) {
     api
       .put(`appointment/update/${id}`, updatedData, { withCredentials: true })
       .then((res) => {
-        alert("Appointment updated successfully");
-        navigate("/appointments"); // Use navigate instead of history.push
+        toast.success(
+          `Yay! Your appointment is updated. Get ready for a great experience!💅✨`
+        );
+        navigate("/profile");
       })
-      .catch((err) => alert(err));
+      .catch((err) => toast.error(`Whoops! Let’s give it another try! 🤷‍♂️`));
   };
 
   return isLoading ? (
@@ -48,21 +51,41 @@ function ApptUpdateForm({}) {
   ) : (
     <div>
       <BackButton />
-      <h1>Update Appointment</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="text-center">Update Appointment</h1>
+      <form onSubmit={updateAppointment} className="form">
         <div className="form-group">
           <label htmlFor="service">Service</label>
-          <input
-            type="text"
-            id="service"
-            className="form-control"
-            value={appointment.service}
+          <select
+            name="product"
+            id="product"
             onChange={(e) =>
               setAppointment({ ...appointment, service: e.target.value })
             }
-          />
+            value={appointment.service}
+          >
+            <option value="Select service">Select service</option>
+            <option value="Gel nail extensions full set">
+              Gel nail extensions full set
+            </option>
+            <option value="Gel Infills">Gel Infill</option>
+            <option value="Gel overlay on natural nails">
+              Gel overlay on natural nails
+            </option>
+            <option value="Manicure with gel polish">
+              Manicure with gel polish
+            </option>
+            <option value="Spa pedicure with gel polish">
+              Spa pedicure with gel polish
+            </option>
+            <option value="Pedicure with gel polish">
+              Pedicure with gel polish
+            </option>
+            <option value="Nail Extension Repair">Nail Extension Repair</option>
+            <option value="Removal of gel polish/builder gel">
+              Removal of gel polish/builder gel
+            </option>
+          </select>
         </div>
-
         <div className="form-group">
           <label htmlFor="message">Message</label>
           <textarea
@@ -74,11 +97,8 @@ function ApptUpdateForm({}) {
             }
           ></textarea>
         </div>
-
-        <div className="form-group">
-          <button type="submit" className="btn btn-block">
-            Submit Update
-          </button>
+        <div className="text-center">
+          <Button text="Update 💅🏻" onClick={updateAppointment} />
         </div>
       </form>
     </div>

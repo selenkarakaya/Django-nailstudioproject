@@ -1,7 +1,8 @@
 import { useState } from "react";
-import api from "../api";
-import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../api";
+import Button from "../components/Button";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
     const loginData = {
       email,
@@ -43,7 +44,7 @@ function Login() {
           Sign in with your email or sign up to become a our member.
         </p>
       </header>
-      <form className="p-4" onSubmit={handleSubmit}>
+      <form className="p-4" onSubmit={loginUser}>
         <div>
           <input
             type="email"
@@ -71,7 +72,9 @@ function Login() {
             </Link>
           </p>
         </div>
+
         <div className="text-center">
+          <Button text="Submit" onClick={loginUser} />
           <button className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent  hover:text-darkBlue transition duration-1000 delay-150">
             Submit
           </button>

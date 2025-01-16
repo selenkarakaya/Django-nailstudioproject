@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import api from "../api";
+import Button from "./Button";
+import { toast } from "react-toastify";
 
 function ApptForm() {
   const [user, setUser] = useState(null);
@@ -37,21 +39,23 @@ function ApptForm() {
       } else toast.error(`Whoops! Let’s give it another try! 🤷‍♂️`);
     });
   };
-
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <BackButton />
-      <section className="flex flex-col items-center justify-center">
+      <header className="flex flex-col items-center justify-center">
         <h1>Create New Appointment</h1>
-        <p>Please fill out the form below</p>
-      </section>
+        <p className="italic">Please fill out the form below</p>
+      </header>
       <section className="form">
         <div className="form-group">
           <label htmlFor="name">Your Name</label>
           <input
             type="text"
             className="form-control"
-            value={user.username}
+            value={user?.username || ""}
             readOnly
           />
         </div>
@@ -60,7 +64,7 @@ function ApptForm() {
           <input
             type="text"
             className="form-control"
-            value={user.email}
+            value={user?.email || ""}
             readOnly
           />
         </div>
@@ -109,9 +113,8 @@ function ApptForm() {
               value={message}
             ></textarea>
           </div>
-
-          <div className="form-group">
-            <button className="btn btn-block">Submit</button>
+          <div className="text-center">
+            <Button text="Submit" onClick={createAppointment} />
           </div>
         </form>
       </section>

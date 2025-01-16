@@ -7,6 +7,7 @@ import Remove from "../assets/image/remove.png";
 import Repair from "../assets/image/repair.png";
 import Pedicure from "../assets/image/pedi.png";
 import Spa from "../assets/image/spa.png";
+import Button from "../components/Button";
 
 function OurServices() {
   return (
@@ -23,7 +24,6 @@ function OurServices() {
           <div>
             <h1 className="text-center text-3xl">Discover Your</h1>
             <h1 className="text-center text-3xl border-b border-darkBlue">
-              {" "}
               Unique Style
             </h1>
             <h3 className=" text-center">Our Services!</h3>
@@ -39,7 +39,7 @@ function OurServices() {
               <h1 className="text-center mt-2 font-bold">
                 Gel nail extensions full set
               </h1>
-              <p className="text-center">2 hrs | £ 60</p>
+              <p className="text-center">2 hrs | £60</p>
             </div>
             <div className="md:w-1/3 hover:scale-105 flex flex-col items-center">
               <img className="object-cover h-68 w-60" src={Gel} alt="Gel" />
@@ -106,8 +106,8 @@ function OurServices() {
       <div className="flex flex-col items-center">
         <button>
           <Link
-            to="/apppintment-form"
-            className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
+            to="/appointment-form"
+            className="bg-darkBlue hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
           >
             Book your appointments here! 💅🏻
           </Link>
