@@ -1,21 +1,24 @@
 import { FaSignOutAlt } from "react-icons/fa";
 import { RiUserHeartLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Logo from "../assets/image/logo.png";
 import api from "../api";
-import Button from "./Button";
 
 function Header() {
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); //We are retrieving user data.
-      } catch (error) {}
+      } catch (error) {
+        console.error("User data fetch failed", error);
+        setUser(null);
+      }
     };
 
     fetchUserData();
@@ -35,6 +38,7 @@ function Header() {
           progress: undefined,
           theme: "light",
         });
+        setUser(null);
         //You can redirect the user to the login page here.
         navigate("/login");
       }

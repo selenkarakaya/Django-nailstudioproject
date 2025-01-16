@@ -27,6 +27,7 @@ function Login() {
     };
     try {
       const response = await api.post("login/", loginData);
+
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
       navigate("/");
       window.location.reload();
@@ -75,9 +76,6 @@ function Login() {
 
         <div className="text-center">
           <Button text="Submit" onClick={loginUser} />
-          <button className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent  hover:text-darkBlue transition duration-1000 delay-150">
-            Submit
-          </button>
         </div>
       </form>
     </div>
