@@ -1,7 +1,8 @@
-import api from "../api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import api from "../api";
+import Button from "../components/Button";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -11,7 +12,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       setError("Passwords do not match");
@@ -40,7 +41,7 @@ function Register() {
         <h1 className="font-bold">Register</h1>
         <p className="italic text-sm">Please create an account</p>
       </header>
-      <form onSubmit={handleSubmit} className="p-4">
+      <form onSubmit={registerUser} className="p-4">
         <div>
           <input
             type="text"
@@ -89,7 +90,9 @@ function Register() {
             </Link>
           </p>
         </div>
+
         <div className="text-center">
+          <Button text="Submit" onClick={registerUser} />
           <button className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent  hover:text-darkBlue transition duration-1000 delay-150">
             Submit
           </button>

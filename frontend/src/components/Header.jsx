@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Logo from "../assets/image/logo.png";
 import api from "../api";
+import Button from "./Button";
 
 function Header() {
   const [user, setUser] = useState();
@@ -18,7 +19,7 @@ function Header() {
     };
 
     fetchUserData();
-  }, [user]); //We are adding the 'user' state as a dependency.
+  }, []);
 
   const handleLogout = async () => {
     try {

@@ -38,7 +38,7 @@ function App() {
           <Route path="/ourservices" element={<OurServices />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/apppintment-form" element={<ApptForm />} />
+          <Route path="/appointment-form" element={<ApptForm />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route

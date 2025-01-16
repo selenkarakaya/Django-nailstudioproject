@@ -2,9 +2,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import api from "../api";
 import Appointment from "./Appointment";
-import { Link } from "react-router-dom";
-import { ImCancelCircle } from "react-icons/im";
-import { MdEditNote } from "react-icons/md";
 
 function Appointments() {
   //Appointments will be called and sent to the appointment.
@@ -23,10 +20,6 @@ function Appointments() {
       })
       .catch((err) => alert(err));
   };
-
-  useEffect(() => {
-    console.log("Appointments updated:", appointments);
-  }, [appointments]); //Write to the log when appointments are changed.
 
   const onDelete = (id) => {
     api
@@ -48,14 +41,19 @@ function Appointments() {
   return (
     <>
       <div>
-        {/* <h1>Your Appointments</h1>
-        <div className="tickets">
-          <div className="ticket-headings">
-            <div>Product</div>
-            <div>Date</div>
-            <div>Status</div>
-            <div></div>
-          </div>
+        <h1>Your Appointments</h1>
+      </div>
+      <table className="table-fixed w-3/4 mx-auto">
+        <thead className="border-b-2 border-darkBlue">
+          <tr>
+            <th>Service</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
           {appointments.map((appointment) => (
             <Appointment
               key={appointment.id}
@@ -63,40 +61,7 @@ function Appointments() {
               onDelete={onDelete}
             />
           ))}
-        </div> */}
-      </div>
-      <table class="table-fixed w-full">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Message</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        {appointments.map((appointment) => (
-          <tbody className="w-full">
-            <tr className="text-center">
-              <td>{appointment.service}</td>
-              <td>{appointment.message}</td>
-              <td>1961</td>
-              <td>open</td>
-              <button className="" onClick={() => onDelete(appointment.id)}>
-                <ImCancelCircle
-                  style={{ color: "red", fontSize: "2rem", margin: "10px" }}
-                />
-              </button>
-              <button className="btn">
-                <Link
-                  to={`/editAppointment-form/${appointment.id}`}
-                  className=""
-                >
-                  <MdEditNote />
-                </Link>
-              </button>
-            </tr>
-          </tbody>
-        ))}
+        </tbody>
       </table>
     </>
   );
