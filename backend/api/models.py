@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Kullanıcı referansı
     comment = models.TextField()  # Kullanıcı yorumu
-    image = models.ImageField(upload_to='feedback_images/', blank=True, null=True)  # Kullanıcı görüntüsü
+    image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  # Kullanıcı görüntüsü
     created_at = models.DateTimeField(auto_now_add=True)  # Oluşturulma zamanı
 
     def __str__(self):

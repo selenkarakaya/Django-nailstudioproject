@@ -207,13 +207,30 @@ class ApptListView(generics.ListAPIView):
         user = self.request.user
         return Appt.objects.filter(author=user)    
 
+    
 class FeedbackView(APIView):
+    permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)
-    permission_classes = [IsAuthenticated]  # Sadece giriş yapmış kullanıcılar
 
     def post(self, request, *args, **kwargs):
-        serializer = FeedbackSerializer(data=request.data)
+        data = request.data.copy()  # Gelen isteği düzenlemek için bir kopya oluştur
+        data['user'] = request.user.id  # Oturum açmış kullanıcının ID'sini ekle
+        serializer = FeedbackSerializer(data=data)
         if serializer.is_valid():
-            serializer.save(user=request.user)  # Oturum açan kullanıcıyı kaydet
+            serializer.save()
             return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=400)  
+    
+
+class FeedbackListView(generics.ListAPIView):
+    """
+    Tüm kullanıcıların tüm feedback'leri görebileceği bir listeleme API'si.
+    """
+    serializer_class = FeedbackSerializer
+    permission_classes = [AllowAny]  # Herkes erişebilir, doğrulama gerekmez.
+
+    def get_queryset(self):
+        """
+        Tüm feedback'leri döndür.
+        """
+        return Feedback.objects.all()    
