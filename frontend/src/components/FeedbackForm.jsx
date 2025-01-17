@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api"; // Axios instance dosyasını içe aktarın
 
 const FeedbackForm = () => {
   const [comment, setComment] = useState("");
   const [image, setImage] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,42 +13,49 @@ const FeedbackForm = () => {
     const formData = new FormData();
     formData.append("comment", comment);
     if (image) {
-      formData.append("image", image);
+      formData.append("image", image); // Sadece seçildiyse eklenir
     }
 
     try {
-      const response = await axios.post("/api/feedback/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT Token
-        },
-      });
+      const response = await api.post("appointment/feedback/", formData);
       if (response.status === 201) {
         setSuccess(true);
         setComment("");
         setImage(null);
       }
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
+    } catch (err) {
+      console.error("Error submitting feedback:", err.response.data); // Backend'den dönen hata mesajı
+      setError(err.response.data); // Hata mesajını kullanıcıya göstermek için kaydedin
     }
   };
 
   return (
     <div>
       <h2>Submit Feedback</h2>
-      {success && <p>Feedback submitted successfully!</p>}
+      {success && (
+        <p style={{ color: "green" }}>Feedback submitted successfully!</p>
+      )}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Your feedback"
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <div>
+          <label htmlFor="comment">Your Feedback:</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Enter your feedback here"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="image">Upload an Image (optional):</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>

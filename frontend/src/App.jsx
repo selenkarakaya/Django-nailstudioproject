@@ -17,6 +17,7 @@ import Appointments from "./components/Appointments";
 import Appointment from "./components/Appointment";
 import ApptUpdateForm from "./components/ApptUpdateForm";
 import FeedbackForm from "./components/FeedbackForm";
+import FeedbackList from "./components/FeedbackList";
 
 function App() {
   return (
@@ -54,7 +55,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/feedbackList" element={<FeedbackList />} />
         </Routes>
+
         <Footer />
       </Router>
       <ToastContainer />
