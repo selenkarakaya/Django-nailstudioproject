@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Contact from "../assets/image/contact.png";
+import FeedbackForm from "../components/FeedbackForm";
 function Home() {
   return (
     <>
@@ -13,6 +14,7 @@ function Home() {
         </Link>
       </div>
       <div>Testimonilas</div>
+      <FeedbackForm />
       <section id="contact">
         <div className="flex md:flex-row flex-col md:space-y-1 space-y-6 mt-4 mx-24 space-x-6">
           <div className="md:w-1/2 flex justify-center">

@@ -15,7 +15,19 @@ class Appt(models.Model):
     def ___str___(self):
         return self.service, self.message, self.author, self.appointment_date, self.status
     
-  
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Kullanıcı referansı
+    comment = models.TextField()  # Kullanıcı yorumu
+    image = models.ImageField(upload_to='feedback_images/', blank=True, null=True)  # Kullanıcı görüntüsü
+    created_at = models.DateTimeField(auto_now_add=True)  # Oluşturulma zamanı
+
+    def __str__(self):
+        return f"Feedback from {self.user.username} at {self.created_at}"
+
 
 '''
 user = User.objects.get(id=1)
