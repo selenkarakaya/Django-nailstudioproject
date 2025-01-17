@@ -46,7 +46,7 @@ Through this project, my first experience with Django, I gained valuable insight
 - Responsive Design with Tailwind CSS: I enhanced my front-end skills by utilizing Tailwind CSS to create a responsive and visually appealing user interface that works well across different screen sizes.
 - This project strengthened my foundational understanding of Django and full-stack development, and it has fueled my passion for building secure, user-friendly web applications.
 
-### Installation 🛠️
+### 🏗️ Setup & Installation
 
 1. **Clone the repository**:
 
@@ -94,3 +94,15 @@ Through this project, my first experience with Django, I gained valuable insight
 ```bash
    python manage.py runserver
 ```
+
+## 📄 License
+
+This project is open-source and available for personal or educational use.
+
+---
+
+## 📬 Contact
+
+If you have any questions or feedback, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/selenkarakaya/) or [GitHub](https://github.com/selenkarakaya).
+
+## Happy coding! 👩‍💻👨‍💻
