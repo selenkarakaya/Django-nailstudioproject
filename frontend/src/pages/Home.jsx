@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import Contact from "../assets/image/contact.png";
 import FeedbackForm from "../components/FeedbackForm";
 import FeedbackList from "../components/FeedbackList";
+import { useState, useEffect } from "react";
+import Button from "../components/Button";
+
 function Home() {
+  const [isOpen, setIsOpen] = useState(false); // State to control the slide toggle
+
   return (
     <>
       <div className="home-main  h-[35rem] md:h-35rem] bg-cover bg-center bg-no-repeat"></div>
@@ -15,8 +20,23 @@ function Home() {
         </Link>
       </div>
       <div>Testimonilas</div>
-      <FeedbackForm />
+
       <FeedbackList />
+      <div className="p-4">
+        {/* Button to open/close the sliding content */}
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          text={isOpen ? "Close Feedback Form" : "Open Feedback Form"}
+        ></Button>
+        {/* Content to slide down */}
+        <div
+          className={`transition-all duration-500 ease-in-out ${
+            isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          } overflow-hidden`}
+        >
+          <FeedbackForm />
+        </div>
+      </div>
       <section id="contact">
         <div className="flex md:flex-row flex-col md:space-y-1 space-y-6 mt-4 mx-24 space-x-6">
           <div className="md:w-1/2 flex justify-center">
