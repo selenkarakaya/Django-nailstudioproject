@@ -15,9 +15,8 @@ from .serializers import LoginSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework import status
-
 from .authentication import CookieJWTAuthentication
-
+from django.utils import timezone
 # Token'ı HTTP-only cookie'ye koyuyoruz
 def set_cookie(response, token):
     response.set_cookie(
@@ -125,13 +124,13 @@ class ApptCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         if serializer.is_valid():      
             serializer.save(author=self.request.user)
-            if len(serializer.validated_data['service']) < 10:
+            if len(serializer.validated_data['message']) > 100:
                 raise serializers.ValidationError("Service must be at least 10 characters long.")
             serializer.save(author=self.request.user)
         else:
             print("Serializer Errors:", serializer.errors)  # Hataları yazdır
             raise serializers.ValidationError(serializer.errors)
-
+    
 class ApptDelete(generics.DestroyAPIView):
     serializer_class = ApptSerializer
     permission_classes = [IsAuthenticated]

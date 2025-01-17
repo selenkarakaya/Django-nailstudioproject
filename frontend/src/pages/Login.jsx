@@ -27,7 +27,6 @@ function Login() {
     };
     try {
       const response = await api.post("login/", loginData);
-
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
       navigate("/");
       window.location.reload();

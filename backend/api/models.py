@@ -1,18 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import datetime
+from django.utils import timezone
 # Create your models here.
 
 class Appt(models.Model):
     service= models.CharField(max_length=50)
     message=models.TextField(max_length=200)
+    appointment_date = models.DateTimeField(default=datetime.datetime.now)
+    status = models.CharField(max_length=10, default='open') 
     created_at=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(User, on_delete=models.CASCADE, related_name="appointment")
 
     def ___str___(self):
-        return self.service, self.message, self.author
-
-
+        return self.service, self.message, self.author, self.appointment_date, self.status
+    
+  
 
 '''
 user = User.objects.get(id=1)

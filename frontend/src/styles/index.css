@@ -39,32 +39,19 @@ h3 {
 }
 
 .status {
-  background-color: #333;
-  color: #fff;
-  width: 100px;
-  padding: 0 20px;
-  justify-self: center;
-  border-radius: 10px;
-  font-size: 16px;
-  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.status-new {
-  background-color: green;
-  color: #fff;
-  border-radius: 10px;
+.status.open {
+  background-color: #4caf50; /* Green */
+  color: white;
 }
 
-.status-open {
-  background-color: steelblue;
-  color: #fff;
-  border-radius: 10px;
-}
-
-.status-closed {
-  background-color: darkred;
-  color: #fff;
-  border-radius: 10px;
+.status.closed {
+  background-color: #f44336; /* Red */
+  color: white;
 }
 
 .note {

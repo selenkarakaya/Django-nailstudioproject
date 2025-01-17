@@ -54,19 +54,13 @@ class LoginSerializer(serializers.Serializer):
 
 
 
-
-
-
-
-
-
-
 class ApptSerializer(serializers.ModelSerializer):
     class Meta:
         model=Appt
-        fields=["id", "service", "message","created_at", "author"]
+        fields=["id", "service", "message",'appointment_date',"status", "created_at", "author"]
         extra_kwargs = {"author": {"read_only": True}}
 
+ 
 
 '''
 
