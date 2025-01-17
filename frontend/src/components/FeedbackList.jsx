@@ -52,23 +52,12 @@ const FeedbackList = () => {
               <p>
                 {feedback.image && ( // Eğer görsel varsa göster
                   <img
-                    src={`http://localhost:8000${feedback.image}`}
+                    src={`${feedback.image}`}
                     alt="Feedback"
-                    style={{ width: "200px", height: "auto" }}
+                    style={{ width: "200px", height: "auto" }} // Resmi boyutlandırmak için
                   />
                 )}
-                <img src={getImageUrl(feedback.image)} alt={feedback.comment} />
-                <img
-                  src={getImageUrl(feedback.image)}
-                  alt={feedback.comment}
-                  style={{ width: "100px", height: "100px" }} // Resmi boyutlandırmak için
-                />
               </p>
-              <img
-                src={getImageUrl(feedback.image)}
-                alt={feedback.comment}
-                style={{ width: "150px", height: "150px", objectFit: "cover" }} // Resmin boyutlarını ayarlama
-              />
               <hr />
             </li>
           ))}
