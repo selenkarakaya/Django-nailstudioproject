@@ -16,6 +16,7 @@ import ApptForm from "./components/ApptForm";
 import Appointments from "./components/Appointments";
 import Appointment from "./components/Appointment";
 import ApptUpdateForm from "./components/ApptUpdateForm";
+import FeedbackForm from "./components/FeedbackForm";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
           <Route
             path="/editAppointment-form/:id"
             element={<ApptUpdateForm />}
+          />
+          <Route
+            path="FeedbackForm"
+            element={
+              <ProtectedRoute>
+                <FeedbackForm />
+              </ProtectedRoute>
+            }
           />
         </Routes>
         <Footer />

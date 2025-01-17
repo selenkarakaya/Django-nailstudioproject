@@ -8,6 +8,7 @@ urlpatterns=[
     path("appointment/delete/<int:pk>",views.ApptDelete.as_view(), name="appointment-delete"),
     path('appointment/<int:pk>/', views.ApptRetrieve.as_view(), name='appointment-detail'),
     path("appointment/update/<int:pk>",views.ApptUpdate.as_view(), name="appointment-update"),
+     path('api/feedback/', views.FeedbackView.as_view(), name='feedback'),
     ]
 
 

@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.urls import path,include
 from api.views import CreateUserView, LoginView ,ProfileView,LogoutView,ApptCreate
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -14,8 +17,7 @@ urlpatterns = [
     path('api/profile/', ProfileView.as_view(), name='profile'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
    
- 
 ]
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # when I write the updateUser, i should add it's path here.

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Appt
+from .models import Appt, Feedback
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
@@ -60,7 +60,10 @@ class ApptSerializer(serializers.ModelSerializer):
         fields=["id", "service", "message",'appointment_date',"status", "created_at", "author"]
         extra_kwargs = {"author": {"read_only": True}}
 
- 
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ['id', 'user', 'comment', 'image', 'created_at']
 
 '''
 

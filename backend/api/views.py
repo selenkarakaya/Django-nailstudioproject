@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework import generics,  serializers 
 from .serializers import UserSerializer, ApptSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Appt
+from .models import Appt,Feedback
 from datetime import datetime
 from django.core.mail import send_mail
 from rest_framework.views import APIView
@@ -11,12 +11,15 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import LoginSerializer
+from .serializers import LoginSerializer, FeedbackSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework import status
 from .authentication import CookieJWTAuthentication
 from django.utils import timezone
+from rest_framework.parsers import MultiPartParser, FormParser
+
+
 # Token'ı HTTP-only cookie'ye koyuyoruz
 def set_cookie(response, token):
     response.set_cookie(
@@ -120,7 +123,6 @@ class ApptCreate(generics.CreateAPIView):
         user = self.request.user
         return Appt.objects.filter(author=user) 
     
-
     def perform_create(self, serializer):
         if serializer.is_valid():      
             serializer.save(author=self.request.user)
@@ -204,3 +206,14 @@ class ApptListView(generics.ListAPIView):
         """
         user = self.request.user
         return Appt.objects.filter(author=user)    
+
+class FeedbackView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [IsAuthenticated]  # Sadece giriş yapmış kullanıcılar
+
+    def post(self, request, *args, **kwargs):
+        serializer = FeedbackSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Oturum açan kullanıcıyı kaydet
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
