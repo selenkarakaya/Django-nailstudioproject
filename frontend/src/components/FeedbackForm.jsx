@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../api"; // Axios instance dosyasını içe aktarın
+import Button from "./Button";
 
 const FeedbackForm = () => {
   const [comment, setComment] = useState("");
@@ -7,7 +8,7 @@ const FeedbackForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const createFeedback = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -36,8 +37,8 @@ const FeedbackForm = () => {
         <p style={{ color: "green" }}>Feedback submitted successfully!</p>
       )}
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={createFeedback} className="form">
+        <div className="form-group">
           <label htmlFor="comment">Your Feedback:</label>
           <textarea
             id="comment"
@@ -47,7 +48,7 @@ const FeedbackForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="image">Upload an Image (optional):</label>
           <input
             type="file"
@@ -55,6 +56,9 @@ const FeedbackForm = () => {
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
           />
+        </div>
+        <div className="text-center">
+          <Button text="Submit" onClick={createFeedback} />
         </div>
         <button type="submit">Submit</button>
       </form>
