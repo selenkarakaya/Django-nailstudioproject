@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
-from django.utils import timezone
+
 # Create your models here.
 
 class Appt(models.Model):
@@ -20,11 +20,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Feedback(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Kullanıcı referansı
-    comment = models.TextField()  # Kullanıcı yorumu
-    image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  # Kullanıcı görüntüsü
-    created_at = models.DateTimeField(auto_now_add=True)  # Oluşturulma zamanı
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  #user info
+    comment = models.TextField()  #comment from the user
+    image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  #Image from the user
+    created_at = models.DateTimeField(auto_now_add=True)  #Creation time.
     def __str__(self):
         return f"Feedback from {self.user.username} at {self.created_at}"
 

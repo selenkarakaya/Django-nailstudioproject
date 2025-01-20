@@ -117,5 +117,3 @@ function OurServices() {
 }
 
 export default OurServices;
-
-// <Button text="Book your appointments here! 💅🏻" />
