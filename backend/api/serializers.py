@@ -61,14 +61,12 @@ class ApptSerializer(serializers.ModelSerializer):
         extra_kwargs = {"author": {"read_only": True}}
 
 class FeedbackSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)  # Kullanıcıyı sadece okumak için alıyoruz.
+    user = UserSerializer(read_only=True)  #We retrieve the user only for reading.
     class Meta:
         model = Feedback
         fields = ['id', 'user', 'comment', 'image', 'created_at']
     def create(self, validated_data):
-        """
-        Feedback oluşturulurken kullanıcı bilgisini doğrulayıp, feedback'leri kaydediyoruz.
-        """
+       #While creating the feedback, we verify the user's information and save the feedback.
         user_data = validated_data.pop('user', None)  # User bilgilerini çıkarıyoruz
         user = self.context['request'].user  # Kullanıcıyı request'ten alıyoruz
         feedback = Feedback.objects.create(user=user, **validated_data)

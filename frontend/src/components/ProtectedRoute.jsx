@@ -1,77 +1,20 @@
-// import { Navigate } from "react-router-dom";
-// import { jwtDecode } from "jwt-decode";
-// import api from "../api";
-// import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
-// import { useState, useEffect } from "react";
-
-// function ProtectedRoute({ children }) {
-//   const [isAuthorized, setIsAuthorized] = useState(null);
-
-//   useEffect(() => {
-//     auth().catch(() => setIsAuthorized(false));
-//   }, []);
-
-//   const refreshToken = async () => {
-//     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-//     try {
-//       const res = await api.post("/api/token/refresh/", {
-//         refresh: refreshToken,
-//       });
-//       if (res.status === 200) {
-//         localStorage.setItem(ACCESS_TOKEN, res.data.access);
-//         setIsAuthorized(true);
-//       } else {
-//         setIsAuthorized(false);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       setIsAuthorized(false);
-//     }
-//   };
-
-//   const auth = async () => {
-//     const token = localStorage.getItem(ACCESS_TOKEN);
-//     if (!token) {
-//       setIsAuthorized(false);
-//       return;
-//     }
-//     const decoded = jwtDecode(token);
-//     const tokenExpiration = decoded.exp;
-//     const now = Date.now() / 1000;
-
-//     if (tokenExpiration < now) {
-//       await refreshToken();
-//     } else {
-//       setIsAuthorized(true);
-//     }
-//   };
-
-//   if (isAuthorized === null) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return isAuthorized ? children : <Navigate to="/login" />;
-// }
-
-// export default ProtectedRoute;
-
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import api from "../api"; // Axios instance
-import { useState, useEffect } from "react";
 
 function ProtectedRoute({ children }) {
   const [isAuthorized, setIsAuthorized] = useState(null);
 
-  // Cookie'den token alma fonksiyonu
+  //Function to retrieve token from the cookie.
   const getCookie = (name) => {
     const cookies = document.cookie.split("; ");
     const cookie = cookies.find((c) => c.startsWith(`${name}=`));
     return cookie ? cookie.split("=")[1] : null;
   };
 
-  // Token yenileme fonksiyonu
+  //Token refresh function
   const refreshToken = async () => {
-    const refreshToken = getCookie("refresh_token"); // Refresh token cookie'den alınır
+    const refreshToken = getCookie("refresh_token"); //The refresh token is retrieved from the cookie.
     if (!refreshToken) {
       setIsAuthorized(false);
       return;
@@ -82,7 +25,7 @@ function ProtectedRoute({ children }) {
         refresh: refreshToken,
       });
       if (res.status === 200) {
-        // Access token'ı cookie'ye yeniden yaz
+        //Rewrite the access token to the cookie.
         document.cookie = `access_token=${res.data.access}; HttpOnly; Path=/; Secure`;
         setIsAuthorized(true);
       } else {
@@ -94,16 +37,16 @@ function ProtectedRoute({ children }) {
     }
   };
 
-  // Kullanıcı yetkisini kontrol eden fonksiyon
+  //A function that checks user permissions.
   const auth = async () => {
-    const token = getCookie("access_token"); // Access token cookie'den alınır
+    const token = getCookie("access_token"); //The access token is retrieved from the cookie.
     if (!token) {
       setIsAuthorized(false);
       return;
     }
 
-    // Token'ın süresi dolduysa yenile
-    const payload = JSON.parse(atob(token.split(".")[1])); // Token payload'ı çözülür
+    //If the token has expired, refresh it.
+    const payload = JSON.parse(atob(token.split(".")[1]));
     const tokenExpiration = payload.exp;
     const now = Date.now() / 1000;
 
@@ -119,7 +62,7 @@ function ProtectedRoute({ children }) {
   }, []);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>; // Yüklenme durumunu göster
+    return <div>Loading...</div>;
   }
 
   return isAuthorized ? children : <Navigate to="/login" />;

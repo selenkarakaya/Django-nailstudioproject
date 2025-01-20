@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../api"; // Axios instance dosyasını içe aktarın
+import api from "../api";
 import Button from "./Button";
 
 const FeedbackForm = () => {
@@ -14,7 +14,7 @@ const FeedbackForm = () => {
     const formData = new FormData();
     formData.append("comment", comment);
     if (image) {
-      formData.append("image", image); // Sadece seçildiyse eklenir
+      formData.append("image", image); //It is only added if selected.
     }
 
     try {
@@ -25,8 +25,8 @@ const FeedbackForm = () => {
         setImage(null);
       }
     } catch (err) {
-      console.error("Error submitting feedback:", err.response.data); // Backend'den dönen hata mesajı
-      setError(err.response.data); // Hata mesajını kullanıcıya göstermek için kaydedin
+      console.error("Error submitting feedback:", err.response.data);
+      setError(err.response.data);
     }
   };
 

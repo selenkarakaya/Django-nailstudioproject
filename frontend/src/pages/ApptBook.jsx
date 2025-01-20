@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { FaQuestionCircle, FaTicketAlt } from "react-icons/fa";
 import ApptForm from "../components/ApptForm";
 
 function ApptBook() {
