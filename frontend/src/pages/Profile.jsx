@@ -36,7 +36,7 @@ function Profile() {
         <header className="flex items-center space-x-8">
           <p className="pl-2 text-xl">My Account • </p>
           <Link
-            to="/Feedback"
+            to="/FeedbackForm"
             className="text-xl text-greens flex items-center space-x-2"
           >
             <GoCommentDiscussion />
