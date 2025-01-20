@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ImCancelCircle } from "react-icons/im";
 import { MdEditNote } from "react-icons/md";
+
 function Appointment({ appointment, onDelete }) {
   //date-time format for style
   const formatDate = (dateString) => {
@@ -27,7 +28,6 @@ function Appointment({ appointment, onDelete }) {
   };
   return (
     <tr className="text-center">
-      <td>{appointment.author}</td>
       <td>{appointment.service}</td>
       <td>{appointment.message}</td>
       <td>{formatDate(appointment.appointment_date)}</td>

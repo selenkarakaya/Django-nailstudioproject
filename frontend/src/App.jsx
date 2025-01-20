@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import ApptForm from "./components/ApptForm";
+import ApptBook from "./pages/ApptBook";
 import Appointments from "./components/Appointments";
 import Appointment from "./components/Appointment";
 import ApptUpdateForm from "./components/ApptUpdateForm";
@@ -55,6 +56,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/appointmentBook" element={<ApptBook />} />
           <Route path="/feedbackList" element={<FeedbackList />} />
         </Routes>
 

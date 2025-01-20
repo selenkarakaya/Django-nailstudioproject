@@ -79,6 +79,12 @@ function Header() {
             Our Services
           </Link>
           <Link
+            to="/appointmentBook"
+            className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
+          >
+            Book Online
+          </Link>
+          <Link
             to="/contact"
             className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
           >
