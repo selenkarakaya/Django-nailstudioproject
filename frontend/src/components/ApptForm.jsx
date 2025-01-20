@@ -140,7 +140,6 @@ function ApptForm() {
               </option>
             </select>
           </div>
-
           <div className="form-group">
             <label htmlFor="message">Message</label>
             <textarea
