@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import api from "../api";
 import Button from "./Button";
@@ -51,7 +51,7 @@ function ApptForm() {
         const response = await api.get("profile/", { withCredentials: true });
         setUser(response.data); //We are retrieving user data.
       } catch (error) {
-        setError("Unable to fetch user data, please try again.");
+        toast.error(`Unable to fetch user data, please try again. 🤷‍♂️`);
         console.error("Error fetching profile:", error);
       }
     };

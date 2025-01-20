@@ -18,7 +18,7 @@ function Appointments() {
       .then((data) => {
         setAppointments(data);
       })
-      .catch((err) => alert(err));
+      .catch((err) => toast.error(`Oops!  Try once more! 🤞`));
   };
 
   const onDelete = (id) => {

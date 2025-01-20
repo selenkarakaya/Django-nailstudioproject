@@ -27,6 +27,7 @@ function Appointment({ appointment, onDelete }) {
   };
   return (
     <tr className="text-center">
+      <td>{appointment.author}</td>
       <td>{appointment.service}</td>
       <td>{appointment.message}</td>
       <td>{formatDate(appointment.appointment_date)}</td>
