@@ -19,49 +19,52 @@ import Appointment from "./components/Appointment";
 import ApptUpdateForm from "./components/ApptUpdateForm";
 import FeedbackForm from "./components/FeedbackForm";
 import FeedbackList from "./components/FeedbackList";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
     <>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/ourservices" element={<OurServices />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/appointment-form" element={<ApptForm />} />
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/appointment" element={<Appointment />} />
-          <Route
-            path="/editAppointment-form/:id"
-            element={<ApptUpdateForm />}
-          />
-          <Route
-            path="FeedbackForm"
-            element={
-              <ProtectedRoute>
-                <FeedbackForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/appointmentBook" element={<ApptBook />} />
-          <Route path="/feedbackList" element={<FeedbackList />} />
-        </Routes>
+      <UserProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/ourservices" element={<OurServices />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/appointment-form" element={<ApptForm />} />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/appointment" element={<Appointment />} />
+            <Route
+              path="/editAppointment-form/:id"
+              element={<ApptUpdateForm />}
+            />
+            <Route
+              path="FeedbackForm"
+              element={
+                <ProtectedRoute>
+                  <FeedbackForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/appointmentBook" element={<ApptBook />} />
+            <Route path="/feedbackList" element={<FeedbackList />} />
+          </Routes>
 
-        <Footer />
-      </Router>
+          <Footer />
+        </Router>
+      </UserProvider>
       <ToastContainer />
     </>
   );

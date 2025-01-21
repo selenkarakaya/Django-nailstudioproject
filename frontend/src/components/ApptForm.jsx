@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api";
 import Button from "./Button";
+import UserContext from "../context/UserContext";
 
 function ApptForm() {
-  const [user, setUser] = useState(null);
+  const { user } = useContext(UserContext);
   const [service, setService] = useState("");
   const [message, setMessage] = useState("");
   const [appointmentDate, setAppointmentDate] = useState(""); //for date
@@ -44,24 +45,17 @@ function ApptForm() {
     }
   };
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); //We are retrieving user data.
-      } catch (error) {
-        toast.error(`Unable to fetch user data, please try again. 🤷‍♂️`);
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchUserData();
-  }, []);
-
   const createAppointment = (e) => {
     e.preventDefault();
+
+    // Form validation
+    if (!service || !appointmentDate || !appointmentTime) {
+      toast.error("Please fill all the required fields!");
+      return;
+    }
     const data = {
       service,
-      message,
+      message: message || "", // If no message is provided, send an empty string
       appointment_date: appointmentDateTime, //Send the full datetime.
       status, //Send the calculated status ('open' or 'closed')
     };
@@ -150,6 +144,7 @@ function ApptForm() {
             className="form-control"
             onChange={handleAppointmentDateChange}
             value={appointmentDate}
+            min={new Date().toISOString().split("T")[0]}
             required
           />
         </div>
@@ -164,11 +159,16 @@ function ApptForm() {
             required
           >
             <option value="">Select Time</option>
-            {timeSlots.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
+            {timeSlots.map((time) => {
+              const currentTime = new Date();
+              const selectedTime = new Date(`${appointmentDate}T${time}:00`);
+              const isPastTime = selectedTime < currentTime;
+              return (
+                <option key={time} value={time} disabled={isPastTime}>
+                  {time}
+                </option>
+              );
+            })}
           </select>
         </div>
 

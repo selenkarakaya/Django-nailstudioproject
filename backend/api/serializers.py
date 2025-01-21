@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 
+#User Serializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -15,8 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
         print(validated_data)
         user = User.objects.create_user(**validated_data)
         return user
-
-
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -30,7 +29,6 @@ class LoginSerializer(serializers.Serializer):
         except User.DoesNotExist:
             print(f"No user found with email: {email}")
             raise serializers.ValidationError("Invalid credentials")
-
         if not user.check_password(password):
             print(f"Password mismatch for user: {email}")
             raise serializers.ValidationError("Invalid credentials")
@@ -46,20 +44,19 @@ class LoginSerializer(serializers.Serializer):
 
     def get_token(cls, user):
         token = super().get_token(user)
-        # İsteğe bağlı özel alanlar
         token['email'] = user.email
         return token
 
 
-
-
-
+#Appointment Serializer
+    
 class ApptSerializer(serializers.ModelSerializer):
     class Meta:
         model=Appt
         fields=["id", "service", "message",'appointment_date',"status", "created_at", "author"]
         extra_kwargs = {"author": {"read_only": True}}
 
+# Feedback Serializer
 class FeedbackSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)  #We retrieve the user only for reading.
     class Meta:
@@ -67,7 +64,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'comment', 'image', 'created_at']
     def create(self, validated_data):
        #While creating the feedback, we verify the user's information and save the feedback.
-        user_data = validated_data.pop('user', None)  # User bilgilerini çıkarıyoruz
+        # user_data = validated_data.pop('user', None)  # User bilgilerini çıkarıyoruz
         user = self.context['request'].user  # Kullanıcıyı request'ten alıyoruz
         feedback = Feedback.objects.create(user=user, **validated_data)
         return feedback

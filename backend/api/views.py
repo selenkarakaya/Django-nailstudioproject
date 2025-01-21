@@ -20,16 +20,16 @@ from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
-# Token'ı HTTP-only cookie'ye koyuyoruz
-def set_cookie(response, token):
-    response.set_cookie(
-        'access_token',
-        token,
-        httponly=True,
-        secure=True,  # Güvenli bağlantı (https) ile erişilebilmesini sağlıyoruz
-        samesite='Strict',
-        max_age=60*60*24  # 1 gün süreyle geçerli
-    )
+# # Token'ı HTTP-only cookie'ye koyuyoruz
+# def set_cookie(response, token):
+#     response.set_cookie(
+#         'access_token',
+#         token,
+#         httponly=True,
+#         secure=True,  # Güvenli bağlantı (https) ile erişilebilmesini sağlıyoruz
+#         samesite='Strict',
+#         max_age=60*60*24  # 1 gün süreyle geçerli
+#     )
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -201,9 +201,7 @@ class ApptListView(generics.ListAPIView):
     authentication_classes = [CookieJWTAuthentication]  # CookieJWT doğrulaması
 
     def get_queryset(self):
-        """
-        Kullanıcının kendi randevularını döndürür.
-        """
+       #"Returns the user's own appointments.
         user = self.request.user
         return Appt.objects.filter(author=user)    
 
@@ -221,14 +219,18 @@ class FeedbackView(APIView):
         return Response(serializer.errors, status=400)
 
 class FeedbackListView(generics.ListAPIView):
-    """
-    Tüm kullanıcıların tüm feedback'leri görebileceği bir listeleme API'si.
-    """
-    serializer_class = FeedbackSerializer
-    permission_classes = [AllowAny]  # Herkes erişebilir, doğrulama gerekmez.
+    #A list where all users can see all feedback.
 
+    serializer_class = FeedbackSerializer
+    permission_classes = [AllowAny]  #Everyone can access it, no verification is required.
+
+    # def get_queryset(self):
+    #     #Return all feedback.
+    #     return Feedback.objects.all()    
     def get_queryset(self):
-        """
-        Tüm feedback'leri döndür.
-        """
-        return Feedback.objects.all()    
+        if self.request.user.is_authenticated:
+            print("Authenticated user:", self.request.user)
+        else:
+            print("Anonymous user detected.")
+        
+        return Feedback.objects.all()

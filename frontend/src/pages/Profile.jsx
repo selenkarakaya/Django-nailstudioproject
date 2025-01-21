@@ -1,30 +1,14 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
 import BackButton from "../components/BackButton";
 import api from "../api";
+import UserContext from "../context/UserContext";
 
 function Profile() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); //We are retrieving user data.
-      } catch (error) {
-        if (error.response && error.response.status === 403) {
-          toast.error(`You must be logged in to view this page`);
-        } else {
-          toast.error(`Unable to fetch user data, please try again.`);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  const { user } = useContext(UserContext);
 
   if (!user) {
     return <div>Loading...</div>;
