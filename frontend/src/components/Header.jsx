@@ -1,28 +1,15 @@
 import { FaSignOutAlt } from "react-icons/fa";
 import { RiUserHeartLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { toast } from "react-toastify";
 import Logo from "../assets/image/logo.png";
 import api from "../api";
+import UserContext from "../context/UserContext";
 
 function Header() {
-  const [user, setUser] = useState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); //We are retrieving user data.
-      } catch (error) {
-        console.error("User data fetch failed", error);
-        setUser(null);
-      }
-    };
-
-    fetchUserData();
-  }, []);
+  const { user, setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
     try {

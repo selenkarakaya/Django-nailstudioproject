@@ -6,13 +6,13 @@ import datetime
 
 class Appt(models.Model):
     service= models.CharField(max_length=50)
-    message=models.TextField(max_length=200)
+    message=models.TextField(max_length=200,blank=True, null=True)
     appointment_date = models.DateTimeField(default=datetime.datetime.now)
     status = models.CharField(max_length=10, default='open') 
     created_at=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(User, on_delete=models.CASCADE, related_name="appointment")
 
-    def ___str___(self):
+    def __str__(self):
         return self.service, self.message, self.author, self.appointment_date, self.status
     
 

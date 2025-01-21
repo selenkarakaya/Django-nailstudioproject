@@ -1,26 +1,15 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import api from "../api";
 import Button from "../components/Button";
 import Contact from "../assets/image/contact.png";
 import FeedbackForm from "../components/FeedbackForm";
 import FeedbackList from "../components/FeedbackList";
+import UserContext from "../context/UserContext";
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false); // State to control the slide toggle
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); //We are retrieving user data.
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchUserData();
-  }, []);
+  const { user } = useContext(UserContext);
 
   return (
     <>
