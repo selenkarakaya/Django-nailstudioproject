@@ -63,11 +63,13 @@ class FeedbackSerializer(serializers.ModelSerializer):
         model = Feedback
         fields = ['id', 'user', 'comment', 'image', 'created_at']
     def create(self, validated_data):
-       #While creating the feedback, we verify the user's information and save the feedback.
-        # user_data = validated_data.pop('user', None)  # User bilgilerini çıkarıyoruz
-        user = self.context['request'].user  # Kullanıcıyı request'ten alıyoruz
+        #While creating the feedback, we verify the user's information and save the feedback.
+        user = self.context['request'].user
+        # 'user' verisini validated_data'dan çıkarıyoruz, çünkü onu ayrıca gönderiyoruz
+        validated_data.pop('user', None)
         feedback = Feedback.objects.create(user=user, **validated_data)
-        return feedback
+        return feedback    
+
 '''
 
 extra_kwargs = {"author": {"read_only": True}}:

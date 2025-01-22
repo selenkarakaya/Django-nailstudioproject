@@ -31,7 +31,6 @@ const FeedbackForm = () => {
 
   return (
     <div>
-      <h2>Submit Feedback</h2>
       {success && (
         <p style={{ color: "green" }}>Feedback submitted successfully!</p>
       )}
