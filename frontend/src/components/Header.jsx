@@ -48,12 +48,6 @@ function Header() {
         </div>
         <div className="space-x-2 flex">
           <Link
-            to="/"
-            className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
-          >
-            Welcome
-          </Link>
-          <Link
             to="/about"
             className="hover:bg-mediumBlue md:p-7 hover:scale-105 invisible md:visible"
           >

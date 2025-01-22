@@ -51,7 +51,7 @@ function App() {
               element={<ApptUpdateForm />}
             />
             <Route
-              path="FeedbackForm"
+              path="feedbackForm"
               element={
                 <ProtectedRoute>
                   <FeedbackForm />

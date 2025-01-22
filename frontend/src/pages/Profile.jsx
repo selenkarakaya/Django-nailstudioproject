@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
 import BackButton from "../components/BackButton";
-import api from "../api";
 import UserContext from "../context/UserContext";
 
 function Profile() {
@@ -20,7 +19,7 @@ function Profile() {
         <header className="flex items-center space-x-8">
           <p className="pl-2 text-xl">My Account • </p>
           <Link
-            to="/FeedbackForm"
+            to="/feedbackForm"
             className="text-xl text-greens flex items-center space-x-2"
           >
             <GoCommentDiscussion />

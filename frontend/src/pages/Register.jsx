@@ -62,7 +62,7 @@ function Register() {
       toast.success(
         "You’ve successfully registered! 🎉 Feel free to log in now."
       );
-      navigate("login");
+      navigate("/login");
       // console.log(response.data); //Check the response from the backend
     } catch (error) {
       toast.error(`Not quite there yet. Check and try again! 🚦`);
@@ -143,9 +143,6 @@ function Register() {
 
         <div className="text-center">
           <Button text="Submit" onClick={registerUser} />
-          {/* <button className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent  hover:text-darkBlue transition duration-1000 delay-150">
-            Submit
-          </button> */}
         </div>
       </form>
     </div>

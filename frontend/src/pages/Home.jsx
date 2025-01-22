@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import api from "../api";
+import { useState, useContext } from "react";
 import Button from "../components/Button";
 import Contact from "../assets/image/contact.png";
 import FeedbackForm from "../components/FeedbackForm";
@@ -16,7 +15,7 @@ function Home() {
       <div className="home-main  h-[35rem] md:h-35rem] bg-cover bg-center bg-no-repeat"></div>
       <div className="flex justify-center">
         <Link
-          to="/booking"
+          to="/appointmentBook"
           className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
         >
           Book Here
