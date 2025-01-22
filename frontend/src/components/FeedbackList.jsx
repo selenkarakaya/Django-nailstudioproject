@@ -138,63 +138,67 @@ const FeedbackList = () => {
   // Feedback List Rendering
   return (
     <div className="relative w-full">
-      <h1 className="text-center text-2xl font-bold mb-6">All Feedbacks</h1>
+      <h1 className="text-center text-xl font-bold mb-6">
+        Reviews from Those Who Trust Us
+      </h1>
 
       {feedbacks.length > 0 ? (
-        <div className="relative flex items-center justify-center">
-          {/* Left Arrow Button */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
-          >
-            &lt; {/* Left Arrow */}
-          </button>
-
-          {/* Feedback Container */}
-          <div className="overflow-hidden w-full max-w-full">
-            <div
-              className="flex space-x-2 transition-transform duration-500 ease-in-out"
-              style={{
-                transform: `translateX(-${
-                  currentIndex * (100 / itemsPerPage)
-                }%)`, // Adjusted for correct movement
-                width: `${feedbacks.length * (100 / itemsPerPage)}%`, // Width of all feedbacks to fit into carousel
-              }}
-            >
-              {feedbacks.map((feedback, index) => (
-                <div key={feedback?.id || index} className="bg-gray-700">
-                  <div className="p-4 bg-red-800 rounded-lg shadow-md">
-                    <p>
-                      <strong>User:</strong>
-                      {feedback?.user?.username || "Anonymous"}
-                    </p>
-                    <p>
-                      <strong>Comment:</strong>
-                      {feedback?.comment || "No comment provided"}
-                    </p>
-                    {feedback?.image && (
-                      <div className="mt-2">
-                        <img
-                          src={`${feedback.image}`}
-                          alt="Feedback"
-                          className="w-full h-auto rounded-md"
-                        />
-                      </div>
-                    )}
+        <>
+          <div className="relative flex items-center justify-center mx-6">
+            {/* Feedback Container */}
+            <div className="overflow-hidden w-full max-w-full">
+              <div
+                className="flex space-x-2 transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${
+                    currentIndex * (100 / itemsPerPage)
+                  }%)`, // Adjusted for correct movement
+                  width: `${feedbacks.length * (100 / itemsPerPage)}%`, // Width of all feedbacks to fit into carousel
+                }}
+              >
+                {feedbacks.map((feedback, index) => (
+                  <div key={feedback?.id || index} className="bg-gray-700">
+                    <div className="p-4 bg-red-800 rounded-lg shadow-md">
+                      <p>
+                        <strong>User:</strong>
+                        {feedback?.user?.username || "Anonymous"}
+                      </p>
+                      <p>
+                        <strong>Comment:</strong>
+                        {feedback?.comment || "No comment provided"}
+                      </p>
+                      {feedback?.image && (
+                        <div className="mt-2">
+                          <img
+                            src={`${feedback.image}`}
+                            alt="Feedback"
+                            className="w-full h-auto rounded-md"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Right Arrow Button */}
-          <button
-            onClick={goToNext}
-            className="absolute right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
-          >
-            &gt; {/* Right Arrow */}
-          </button>
-        </div>
+          <div className="flex items-center justify-center space-x-4 my-4">
+            {/* Left Arrow Button */}
+            <button
+              onClick={goToPrevious}
+              className="  bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
+            >
+              &lt; {/* Left Arrow */}
+            </button>
+            {/* Right Arrow Button */}
+            <button
+              onClick={goToNext}
+              className=" bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
+            >
+              &gt; {/* Right Arrow */}
+            </button>
+          </div>
+        </>
       ) : (
         <p>Be the first to share feedback! 💬🌟</p>
       )}

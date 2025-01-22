@@ -21,11 +21,9 @@ function Home() {
           Book Here
         </Link>
       </div>
-      <div>Testimonilas</div>
-
       <FeedbackList />
       {user ? (
-        <div className="p-4">
+        <div className="p-4 text-center">
           {/* Button to open/close the sliding content */}
           <Button
             onClick={() => setIsOpen(!isOpen)}
