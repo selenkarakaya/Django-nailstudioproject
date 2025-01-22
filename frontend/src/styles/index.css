@@ -205,3 +205,15 @@ footer {
   display: block;
   margin: 0 0 5px 3px;
 }
+
+.password-rules {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.password-rules li {
+  font-size: 14px;
+  margin-bottom: 5px;
+  transition: color 0.3s ease-in-out;
+}

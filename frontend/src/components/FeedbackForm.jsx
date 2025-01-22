@@ -10,7 +10,6 @@ const FeedbackForm = () => {
 
   const createFeedback = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append("comment", comment);
     if (image) {
