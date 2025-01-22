@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+VN:wght@100..400&family=Quicksand:wght@300..700&family=Smooch+Sans:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +10,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Playfair Display", serif;
   height: 100vh;
 }
 
@@ -37,6 +37,8 @@ h3 {
   font-weight: 600;
   margin-bottom: 10px;
 }
+/* 
+Appointment status  */
 
 .status {
   padding: 5px 10px;
@@ -52,61 +54,6 @@ h3 {
 .status.closed {
   background-color: #f44336; /* Red */
   color: white;
-}
-
-.note {
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-  text-align: left;
-  padding: 20px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.note-head {
-  background: #f4f4f4;
-  padding: 5px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.note-date {
-  position: absolute;
-  top: 15px;
-  right: 10px;
-  font-size: 14px;
-}
-
-.delete-note {
-  color: red;
-  cursor: pointer;
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-}
-
-p.status-in-progress {
-  color: orangered;
-}
-
-p.status-waiting {
-  color: red;
-}
-
-p.status-ready {
-  color: steelblue;
-}
-
-p.status-complete {
-  color: green;
-}
-
-footer {
-  position: sticky;
-  top: 95vh;
-  text-align: center;
 }
 
 .loadingSpinnerContainer {
@@ -140,44 +87,12 @@ footer {
   }
 }
 
-@media (max-width: 600px) {
-  .boxes {
-    grid-template-columns: 1fr;
-  }
-
-  .form {
-    width: 90%;
-  }
-
-  .ticket-created h2,
-  .heading h1 {
-    font-size: 2rem;
-  }
-
-  .heading p {
-    font-size: 1.5rem;
-  }
-}
-
-/* benim */
-
 .home-main {
   background-image: url("../assets/image/home-main.png");
 }
 
 .booknow {
   background-image: url("../assets/image/booking.png");
-}
-
-.profile {
-  padding: 1rem;
-  width: 100%;
-}
-.profileActive {
-  background-color: rgb(129 140 248);
-  color: antiquewhite;
-  padding: 1rem;
-  width: 100%;
 }
 
 .form {
@@ -216,4 +131,10 @@ footer {
   font-size: 14px;
   margin-bottom: 5px;
   transition: color 0.3s ease-in-out;
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
 }

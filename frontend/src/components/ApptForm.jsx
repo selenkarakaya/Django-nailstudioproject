@@ -74,23 +74,25 @@ function ApptForm() {
   }
   return (
     <div className="w-3/4 mx-auto">
-      <div className="form-group">
-        <label htmlFor="name">Your Name</label>
-        <input
-          type="text"
-          className="form-control"
-          value={user?.username || ""}
-          readOnly
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="email">Your Email</label>
-        <input
-          type="text"
-          className="form-control"
-          value={user?.email || ""}
-          readOnly
-        />
+      <div className="flex">
+        <div className="form-group w-1/2">
+          <label htmlFor="name">Your Name</label>
+          <input
+            type="text"
+            className="form-control"
+            value={user?.username || ""}
+            readOnly
+          />
+        </div>
+        <div className="form-group w-1/2">
+          <label htmlFor="email">Your Email</label>
+          <input
+            type="text"
+            className="form-control"
+            value={user?.email || ""}
+            readOnly
+          />
+        </div>
       </div>
       <form onSubmit={createAppointment}>
         <div className="form-group">
@@ -135,43 +137,44 @@ function ApptForm() {
             value={message}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="appointmentDate">Appointment Date</label>
-          <input
-            type="date"
-            id="appointmentDate"
-            name="appointmentDate"
-            className="form-control"
-            onChange={handleAppointmentDateChange}
-            value={appointmentDate}
-            min={new Date().toISOString().split("T")[0]}
-            required
-          />
+        <div className="flex space-x-2">
+          <div className="form-group w-1/2">
+            <label htmlFor="appointmentDate">Appointment Date</label>
+            <input
+              type="date"
+              id="appointmentDate"
+              name="appointmentDate"
+              className="form-control"
+              onChange={handleAppointmentDateChange}
+              value={appointmentDate}
+              min={new Date().toISOString().split("T")[0]}
+              required
+            />
+          </div>
+          <div className="form-group w-1/2">
+            <label htmlFor="appointmentTime">Appointment Time</label>
+            <select
+              id="appointmentTime"
+              name="appointmentTime"
+              className="form-control"
+              onChange={(e) => setAppointmentTime(e.target.value)}
+              value={appointmentTime}
+              required
+            >
+              <option>Select Time</option>
+              {timeSlots.map((time) => {
+                const currentTime = new Date();
+                const selectedTime = new Date(`${appointmentDate}T${time}:00`);
+                const isPastTime = selectedTime < currentTime;
+                return (
+                  <option key={time} value={time} disabled={isPastTime}>
+                    {time}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="appointmentTime">Appointment Time</label>
-          <select
-            id="appointmentTime"
-            name="appointmentTime"
-            className="form-control"
-            onChange={(e) => setAppointmentTime(e.target.value)}
-            value={appointmentTime}
-            required
-          >
-            <option value="">Select Time</option>
-            {timeSlots.map((time) => {
-              const currentTime = new Date();
-              const selectedTime = new Date(`${appointmentDate}T${time}:00`);
-              const isPastTime = selectedTime < currentTime;
-              return (
-                <option key={time} value={time} disabled={isPastTime}>
-                  {time}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-
         <div className="text-center">
           <Button text="Submit" onClick={createAppointment} />
         </div>
