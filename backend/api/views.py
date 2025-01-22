@@ -214,9 +214,10 @@ class FeedbackView(APIView):
         data = request.data.copy()  # Gelen isteği düzenlemek için bir kopya oluştur
         serializer = FeedbackSerializer(data=data, context={'request': request})  # request'i context olarak geçiyoruz
         if serializer.is_valid():
-            serializer.save(user=request.user)  # Kullanıcıyı serializer'a geçiriyoruz
+            serializer.save()  # Kullanıcıyı artık serializer içinde alıyoruz, burada 'user=request.user' göndermiyoruz
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
 
 class FeedbackListView(generics.ListAPIView):
     #A list where all users can see all feedback.
