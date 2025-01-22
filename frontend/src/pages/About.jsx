@@ -1,26 +1,28 @@
-import pediImage from "../assets/image/pedi.png";
+import selena from "../assets/image/aboutSelena.png";
+import sophia from "../assets/image/aboutSophia.png";
+import jess from "../assets/image/aboutJess.png";
 const About = () => {
   const experts = [
     {
-      name: "Emma Smith",
+      name: "Selena Smith",
       role: "Nail Art Specialist",
       description:
         "With over 5 years of experience, Emma Smith is a master of intricate and creative nail art. She has a true passion for transforming nails into pieces of art, whether it's for special occasions or everyday wear. Emma's meticulous attention to detail and her artistic flair ensure that every design is unique and flawless. From minimalistic styles to bold, colorful designs, she can bring any vision to life, leaving clients with stunning, personalized nail art.",
-      image: "../assets/image/pedi.png", // Gerekli resmi buraya ekleyebilirsiniz
+      image: selena, // Gerekli resmi buraya ekleyebilirsiniz
     },
     {
       name: "Sophia Lee",
       role: "Manicure & Pedicure Expert",
       description:
         "Sophia Lee is a professional nail technician specializing in manicures and pedicures that leave your nails looking perfectly polished and healthy. She focuses on providing a relaxing experience with every treatment, from classic nail care to more advanced services. Sophia's expertise ensures that every client walks out with nails that are not only beautiful but also strong and well-maintained. She takes great pride in offering a comfortable and enjoyable experience that will have you returning time and time again.",
-      image: pediImage, // Gerekli resmi buraya ekleyebilirsiniz
+      image: sophia, // Gerekli resmi buraya ekleyebilirsiniz
     },
     {
       name: "Jess Taylor",
       role: "Senior Beauty Therapist",
       description:
         "As a senior beauty therapist, Jess Taylor brings a wealth of knowledge and expertise in nail care. Specializing in soothing massages and high-quality pedicure treatments, Jess's services are designed to promote relaxation and rejuvenation. She focuses on providing a luxurious, spa-like experience while ensuring that every treatment is performed with precision. Whether you're seeking a calming hand massage or a detailed pedicure, Jess delivers exceptional service that leaves clients feeling refreshed and pampered.",
-      image: "https://via.placeholder.com/150", // Gerekli resmi buraya ekleyebilirsiniz
+      image: jess, // Gerekli resmi buraya ekleyebilirsiniz
     },
   ];
 
