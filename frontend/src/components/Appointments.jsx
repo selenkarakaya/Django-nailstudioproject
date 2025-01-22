@@ -55,7 +55,7 @@ function Appointments() {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-gray-200 ">
           {appointments.map((appointment) => (
             <Appointment
               key={appointment.id}
