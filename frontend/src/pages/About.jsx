@@ -1,3 +1,4 @@
+import pediImage from "../assets/image/pedi.png";
 const About = () => {
   const experts = [
     {
@@ -5,14 +6,14 @@ const About = () => {
       role: "Nail Art Specialist",
       description:
         "With over 5 years of experience, Emma Smith is a master of intricate and creative nail art. She has a true passion for transforming nails into pieces of art, whether it's for special occasions or everyday wear. Emma's meticulous attention to detail and her artistic flair ensure that every design is unique and flawless. From minimalistic styles to bold, colorful designs, she can bring any vision to life, leaving clients with stunning, personalized nail art.",
-      image: "https://via.placeholder.com/150", // Gerekli resmi buraya ekleyebilirsiniz
+      image: "../assets/image/pedi.png", // Gerekli resmi buraya ekleyebilirsiniz
     },
     {
       name: "Sophia Lee",
       role: "Manicure & Pedicure Expert",
       description:
         "Sophia Lee is a professional nail technician specializing in manicures and pedicures that leave your nails looking perfectly polished and healthy. She focuses on providing a relaxing experience with every treatment, from classic nail care to more advanced services. Sophia's expertise ensures that every client walks out with nails that are not only beautiful but also strong and well-maintained. She takes great pride in offering a comfortable and enjoyable experience that will have you returning time and time again.",
-      image: "https://via.placeholder.com/150", // Gerekli resmi buraya ekleyebilirsiniz
+      image: pediImage, // Gerekli resmi buraya ekleyebilirsiniz
     },
     {
       name: "Jess Taylor",
