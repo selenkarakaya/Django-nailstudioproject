@@ -23,7 +23,6 @@ Selena Nail Studio is a web application designed to manage appointments and prov
 Follow these instructions to set up and run the project locally.
 
 ### Requirements ⚙️
-
 - Python (for backend)
 - Django
 - PostgreSQL (or another database)
