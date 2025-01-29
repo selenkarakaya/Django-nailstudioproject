@@ -16,12 +16,11 @@ class Appt(models.Model):
         return self.service, self.message, self.author, self.appointment_date, self.status
     
 
-
 class Feedback(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  #user info
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  #user information
     comment = models.TextField()  #comment from the user
     image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  #Image from the user
-    created_at = models.DateTimeField(auto_now_add=True)  #Creation time.
+    created_at = models.DateTimeField(auto_now_add=True)  #Creation time
     def __str__(self):
         return f"Feedback from {self.user.username} at {self.created_at}"
 

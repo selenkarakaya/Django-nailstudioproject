@@ -12,24 +12,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import LoginSerializer, FeedbackSerializer
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework import status
 from .authentication import CookieJWTAuthentication
-from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
-# # Token'ı HTTP-only cookie'ye koyuyoruz
-# def set_cookie(response, token):
-#     response.set_cookie(
-#         'access_token',
-#         token,
-#         httponly=True,
-#         secure=True,  # Güvenli bağlantı (https) ile erişilebilmesini sağlıyoruz
-#         samesite='Strict',
-#         max_age=60*60*24  # 1 gün süreyle geçerli
-#     )
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -75,7 +61,6 @@ class LoginView(TokenObtainPairView):
             samesite=None,
             max_age=60*60*24
         )
-
         return response
 
 class LogoutView(APIView):
@@ -105,12 +90,7 @@ class ProfileView(APIView):
         return Response(user_data) 
  
     
-'''Purpose of CreateUserView
-This view is specifically designed for user registration in an application.
-It allows clients to send a POST request to create a new user.
-Typical use case:
-A registration page or form in a frontend application (e.g., React, Angular) sends user details (e.g., username, password) to this endpoint.
-The user is then created in the database.'''   
+  
 
 # note add sending welcome emaol
 
@@ -177,6 +157,45 @@ class ApptRetrieve(generics.RetrieveAPIView):
     # This will ensure the appointment is fetched for the authenticated user
     def get_queryset(self):
         return Appt.objects.filter(author=self.request.user)
+
+class ApptListView(generics.ListAPIView):
+    serializer_class = ApptSerializer
+    permission_classes = [IsAuthenticated]  # Kullanıcının kimliği doğrulanmalı
+    authentication_classes = [CookieJWTAuthentication]  # CookieJWT doğrulaması
+
+    def get_queryset(self):
+       # Returns the user's own appointments.
+        user = self.request.user
+        return Appt.objects.filter(author=user)    
+
+class FeedbackView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        data = request.data.copy()  # Gelen isteği düzenlemek için bir kopya oluştur
+        serializer = FeedbackSerializer(data=data, context={'request': request})  # request'i context olarak geçiyoruz
+        if serializer.is_valid():
+            serializer.save()  
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class FeedbackListView(generics.ListAPIView):
+    #A list where all users can see all feedback.
+
+    serializer_class = FeedbackSerializer
+    permission_classes = [AllowAny]  #Everyone can access it, no verification is required.
+  
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            print("Authenticated user:", self.request.user)
+        else:
+            print("Anonymous user detected.")
+        
+        return Feedback.objects.all()
+    
+
 #Notes:
     ''' The permission_classes is used to define who can create a new instance of a class.'''    
     ''' The get_queryset method ensures that users can only see their own appointments.'''
@@ -195,43 +214,10 @@ class ApptRetrieve(generics.RetrieveAPIView):
         )
     else:
         print(serializer.errors)'''
-class ApptListView(generics.ListAPIView):
-    serializer_class = ApptSerializer
-    permission_classes = [IsAuthenticated]  # Kullanıcının kimliği doğrulanmalı
-    authentication_classes = [CookieJWTAuthentication]  # CookieJWT doğrulaması
 
-    def get_queryset(self):
-       #"Returns the user's own appointments.
-        user = self.request.user
-        return Appt.objects.filter(author=user)    
-
-    
-class FeedbackView(APIView):
-    permission_classes = [IsAuthenticated]
-    parser_classes = (MultiPartParser, FormParser)
-
-    def post(self, request, *args, **kwargs):
-        data = request.data.copy()  # Gelen isteği düzenlemek için bir kopya oluştur
-        serializer = FeedbackSerializer(data=data, context={'request': request})  # request'i context olarak geçiyoruz
-        if serializer.is_valid():
-            serializer.save()  # Kullanıcıyı artık serializer içinde alıyoruz, burada 'user=request.user' göndermiyoruz
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
-class FeedbackListView(generics.ListAPIView):
-    #A list where all users can see all feedback.
-
-    serializer_class = FeedbackSerializer
-    permission_classes = [AllowAny]  #Everyone can access it, no verification is required.
-
-    # def get_queryset(self):
-    #     #Return all feedback.
-    #     return Feedback.objects.all()    
-    def get_queryset(self):
-        if self.request.user.is_authenticated:
-            print("Authenticated user:", self.request.user)
-        else:
-            print("Anonymous user detected.")
-        
-        return Feedback.objects.all()
+'''Purpose of CreateUserView
+This view is specifically designed for user registration in an application.
+It allows clients to send a POST request to create a new user.
+Typical use case:
+A registration page or form in a frontend application (e.g., React, Angular) sends user details (e.g., username, password) to this endpoint.
+The user is then created in the database.''' 
