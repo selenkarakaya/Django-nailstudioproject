@@ -48,7 +48,6 @@ class LoginSerializer(serializers.Serializer):
         token['email'] = user.email
         return token
 
-
 #Appointment Serializer
     
 class ApptSerializer(serializers.ModelSerializer):
