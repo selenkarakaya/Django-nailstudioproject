@@ -6,7 +6,6 @@ import Button from "../components/Button";
 
 function Login() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
