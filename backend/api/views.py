@@ -15,7 +15,6 @@ from .serializers import LoginSerializer, FeedbackSerializer
 from .authentication import CookieJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 
-
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -89,9 +88,6 @@ class ProfileView(APIView):
         }
         return Response(user_data) 
  
-    
-  
-
 # note add sending welcome emaol
 
 class ApptCreate(generics.CreateAPIView):
