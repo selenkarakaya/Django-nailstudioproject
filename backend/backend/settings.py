@@ -79,10 +79,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/dist/assets')  # Vite'in build dosyaları burada yer alacak
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+         'DIRS': [os.path.join(BASE_DIR, 'frontend/dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
