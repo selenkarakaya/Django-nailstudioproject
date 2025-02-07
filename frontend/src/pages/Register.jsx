@@ -33,7 +33,6 @@ function Register() {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*?.,+-])(?=.{8,})/;
     return passwordRegex.test(password);
   };
-
   const registerUser = async (e) => {
     e.preventDefault();
     // Email verification
@@ -57,6 +56,7 @@ function Register() {
       email,
       password,
     };
+
     try {
       const response = await api.post("user/register/", userData);
       toast.success(
@@ -67,6 +67,7 @@ function Register() {
     } catch (error) {
       toast.error(`Not quite there yet. Check and try again! 🚦`);
       console.error("Registration failed:", error.response); //Check the error message.
+      console.error("Registration failed:", error.response?.data);
     }
   };
   const handlePasswordChange = (e) => {
@@ -142,7 +143,7 @@ function Register() {
         </div>
 
         <div className="text-center">
-          <Button text="Submit" onClick={registerUser} />
+          <Button text="Submit" onClick={registerUser} type="submit" />
         </div>
       </form>
     </div>

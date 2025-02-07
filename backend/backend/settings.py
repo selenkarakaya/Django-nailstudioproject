@@ -17,12 +17,10 @@ import os
 
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-z_baic-4)uv&rwl7+w2&*5(+#mt*u)8en*kc4&jp!h49)dma5p'
@@ -78,18 +76,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
-STATIC_URL = '/static/'
-
-# STATIC_ROOT, Django'nun `collectstatic` komutu ile statik dosyaları topladığı dizindir
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR.parent, 'frontend', 'dist', 'assets'),  # React build assets
-]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR.parent, 'frontend', 'dist')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,8 +105,6 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse("postgresql://selenanailstudio_user:03vCub6pCYMhYDMitPYBGqzOxHZkGt6K@dpg-cuiuvot6l47c73akl86g-a.frankfurt-postgres.render.com/selenanailstudio")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -138,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -151,14 +138,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_URL = 'static/'
 
-# STATIC_URL = 'static/'
-
-
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

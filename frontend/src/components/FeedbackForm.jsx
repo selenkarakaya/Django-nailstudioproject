@@ -1,8 +1,77 @@
+// import React, { useState } from "react";
+// import api from "../api";
+// import Button from "./Button";
+
+// const FeedbackForm = () => {
+//   const [comment, setComment] = useState("");
+//   const [image, setImage] = useState(null);
+//   const [success, setSuccess] = useState(false);
+//   const [error, setError] = useState("");
+
+//   const createFeedback = async (e) => {
+//     e.preventDefault();
+//     const formData = new FormData();
+//     formData.append("comment", comment);
+//     if (image) {
+//       formData.append("image", image); //It is only added if selected.
+//     }
+
+//     try {
+//       const response = await api.post("appointment/feedback/", formData);
+//       if (response.status === 201) {
+//         setSuccess(true);
+//         setComment("");
+//         setImage(null);
+//       }
+//     } catch (err) {
+//       console.error("Error submitting feedback:", err.response.data);
+//       setError(err.response.data);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       {success && (
+//         <p style={{ color: "green" }}>Feedback submitted successfully!</p>
+//       )}
+//       {error && <p style={{ color: "red" }}>{error}</p>}
+//       <form onSubmit={createFeedback} className="form">
+//         <div className="form-group">
+//           <label htmlFor="comment">Your Feedback:</label>
+//           <textarea
+//             id="comment"
+//             value={comment}
+//             onChange={(e) => setComment(e.target.value)}
+//             placeholder="Enter your feedback here"
+//             required
+//           />
+//         </div>
+//         <div className="form-group">
+//           <label htmlFor="image">Upload an Image (optional):</label>
+//           <input
+//             type="file"
+//             id="image"
+//             accept="image/*"
+//             onChange={(e) => setImage(e.target.files[0])}
+//           />
+//         </div>
+//         <div className="text-center">
+//           <Button text="Submit" onClick={createFeedback} type="submit" />
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default FeedbackForm;
+
+// window.location.reload();
 import React, { useState } from "react";
 import api from "../api";
 import Button from "./Button";
+import { AiOutlineClose } from "react-icons/ai"; // React Icons ile X ikonu
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ onClose }) => {
   const [comment, setComment] = useState("");
   const [image, setImage] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -13,7 +82,7 @@ const FeedbackForm = () => {
     const formData = new FormData();
     formData.append("comment", comment);
     if (image) {
-      formData.append("image", image); //It is only added if selected.
+      formData.append("image", image);
     }
 
     try {
@@ -22,7 +91,12 @@ const FeedbackForm = () => {
         setSuccess(true);
         setComment("");
         setImage(null);
+        setTimeout(() => {
+          setSuccess(false);
+          onClose(); // Feedback gönderildiğinde modalı kapat
+        }, 1500);
       }
+      window.location.reload();
     } catch (err) {
       console.error("Error submitting feedback:", err.response.data);
       setError(err.response.data);
@@ -30,35 +104,64 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div>
+    <div
+      className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full mx-auto"
+      style={{
+        backgroundColor: "rgba(255, 255, 255, 0.9)", // Transparan arka plan
+        border: "2px solid #5168C4", // Border rengi #5168C4
+        boxShadow: "0px 4px 15px rgba(81, 104, 196, 0.7)", // Border rengiyle uyumlu shadow
+      }}
+    >
+      <div className="flex justify-end">
+        <button onClick={onClose} className="text-2xl text-gray-600">
+          <AiOutlineClose /> {/* Kapatma ikonu */}
+        </button>
+      </div>
+
       {success && (
-        <p style={{ color: "green" }}>Feedback submitted successfully!</p>
+        <p className="text-green-600 text-center mb-4">
+          ✅ Feedback submitted successfully!
+        </p>
       )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={createFeedback} className="form">
-        <div className="form-group">
-          <label htmlFor="comment">Your Feedback:</label>
+      {error && <p className="text-red-500 text-center mb-4">❌ {error}</p>}
+
+      <form onSubmit={createFeedback} className="space-y-4">
+        <div>
+          <label
+            htmlFor="comment"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Your Feedback:
+          </label>
           <textarea
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Enter your feedback here"
+            placeholder="Enter your feedback here..."
             required
+            className="mt-1 p-3 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 resize-none"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="image">Upload an Image (optional):</label>
+
+        <div>
+          <label
+            htmlFor="image"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Upload an Image (optional):
+          </label>
           <input
             type="file"
             id="image"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
+            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
         </div>
+
         <div className="text-center">
-          <Button text="Submit" onClick={createFeedback} />
+          <Button text="Submit" type="submit" />
         </div>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

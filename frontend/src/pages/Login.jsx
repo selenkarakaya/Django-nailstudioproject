@@ -64,6 +64,7 @@ function Login() {
             required
             value={password}
             onChange={onChange}
+            autoComplete="current-password"
           />
           <p className="mb-4">
             <Link to="/register" className="text-darkBlue text-sm italic">

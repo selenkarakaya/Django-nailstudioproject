@@ -1,10 +1,13 @@
 from django.contrib import admin
 from django.urls import path,include
-from api.views import CreateUserView, LoginView ,ProfileView,LogoutView, index
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from api.views import CreateUserView, LoginView ,ProfileView,LogoutView
+from rest_framework_simplejwt.views import  TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.views.generic.base import RedirectView
+from django.http import JsonResponse
+def home(request):
+    return JsonResponse({"message": "Welcome to the API!"})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,9 +18,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path('api/profile/', ProfileView.as_view(), name='profile'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
-    path('', index, name='index'),
-    
-   
+    path('', home),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

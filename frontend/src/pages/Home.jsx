@@ -7,12 +7,17 @@ import FeedbackList from "../components/FeedbackList";
 import UserContext from "../context/UserContext";
 
 function Home() {
-  const [isOpen, setIsOpen] = useState(false); // State to control the slide toggle
+  const [isFormVisible, setIsFormVisible] = useState(false);
   const { user } = useContext(UserContext);
+
+  const toggleFormVisibility = () => {
+    setIsFormVisible((prevState) => !prevState); // Toggle form visibility
+  };
 
   return (
     <>
-      <div className="home-main  h-[35rem] md:h-35rem] bg-cover bg-center bg-no-repeat"></div>
+      <div className="home-main h-[35rem] bg-cover bg-center bg-no-repeat"></div>
+
       <div className="flex justify-center">
         <Link
           to="/appointmentBook"
@@ -21,22 +26,17 @@ function Home() {
           Book Here
         </Link>
       </div>
+
       <FeedbackList />
+
       {user ? (
         <div className="p-4 text-center">
-          {/* Button to open/close the sliding content */}
           <Button
-            onClick={() => setIsOpen(!isOpen)}
-            text={isOpen ? "Close Feedback Form" : "Open Feedback Form"}
-          ></Button>
-          {/* Content to slide down */}
-          <div
-            className={`transition-all duration-500 ease-in-out ${
-              isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-            } overflow-hidden`}
-          >
-            <FeedbackForm />
-          </div>
+            onClick={toggleFormVisibility}
+            text={
+              isFormVisible ? "Give Us Your Feedback" : "Give Us Your Feedback"
+            }
+          />
         </div>
       ) : (
         <div className="flex justify-center">
@@ -44,9 +44,16 @@ function Home() {
             to="/login"
             className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent hover:text-darkBlue transition duration-1000 delay-150"
           >
-            Post review
+            Post Review
           </Link>
         </div>
+      )}
+
+      {/* FeedbackForm as a section under FeedbackList */}
+      {isFormVisible && (
+        <section className="mt-8">
+          <FeedbackForm onClose={toggleFormVisibility} />
+        </section>
       )}
 
       <section id="contact">
