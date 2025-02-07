@@ -80,6 +80,9 @@ ROOT_URLCONF = 'backend.urls'
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT, Django'nun `collectstatic` komutu ile statik dosyaları topladığı dizindir
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR.parent, 'frontend', 'dist', 'assets'),  # React build assets
 ]
