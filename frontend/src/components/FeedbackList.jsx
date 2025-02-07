@@ -64,7 +64,7 @@ const FeedbackList = () => {
   // Feedback List Rendering
   return (
     <div className="relative w-full">
-      <h1 className="text-center text-xl font-bold mb-6">
+      <h1 className="text-center text-lg italic font-bold my-6">
         Reviews from Those Who Trust Us
       </h1>
 
@@ -83,16 +83,12 @@ const FeedbackList = () => {
                 }}
               >
                 {feedbacks.map((feedback, index) => (
-                  <div key={feedback?.id || index} className="bg-gray-700">
-                    <div className="p-4 bg-red-800 rounded-lg shadow-md">
-                      <p>
-                        <strong>User:</strong>
-                        {feedback?.user?.username || "Anonymous"}
-                      </p>
-                      <p>
-                        <strong>Comment:</strong>
-                        {feedback?.comment || "No comment provided"}
-                      </p>
+                  <div
+                    key={feedback?.id || index}
+                    className="p-4 bg-lightBg rounded-lg"
+                  >
+                    <div className="p-4">
+                      <p>{feedback?.comment || "No comment provided"}</p>
                       {feedback?.image && (
                         <div className="mt-2">
                           <img
@@ -102,6 +98,9 @@ const FeedbackList = () => {
                           />
                         </div>
                       )}
+                      <p className="text-end italic">
+                        {feedback?.user?.username || "Anonymous"}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -112,14 +111,14 @@ const FeedbackList = () => {
             {/* Left Arrow Button */}
             <button
               onClick={goToPrevious}
-              className="  bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
+              className="  bg-darkBlue text-white p-2 rounded-full z-10"
             >
               &lt; {/* Left Arrow */}
             </button>
             {/* Right Arrow Button */}
             <button
               onClick={goToNext}
-              className=" bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700 z-10"
+              className=" bg-darkBlue text-white p-2 rounded-full z-10"
             >
               &gt; {/* Right Arrow */}
             </button>
