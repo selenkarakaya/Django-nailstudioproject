@@ -16,8 +16,8 @@ from .authentication import CookieJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import render
 
-# def index(request):
-#     return render(request, 'index.html')
+def index(request):
+    return render(request, 'index.html')
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):

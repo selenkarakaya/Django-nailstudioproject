@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path,include
-from api.views import CreateUserView, LoginView ,ProfileView,LogoutView
+from api.views import CreateUserView, LoginView ,ProfileView,LogoutView, index
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -15,7 +15,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path('api/profile/', ProfileView.as_view(), name='profile'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
-    # path('', index, name='index'),
+    path('', index, name='index'),
     
    
 ]
