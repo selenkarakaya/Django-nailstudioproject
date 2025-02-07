@@ -15,7 +15,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path('api/profile/', ProfileView.as_view(), name='profile'),
     path('api/logout/', LogoutView.as_view(), name='logout'),
-    path('', index, name='index'),
+    # path('', index, name='index'),
     
    
 ]
