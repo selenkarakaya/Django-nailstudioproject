@@ -148,7 +148,7 @@ USE_TZ = True
 # STATIC_URL = 'static/'
 # STATIC_ROOT = BASE_DIR/'staticfiles'
 
-STATIC_URL = '/static/'  # URL üzerinden erişilecek
+STATIC_URL = 'static/'  # URL üzerinden erişilecek
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Sunucuya kopyalanacak
 
 # Default primary key field type
