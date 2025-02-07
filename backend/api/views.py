@@ -14,7 +14,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import LoginSerializer, FeedbackSerializer
 from .authentication import CookieJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
-
+from django.shortcuts import render
+def index(request):
+    return render(request, 'index.html')
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
