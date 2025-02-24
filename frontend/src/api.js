@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API'nin temel URL'si
-// const apiUrl = "http://localhost:8000/api/"; // Backend API adresi
+// const apiUrl = "http://localhost:8000/api/"; // Backend API address
 
 // Cookie'den belirli bir değeri almak için yardımcı fonksiyon
 const getCookie = (name) => {
@@ -10,19 +10,19 @@ const getCookie = (name) => {
   return cookie ? cookie.split("=")[1] : null;
 };
 
-// Axios Instance Oluşturma
+// Creating an Axios instance
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL : apiUrl,
-  withCredentials: true, // Cookie'leri gönder
+  withCredentials: true, // Send cookies with the requests
 });
 
 // Axios Request Interceptor
 api.interceptors.request.use(
   (config) => {
-    // Access token'ı cookie'den al
+    // Get the access token from the cookie
     const token = getCookie("access_token");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // Token'ı Authorization header'a ekle
+      config.headers.Authorization = `Bearer ${token}`; // Add token to the Authorization header
     }
     return config;
   },
@@ -35,26 +35,26 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
-      // Token geçersizse, refresh token ile yeniden token almak gerekebilir.
+      // If the token is invalid, we might need to refresh the token.
       console.log("Authorization error, trying to refresh the token...");
 
-      const refreshToken = getCookie("refresh_token"); // Refresh token'ı çerezi okuyarak al
+      const refreshToken = getCookie("refresh_token"); // Get the refresh token from the cookie
 
       try {
         const refreshResponse = await axios.post("/api/token/refresh/", {
           refresh: refreshToken,
         });
 
-        // Yeni token'ı çerezlere kaydet
+        // Save the new token in the cookies
         const newAccessToken = refreshResponse.data.access;
         document.cookie = `access_token=${newAccessToken}; path=/; secure; HttpOnly`;
 
-        // Orijinal isteği yeniden gönder
+        // Retry the original request with the new token
         error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return axios(error.config); // Yeniden istek yap
+        return axios(error.config); // Resend the original request
       } catch (refreshError) {
         console.error("Refresh token failed:", refreshError);
-        // Kullanıcıyı oturum açmaya yönlendir
+        // Redirect the user to the login page if the refresh token fails
       }
     }
     return Promise.reject(error);
