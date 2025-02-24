@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api";
 import Button from "../components/Button";
+import UserContext from "../context/UserContext";
 
 function Login() {
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,9 +29,11 @@ function Login() {
     try {
       const response = await api.post("login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
-      navigate("/");
-      window.location.reload();
-      return response.data;
+
+      // ✅ Fetch and update user data
+      const userResponse = await api.get("profile/");
+      setUser(userResponse.data); // Updates the user state in context
+      navigate("/"); // Redirects to the homepage
     } catch (error) {
       toast.error(`Whoops! Looks like something’s off. Try again, champ! 💪`);
       console.error(error);

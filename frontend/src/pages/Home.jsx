@@ -14,6 +14,11 @@ function Home() {
     setIsFormVisible((prevState) => !prevState); // Toggle form visibility
   };
 
+  const [newFeedback, setNewFeedback] = useState(null); // Yeni gelen feedback
+
+  const handleFeedbackSubmit = (feedback) => {
+    setNewFeedback(feedback); // Yeni feedback geldiğinde state güncellenir
+  };
   return (
     <>
       <div className="home-main h-[35rem] bg-cover bg-center bg-no-repeat"></div>
@@ -51,7 +56,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <FeedbackList />
+      <FeedbackList newFeedback={newFeedback} />
 
       {user ? (
         <div className="p-4 text-center">
@@ -76,7 +81,10 @@ function Home() {
       {/* FeedbackForm as a section under FeedbackList */}
       {isFormVisible && (
         <section className="mt-8">
-          <FeedbackForm onClose={toggleFormVisibility} />
+          <FeedbackForm
+            onClose={toggleFormVisibility}
+            onFeedbackSubmit={handleFeedbackSubmit}
+          />
         </section>
       )}
     </>
