@@ -166,7 +166,7 @@ class ApptListView(generics.ListAPIView):
         user = self.request.user
         return Appt.objects.filter(author=user)    
 
-class FeedbackView(APIView):
+class FeedbackCreate(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)
 
@@ -185,12 +185,7 @@ class FeedbackListView(generics.ListAPIView):
     serializer_class = FeedbackSerializer
     permission_classes = [AllowAny]  #Everyone can access it, no verification is required.
   
-    def get_queryset(self):
-        if self.request.user.is_authenticated:
-            print("Authenticated user:", self.request.user)
-        else:
-            print("Anonymous user detected.")
-        
+    def get_queryset(self):        
         return Feedback.objects.all()
     
 

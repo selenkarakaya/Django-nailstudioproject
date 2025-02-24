@@ -16,6 +16,7 @@ const FeedbackList = ({ newFeedback }) => {
         setFeedbacks(response.data);
       } catch (err) {
         toast.error("Feedbacks could not be loaded. 🤷‍♂️");
+        console.error("Error fetching feedbacks:", err);
       } finally {
         setLoading(false);
       }

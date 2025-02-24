@@ -37,7 +37,6 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // If the token is invalid, we might need to refresh the token.
       console.log("Authorization error, trying to refresh the token...");
-
       const refreshToken = getCookie("refresh_token"); // Get the refresh token from the cookie
 
       try {

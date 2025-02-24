@@ -60,13 +60,13 @@ class ApptSerializer(serializers.ModelSerializer):
 
 # Feedback Serializer
 class FeedbackSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)  #We retrieve the user only for reading.
+    user = UserSerializer(read_only=True, required=False)  #We retrieve the user only for reading.
     class Meta:
         model = Feedback
         fields = ['id', 'user', 'comment', 'image', 'created_at']
     def create(self, validated_data):
         #While creating the feedback, we verify the user's information and save the feedback.
-        user = self.context['request'].user
+        user = self.context['request'].user if self.context['request'].user.is_authenticated else None
         # 'user' verisini validated_data'dan çıkarıyoruz, çünkü onu ayrıca gönderiyoruz
         validated_data.pop('user', None)
         feedback = Feedback.objects.create(user=user, **validated_data)
