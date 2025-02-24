@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../api";
 
-const FeedbackList = () => {
+const FeedbackList = ({ newFeedback }) => {
   const [feedbacks, setFeedbacks] = useState([]); // State for storing feedback data
   const [loading, setLoading] = useState(true); // State for indicating loading status
   const [currentIndex, setCurrentIndex] = useState(0); // State for tracking current carousel position
@@ -23,6 +23,11 @@ const FeedbackList = () => {
 
     fetchFeedbacks();
   }, []);
+  useEffect(() => {
+    if (newFeedback) {
+      setFeedbacks((prevFeedbacks) => [newFeedback, ...prevFeedbacks]);
+    }
+  }, [newFeedback]); // newFeedback değiştiğinde, feedbacks listesini güncelleriz.
 
   // Calculate items per page based on screen size
   useEffect(() => {
