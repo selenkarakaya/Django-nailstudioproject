@@ -49,7 +49,7 @@ class LoginView(TokenObtainPairView):
         response.set_cookie(
             key='access_token',
             value= access_token,
-            httponly=False,
+            httponly=True,
             secure=True,
             samesite=None,
             max_age=60*60*24
@@ -58,7 +58,7 @@ class LoginView(TokenObtainPairView):
         response.set_cookie(
             'refresh_token',
             refresh_token,
-            httponly=False,
+            httponly=True,
             secure=True,
             samesite=None,
             max_age=60*60*24
