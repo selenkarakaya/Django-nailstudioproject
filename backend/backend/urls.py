@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path,include
-from api.views import CreateUserView, LoginView ,ProfileView,LogoutView
+from api.views import CreateUserView, LoginView ,ProfileView,LogoutView,verify_token
 from rest_framework_simplejwt.views import  TokenRefreshView
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
@@ -14,6 +15,7 @@ urlpatterns = [
     path("api/user/register/", CreateUserView.as_view(), name="register"),
     path("api/login/",LoginView.as_view(), name="login"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),
+    path('api/token/verify/', verify_token, name='verify_token'),
     path("api-auth", include("rest_framework.urls")),
     path("api/", include("api.urls")),
     path('api/profile/', ProfileView.as_view(), name='profile'),

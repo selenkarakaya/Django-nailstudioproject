@@ -15,6 +15,7 @@ from .serializers import LoginSerializer, FeedbackSerializer
 from .authentication import CookieJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import render
+from rest_framework.decorators import api_view
 
 
 # Create your views here.
@@ -209,3 +210,13 @@ It allows clients to send a POST request to create a new user.
 Typical use case:
 A registration page or form in a frontend application (e.g., React, Angular) sends user details (e.g., username, password) to this endpoint.
 The user is then created in the database.''' 
+
+
+
+@api_view(['GET'])
+def verify_token(request):
+    # Bu view, HttpOnly cookie'den access token'ı kontrol eder.
+    if request.user.is_authenticated:
+        return Response({"isAuthenticated": True})
+    else:
+        return Response({"isAuthenticated": False}, status=401)
