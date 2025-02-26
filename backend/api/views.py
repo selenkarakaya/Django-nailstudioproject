@@ -80,17 +80,16 @@ class LogoutView(APIView):
 
 class ProfileView(APIView):
     authentication_classes = [CookieJWTAuthentication]
-    permission_classes = [IsAuthenticated]  # Kullanıcı doğrulaması yapılacak
+    permission_classes = [IsAuthenticated]  #  User authentication
     def get(self, request):
-        user = request.user  # Şu anda oturum açmış kullanıcıyı alıyoruz
+        user = request.user  # We are getting the currently logged-in user.
         user_data = {
             'email': user.email,
             'username': user.username,
-            # Diğer profil bilgilerini buraya ekleyebilirsiniz
         }
         return Response(user_data) 
  
-# note add sending welcome emaol
+# note add sending welcome email
 
 class ApptCreate(generics.CreateAPIView):
     serializer_class=ApptSerializer
@@ -108,7 +107,7 @@ class ApptCreate(generics.CreateAPIView):
                 raise serializers.ValidationError("Service must be at least 10 characters long.")
             serializer.save(author=self.request.user)
         else:
-            print("Serializer Errors:", serializer.errors)  # Hataları yazdır
+            print("Serializer Errors:", serializer.errors) 
             raise serializers.ValidationError(serializer.errors)
     
 class ApptDelete(generics.DestroyAPIView):
@@ -158,26 +157,22 @@ class ApptRetrieve(generics.RetrieveAPIView):
 
 class ApptListView(generics.ListAPIView):
     serializer_class = ApptSerializer
-    permission_classes = [IsAuthenticated]  # Kullanıcının kimliği doğrulanmalı
-    authentication_classes = [CookieJWTAuthentication]  # CookieJWT doğrulaması
+    permission_classes = [IsAuthenticated] 
+    authentication_classes = [CookieJWTAuthentication] 
 
     def get_queryset(self):
        # Returns the user's own appointments.
         user = self.request.user
         return Appt.objects.filter(author=user)    
 
-class FeedbackCreate(APIView):
+
+class FeedbackCreate(generics.CreateAPIView):
+    serializer_class = FeedbackSerializer
     permission_classes = [IsAuthenticated]
-    parser_classes = (MultiPartParser, FormParser)
+    authentication_classes = [CookieJWTAuthentication]
 
-    def post(self, request, *args, **kwargs):
-        data = request.data.copy()  # Gelen isteği düzenlemek için bir kopya oluştur
-        serializer = FeedbackSerializer(data=data, context={'request': request})  # request'i context olarak geçiyoruz
-        if serializer.is_valid():
-            serializer.save()  
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class FeedbackListView(generics.ListAPIView):
     #A list where all users can see all feedback.

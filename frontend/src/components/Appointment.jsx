@@ -38,7 +38,6 @@ function Appointment({ appointment, onDelete }) {
           {getStatus(appointment.appointment_date)}
         </span>
       </td>
-
       <td>
         <div className="flex justify-center items-center space-x-4">
           {/* Cancel Button with Tooltip */}

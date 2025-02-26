@@ -96,11 +96,11 @@ const FeedbackList = ({ newFeedback }) => {
                     <div className="p-4">
                       <p>{feedback?.comment || "No comment provided"}</p>
                       {feedback?.image && (
-                        <div className="mt-2">
+                        <div className="w-1/2 h-1/2">
                           <img
                             src={`${feedback.image}`}
                             alt="Feedback"
-                            className="w-full h-auto rounded-md"
+                            className="w-full h-full rounded-md"
                           />
                         </div>
                       )}
