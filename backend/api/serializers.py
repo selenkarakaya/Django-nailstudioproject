@@ -67,7 +67,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #While creating the feedback, we verify the user's information and save the feedback.
         user = self.context['request'].user if self.context['request'].user.is_authenticated else None
-        # 'user' verisini validated_data'dan çıkarıyoruz, çünkü onu ayrıca gönderiyoruz
+        # We remove the 'user' data from validated_data because we are sending it separately.
         validated_data.pop('user', None)
         feedback = Feedback.objects.create(user=user, **validated_data)
         return feedback    
