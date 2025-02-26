@@ -25,7 +25,7 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
         setImage(null);
         setTimeout(() => {
           setSuccess(false);
-          onFeedbackSubmit(response.data); // Yeni feedback'i üst bileşene gönderiyoruz
+          onFeedbackSubmit(response.data); // We are sending the new feedback to the parent component.
           onClose(); // Close modal
         }, 1500);
       }

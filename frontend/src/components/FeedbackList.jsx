@@ -28,19 +28,19 @@ const FeedbackList = ({ newFeedback }) => {
     if (newFeedback) {
       setFeedbacks((prevFeedbacks) => [newFeedback, ...prevFeedbacks]);
     }
-  }, [newFeedback]); // newFeedback değiştiğinde, feedbacks listesini güncelleriz.
+  }, [newFeedback]); // When newFeedback changes, we update the feedbacks list.
 
   // Calculate items per page based on screen size
   useEffect(() => {
     const updateItemsPerPage = () => {
       const screenWidth = window.innerWidth;
-      // Ekranın genişliğine göre her öğenin genişliğini dinamik olarak ayarla
-      const itemsVisible = Math.floor(screenWidth / 300); // 300px, her bir öğenin yaklaşık genişliği
-      setItemsPerPage(itemsVisible > 0 ? itemsVisible : 1); // Minimum 1 öğe göster
+      // Dynamically adjust the width of each item based on the screen width.
+      const itemsVisible = Math.floor(screenWidth / 300); // 300px, the approximate width of each item.
+      setItemsPerPage(itemsVisible > 0 ? itemsVisible : 1); // Display at least 1 item.
     };
 
-    updateItemsPerPage(); // İlk başta hesapla
-    window.addEventListener("resize", updateItemsPerPage); // Ekran boyutu değişirse tekrar hesapla
+    updateItemsPerPage(); // Calculate initially.
+    window.addEventListener("resize", updateItemsPerPage); // Recalculate if the screen size changes.
 
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);

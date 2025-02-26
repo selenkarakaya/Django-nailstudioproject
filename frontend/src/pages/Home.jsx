@@ -7,17 +7,16 @@ import FeedbackList from "../components/FeedbackList";
 import UserContext from "../context/UserContext";
 
 function Home() {
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const { user } = useContext(UserContext);
+  const [newFeedback, setNewFeedback] = useState(null); // Newly received feedback
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const toggleFormVisibility = () => {
     setIsFormVisible((prevState) => !prevState); // Toggle form visibility
   };
 
-  const [newFeedback, setNewFeedback] = useState(null); // Yeni gelen feedback
-
   const handleFeedbackSubmit = (feedback) => {
-    setNewFeedback(feedback); // Yeni feedback geldiğinde state güncellenir
+    setNewFeedback(feedback); // The state is updated when new feedback arrives.
   };
   return (
     <>

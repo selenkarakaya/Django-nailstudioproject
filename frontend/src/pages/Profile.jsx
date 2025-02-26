@@ -66,17 +66,6 @@ function Profile() {
                     className="w-full p-4 ps-10 mb-4 text-sm rounded-lg text-darkBlue focus:outline-darkBlue focus:outline-4"
                     readOnly
                   />
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium leading-6 text-gray-900 mb-2"
-                  >
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    className="w-full p-4 ps-10 mb-4 text-sm rounded-lg text-darkBlue focus:outline-darkBlue focus:outline-4"
-                  />
                 </div>
               </form>
             </div>

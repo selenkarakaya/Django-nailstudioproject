@@ -3,7 +3,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import api from "../api";
 
-// UserContext ve UserProvider component'i oluşturuyoruz
+// We are creating the UserContext and UserProvider component.
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -13,9 +13,9 @@ export const UserProvider = ({ children }) => {
     const fetchUserData = async () => {
       try {
         const response = await api.get("profile/", { withCredentials: true });
-        setUser(response.data); // Kullanıcıyı veri ile set ediyoruz
+        setUser(response.data); // We are setting the user with data.
       } catch (error) {
-        setUser(null); // Hata oluşursa kullanıcıyı null yapıyoruz
+        setUser(null); // If an error occurs, we set the user to null.
       }
     };
     fetchUserData();

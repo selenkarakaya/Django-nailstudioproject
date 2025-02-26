@@ -16,6 +16,7 @@ function Appointment({ appointment, onDelete }) {
       hour12: false, //24-hour format.
     });
   };
+  console.log(appointment);
   // Dynamically set the status based on the appointment date
   const getStatus = (appointmentDate) => {
     const currentDate = new Date();
@@ -26,6 +27,7 @@ function Appointment({ appointment, onDelete }) {
       return "open";
     }
   };
+
   return (
     <tr className="text-center">
       <td>{appointment.service}</td>
@@ -36,6 +38,7 @@ function Appointment({ appointment, onDelete }) {
           {getStatus(appointment.appointment_date)}
         </span>
       </td>
+
       <td>
         <div className="flex justify-center items-center space-x-4">
           {/* Cancel Button with Tooltip */}

@@ -1,27 +1,27 @@
-from rest_framework_simplejwt.exceptions import TokenError, InvalidToken  # Hata sınıfları
-from rest_framework.authentication import BaseAuthentication  # BaseAuthentication
+from rest_framework_simplejwt.exceptions import TokenError, InvalidToken 
+from rest_framework.authentication import BaseAuthentication 
 from django.contrib.auth.models import User
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import AccessToken  # AccessToken kullanıyoruz
+from rest_framework_simplejwt.tokens import AccessToken  
 
 class CookieJWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        # Cookie'den token'ı al
+        # Get the token from the cookie.
         access_token = request.COOKIES.get('access_token')
         if not access_token:
-            return None  # Token yoksa, hiçbir şey yapılmaz
+            return None  # If there is no token, do nothing.
 
         try:
-            # Token'ı doğrula
-            validated_token = AccessToken(access_token)  # AccessToken ile doğrulama yapıyoruz
-            user_id = validated_token.get("user_id")  # Token'dan user_id'yi al
+            # Validate the token.
+            validated_token = AccessToken(access_token)  # We are performing authentication with the AccessToken.
+            user_id = validated_token.get("user_id")  #  Get the user_id from the token.
 
-            # Kullanıcıyı getirme
+            # Get the user
             user = User.objects.get(id=user_id)
 
             return (user, validated_token)
 
         except (User.DoesNotExist, TokenError, InvalidToken) as e:
-            # Eğer token geçersizse ya da kullanıcı bulunamazsa
+            # If the token is invalid or the user cannot be found.
             raise AuthenticationFailed("Invalid or expired token.") from e
 
