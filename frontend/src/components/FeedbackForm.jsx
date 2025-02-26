@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../api";
 import Button from "./Button";
-import { AiOutlineClose } from "react-icons/ai"; // React Icons ile X ikonu
+import { AiOutlineClose } from "react-icons/ai";
 
 const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
   const [comment, setComment] = useState("");
