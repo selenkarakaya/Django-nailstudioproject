@@ -17,9 +17,19 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 
-
+@api_view(['GET'])
+def verify_token(request):
+    # Bu view, HttpOnly cookie'den access token'ı kontrol eder.
+    if request.user.is_authenticated:
+        return Response({"isAuthenticated": True})
+    else:
+        return Response({"isAuthenticated": False}, status=401) 
+    
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
+    """
+    
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
@@ -213,10 +223,4 @@ The user is then created in the database.'''
 
 
 
-@api_view(['GET'])
-def verify_token(request):
-    # Bu view, HttpOnly cookie'den access token'ı kontrol eder.
-    if request.user.is_authenticated:
-        return Response({"isAuthenticated": True})
-    else:
-        return Response({"isAuthenticated": False}, status=401)
+
