@@ -20,8 +20,6 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-z_baic-4)uv&rwl7+w2&*5(+#mt*u)8en*kc4&jp!h49)dma5p'
 
@@ -106,9 +104,18 @@ DATABASES = {
         'PASSWORD': os.getenv("DB_PWD"),
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
+        'OPTIONS': {
+            'sslmode': 'require',} 
     }
 }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
