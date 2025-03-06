@@ -27,7 +27,7 @@ function Login() {
       password,
     };
     try {
-      const response = await api.post("login/", loginData);
+      const response = await api.post("/api/login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
 
       // ✅ Fetch and update user data
