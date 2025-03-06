@@ -1,8 +1,8 @@
 import axios from "axios";
-// const apiUrl = "/choreo-apis/backend-2257450469:8000";
+const apiUrl = "/choreo-apis/backend-2257450469:8000";
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL : apiUrl,
   withCredentials: true, // Ensures cookies are sent with requests
 });
 
