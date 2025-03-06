@@ -3,7 +3,8 @@ const apiUrl =
   "https://3d6a7f2f-be99-4a88-b829-f0a231a33b3e-dev.e1-eu-north-azure.choreoapis.dev/selenanailstudio/backend/v1.0/";
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
-  baseURL: "http://backend-2776821686:8000/api/",
+  baseURL:
+    "https://3d6a7f2f-be99-4a88-b829-f0a231a33b3e-dev.e1-eu-north-azure.choreoapis.dev/selenanailstudio/backend/v1.0",
   withCredentials: true, // Ensures cookies are sent with requests
 });
 
