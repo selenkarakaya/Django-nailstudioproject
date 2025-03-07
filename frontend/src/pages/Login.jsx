@@ -20,6 +20,8 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
+  console.log("API Base URL:", api.defaults.baseURL);
+
   const loginUser = async (e) => {
     e.preventDefault();
     const loginData = {
@@ -27,7 +29,7 @@ function Login() {
       password,
     };
     try {
-      const response = await api.post("/api/login/", loginData);
+      const response = await api.post("/login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
 
       // ✅ Fetch and update user data

@@ -1,6 +1,5 @@
 import axios from "axios";
-const apiUrl =
-  "https://3d6a7f2f-be99-4a88-b829-f0a231a33b3e-dev.e1-eu-north-azure.choreoapis.dev/selenanailstudio/backend/v1.0";
+
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
   baseURL:
@@ -13,7 +12,7 @@ api.interceptors.request.use(
   async (config) => {
     try {
       // Request access token from the backend
-      const response = await axios.get("/api/token/get/", {
+      const response = await axios.get("/token/get/", {
         withCredentials: true,
       });
 
@@ -37,7 +36,7 @@ api.interceptors.response.use(
 
       try {
         // Attempt to refresh the token using the refresh token stored in HttpOnly cookie
-        await axios.post("/api/token/refresh/", {}, { withCredentials: true });
+        await axios.post("/token/refresh/", {}, { withCredentials: true });
 
         // Retry the original request
         return api(error.config);
