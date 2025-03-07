@@ -156,7 +156,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://c6bf874f-4bba-4a59-a4b6-6c0236b9ba3a.e1-eu-north-azure.choreoapps.dev",  # Frontend URL
+]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://3d6a7f2f-be99-4a88-b829-f0a231a33b3e-dev.e1-eu-north-azure.choreoapis.dev",  # Backend URL
     "https://c6bf874f-4bba-4a59-a4b6-6c0236b9ba3a.e1-eu-north-azure.choreoapps.dev",  # Frontend URL
