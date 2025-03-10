@@ -32,16 +32,16 @@ function Login() {
       const response = await api.post("/login/", loginData);
       console.log("Login Response:", response); // Tüm yanıtı loglayın
 
-      if (response.data.access_token) {
-        console.log("Access Token:", response.data.access_token);
+      if (response.data.access) {
+        console.log("Access Token:", response.data.access);
       } else {
         console.log("Access token yok");
       }
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
 
       // ✅ Fetch and update user data
-      // const userResponse = await api.get("/profile/");
-      // setUser(userResponse.data); // Updates the user state in context
+      const userResponse = await api.get("/profile/");
+      setUser(userResponse.data); // Updates the user state in context
       navigate("/"); // Redirects to the homepage
     } catch (error) {
       toast.error(`Whoops! Looks like something’s off. Try again, champ! 💪`);
