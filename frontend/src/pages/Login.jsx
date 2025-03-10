@@ -31,7 +31,7 @@ function Login() {
     try {
       const response = await api.post("/login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
-
+      console.log(response.data.access_token);
       // ✅ Fetch and update user data
       const userResponse = await api.get("/profile/");
       setUser(userResponse.data); // Updates the user state in context
