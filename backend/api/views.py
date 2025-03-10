@@ -195,7 +195,13 @@ class FeedbackListView(generics.ListAPIView):
     def get_queryset(self):        
         return Feedback.objects.all()
     
+class FeedbackDelete(generics.DestroyAPIView):
+    serializer_class = FeedbackSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        user = self.request.user
+        return Feedback.objects.filter(author=user)
 #Notes:
     ''' The permission_classes is used to define who can create a new instance of a class.'''    
     ''' The get_queryset method ensures that users can only see their own appointments.'''

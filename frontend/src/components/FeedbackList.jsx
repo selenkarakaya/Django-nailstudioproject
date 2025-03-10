@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../api";
-import { ImCancelCircle } from "react-icons/im";
+import Feedback from "./Feedback";
 
 const FeedbackList = ({ newFeedback }) => {
   const [feedbacks, setFeedbacks] = useState([]); // State for storing feedback data
@@ -11,20 +11,21 @@ const FeedbackList = ({ newFeedback }) => {
 
   // Fetch feedbacks from API
   useEffect(() => {
-    const fetchFeedbacks = async () => {
-      try {
-        const response = await api.get("/appointment/feedbacks/");
-        setFeedbacks(response.data);
-      } catch (err) {
-        toast.error("Feedbacks could not be loaded. 🤷‍♂️");
-        console.error("Error fetching feedbacks:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchFeedbacks();
   }, []);
+
+  const fetchFeedbacks = async () => {
+    try {
+      const response = await api.get("/appointment/feedbacks/");
+      setFeedbacks(response.data);
+    } catch (err) {
+      toast.error("Feedbacks could not be loaded. 🤷‍♂️");
+      console.error("Error fetching feedbacks:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (newFeedback) {
       setFeedbacks((prevFeedbacks) => [newFeedback, ...prevFeedbacks]);
@@ -65,7 +66,7 @@ const FeedbackList = ({ newFeedback }) => {
 
   const onDelete = (id) => {
     api
-      .delete(`/feedback/delete/${id}/`)
+      .delete(`/appointment/feedback/delete/${id}/`)
       .then((res) => {
         if (res.status === 204)
           toast.success(
@@ -107,41 +108,12 @@ const FeedbackList = ({ newFeedback }) => {
                   width: `${feedbacks.length * (100 / itemsPerPage)}%`, // Width of all feedbacks to fit into carousel
                 }}
               >
-                {feedbacks.map((feedback, index) => (
-                  <div
-                    key={feedback?.id || index}
-                    className="p-4 bg-lightBg rounded-lg"
-                  >
-                    <button onClick={() => onDelete(feedback.id)}>
-                      <ImCancelCircle
-                        style={{
-                          color: "#d3d3d3",
-                          fontSize: "1.5rem",
-                        }}
-                      />
-                    </button>
-                    <div className="p-4">
-                      <p>{feedback?.comment || "No comment provided"}</p>
-                      {/* {feedback?.image && (
-                        <div className="w-1/2 h-1/2">
-                          <img
-                            src={
-                              feedback.image.startsWith("http")
-                                ? feedback.image
-                                : `${"https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev"}${
-                                    feedback.image
-                                  }`
-                            }
-                            alt="Feedback"
-                            className="w-full h-full rounded-md"
-                          />
-                        </div>
-                      )} */}
-                      <p className="text-end italic">
-                        {feedback?.user?.username || "Anonymous"}
-                      </p>
-                    </div>
-                  </div>
+                {feedbacks.map((feedback) => (
+                  <Feedback
+                    key={feedback.id}
+                    feedback={feedback}
+                    onDelete={onDelete}
+                  />
                 ))}
               </div>
             </div>
