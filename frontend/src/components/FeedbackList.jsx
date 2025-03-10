@@ -62,6 +62,24 @@ const FeedbackList = ({ newFeedback }) => {
     );
   };
 
+  const onDelete = (id) => {
+    api
+      .delete(`/feedback/delete/${id}/`)
+      .then((res) => {
+        if (res.status === 204)
+          toast.success(
+            `Uh-oh! Your appointment was canceled, but we’ll make sure to reschedule it at your convenience! 😔`
+          );
+
+        fetchFeedbacks();
+      })
+      .catch((err) =>
+        toast.error(
+          `Oops! Looks like we hit a snag while canceling. Try once more! 🤞`
+        )
+      );
+  };
+
   // Loading or Error State
   if (loading) {
     return <p>Loading feedbacks...</p>;
@@ -93,10 +111,17 @@ const FeedbackList = ({ newFeedback }) => {
                     key={feedback?.id || index}
                     className="p-4 bg-lightBg rounded-lg"
                   >
+                    <button onClick={() => onDelete(feedback.id)}>
+                      <ImCancelCircle
+                        style={{
+                          color: "#d3d3d3",
+                          fontSize: "1.5rem",
+                        }}
+                      />
+                    </button>
                     <div className="p-4">
                       <p>{feedback?.comment || "No comment provided"}</p>
-                      <p>{feedback.image}</p>
-                      {feedback?.image && (
+                      {/* {feedback?.image && (
                         <div className="w-1/2 h-1/2">
                           <img
                             src={
@@ -110,7 +135,7 @@ const FeedbackList = ({ newFeedback }) => {
                             className="w-full h-full rounded-md"
                           />
                         </div>
-                      )}
+                      )} */}
                       <p className="text-end italic">
                         {feedback?.user?.username || "Anonymous"}
                       </p>
