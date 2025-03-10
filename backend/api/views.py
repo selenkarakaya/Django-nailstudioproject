@@ -194,6 +194,15 @@ class FeedbackListView(generics.ListAPIView):
   
     def get_queryset(self):        
         return Feedback.objects.all()
+
+class FeedbackRetrieve(generics.RetrieveAPIView):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+    permission_classes = [IsAuthenticated]
+    
+    # This will ensure the appointment is fetched for the authenticated user
+    def get_queryset(self):
+        return Feedback.objects.filter(author=self.request.user)
     
 class FeedbackDelete(generics.DestroyAPIView):
     serializer_class = FeedbackSerializer
