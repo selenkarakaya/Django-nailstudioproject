@@ -13,25 +13,35 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("comment", comment);
+
+    // Eğer bir image varsa, formData'ya ekliyoruz
     if (image) {
       formData.append("image", image);
     }
 
     try {
-      const response = await api.post("/appointment/feedback/", formData);
+      // API'ye POST isteği gönderirken, 'Content-Type' başlığını eklemiyoruz
+      // çünkü Axios otomatik olarak 'multipart/form-data' formatını ayarlayacaktır
+      const response = await api.post("/appointment/feedback/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Manual olarak Content-Type belirtilebilir, ancak Axios genellikle bunu otomatik ayarlar
+        },
+      });
+
+      // Eğer başarılıysa, feedback başarılı bir şekilde gönderildi
       if (response.status === 201) {
         setSuccess(true);
         setComment("");
         setImage(null);
         setTimeout(() => {
           setSuccess(false);
-          onFeedbackSubmit(response.data); // We are sending the new feedback to the parent component.
-          onClose(); // Close modal
+          onFeedbackSubmit(response.data); // Yeni geri bildirimi üst bileşene gönderiyoruz.
+          onClose(); // Modal'ı kapatıyoruz
         }, 1500);
       }
     } catch (err) {
-      console.error("Error submitting feedback:", err.response.data);
-      setError(err.response.data);
+      console.error("Error submitting feedback:", err.response?.data);
+      setError(err.response?.data);
     }
   };
 
