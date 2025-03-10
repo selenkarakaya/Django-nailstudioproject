@@ -1,5 +1,6 @@
 import axios from "axios";
 const apiURL = "/choreo-apis/selenanailstudio/backend/v1/api/";
+const VITE_API_URL = "http://localhost:8000/api/";
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
   baseURL: apiURL,

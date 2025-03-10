@@ -5,6 +5,9 @@ import datetime
 # Create your models here.
 
 class Appt(models.Model):
+    '''
+    apppointment model
+    '''
     service= models.CharField(max_length=50)
     message=models.TextField(max_length=200,blank=True, null=True)
     appointment_date = models.DateTimeField(default=datetime.datetime.now)
@@ -17,6 +20,7 @@ class Appt(models.Model):
     
 
 class Feedback(models.Model):
+    ''' feedback model '''
     user = models.ForeignKey(User, on_delete=models.CASCADE)  #user information
     comment = models.TextField()  #comment from the user
     image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  #Image from the user
