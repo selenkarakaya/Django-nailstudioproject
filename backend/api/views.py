@@ -203,32 +203,4 @@ class FeedbackDelete(generics.DestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Feedback.objects.filter(author=user)
-#Notes:
-    ''' The permission_classes is used to define who can create a new instance of a class.'''    
-    ''' The get_queryset method ensures that users can only see their own appointments.'''
-    ''' The perform_create method automatically associates the newly created appointment with the authenticated user.'''
-    ''' def perform_update(self, serializer):
-    if serializer.is_valid():
-        appt_instance = serializer.save(author=self.request.user)
-        
-        # Send an email notification to the user
-        send_mail(
-            'Your appointment has been updated',
-            f'Your appointment for {appt_instance.service} has been successfully updated.',
-            'no-reply@example.com',
-            [self.request.user.email],
-            fail_silently=False,
-        )
-    else:
-        print(serializer.errors)'''
-
-'''Purpose of CreateUserView
-This view is specifically designed for user registration in an application.
-It allows clients to send a POST request to create a new user.
-Typical use case:
-A registration page or form in a frontend application (e.g., React, Angular) sends user details (e.g., username, password) to this endpoint.
-The user is then created in the database.''' 
-
-
-
 
