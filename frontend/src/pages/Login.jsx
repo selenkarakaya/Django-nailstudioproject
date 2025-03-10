@@ -20,7 +20,6 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log("API Base URL:", api.defaults.baseURL);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -30,15 +29,7 @@ function Login() {
     };
     try {
       const response = await api.post("/login/", loginData);
-      console.log("Login Response:", response); // Tüm yanıtı loglayın
-
-      if (response.data.access) {
-        console.log("Access Token:", response.data.access);
-      } else {
-        console.log("Access token yok");
-      }
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
-
       // ✅ Fetch and update user data
       const userResponse = await api.get("/profile/");
       setUser(userResponse.data); // Updates the user state in context
