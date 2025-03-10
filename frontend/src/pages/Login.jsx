@@ -30,8 +30,15 @@ function Login() {
     };
     try {
       const response = await api.post("/login/", loginData);
+      console.log("Login Response:", response); // Tüm yanıtı loglayın
+
+      if (response.data.access_token) {
+        console.log("Access Token:", response.data.access_token);
+      } else {
+        console.log("Access token yok");
+      }
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
-      console.log(response.data.access_token);
+
       // ✅ Fetch and update user data
       const userResponse = await api.get("/profile/");
       setUser(userResponse.data); // Updates the user state in context
