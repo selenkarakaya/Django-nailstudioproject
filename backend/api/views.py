@@ -73,6 +73,7 @@ class LoginView(TokenObtainPairView):
             samesite="Strict",
             max_age=60*60*24
         )
+        print(f"Tokens set: access_token={access_token}, refresh_token={refresh_token}")  # Debug log
         return response
 
 class LogoutView(APIView):
