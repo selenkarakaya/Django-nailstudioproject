@@ -17,7 +17,7 @@ function ApptUpdateForm({}) {
   useEffect(() => {
     // Fetch the current appointment data to populate the form
     api
-      .get(`appointment/${id}/`, { withCredentials: true })
+      .get(`/appointment/${id}/`, { withCredentials: true })
       .then((res) => {
         setAppointment({
           service: res.data.service,
@@ -36,7 +36,7 @@ function ApptUpdateForm({}) {
     };
 
     api
-      .put(`appointment/update/${id}`, updatedData, { withCredentials: true })
+      .put(`/appointment/update/${id}/`, updatedData, { withCredentials: true })
       .then((res) => {
         toast.success(
           `Yay! Your appointment is updated. Get ready for a great experience!💅✨`

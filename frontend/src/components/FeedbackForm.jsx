@@ -18,7 +18,7 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
     }
 
     try {
-      const response = await api.post("appointment/feedback/", formData);
+      const response = await api.post("/appointment/feedback/", formData);
       if (response.status === 201) {
         setSuccess(true);
         setComment("");

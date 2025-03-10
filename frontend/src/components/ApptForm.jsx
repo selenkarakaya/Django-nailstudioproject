@@ -60,7 +60,7 @@ function ApptForm() {
       status, //Send the calculated status ('open' or 'closed')
     };
 
-    api.post("appointment/create", data).then((res) => {
+    api.post("appointment/create/", data).then((res) => {
       if (res.status === 201) {
         toast.success(
           `Yay! Your appointment is confirmed. Get ready for a great experience!💅✨`

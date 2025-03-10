@@ -13,7 +13,7 @@ function Appointments() {
 
   const getAppointments = () => {
     api
-      .get("appointment/", { withCredentials: true })
+      .get("/appointments/", { withCredentials: true })
       .then((res) => res.data)
       .then((data) => {
         setAppointments(data);
@@ -23,7 +23,7 @@ function Appointments() {
 
   const onDelete = (id) => {
     api
-      .delete(`appointment/delete/${id}`)
+      .delete(`/appointment/delete/${id}/`)
       .then((res) => {
         if (res.status === 204)
           toast.success(

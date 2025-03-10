@@ -58,7 +58,7 @@ function Register() {
     };
 
     try {
-      const response = await api.post("/api/user/register/", userData);
+      const response = await api.post("/user/register/", userData);
       toast.success(
         "You’ve successfully registered! 🎉 Feel free to log in now."
       );

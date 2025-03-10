@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await api.get("profile/", { withCredentials: true });
+        const response = await api.get("/profile/", { withCredentials: true });
         setUser(response.data); // We are setting the user with data.
       } catch (error) {
         setUser(null); // If an error occurs, we set the user to null.

@@ -16,7 +16,6 @@ function Appointment({ appointment, onDelete }) {
       hour12: false, //24-hour format.
     });
   };
-  console.log(appointment);
   // Dynamically set the status based on the appointment date
   const getStatus = (appointmentDate) => {
     const currentDate = new Date();

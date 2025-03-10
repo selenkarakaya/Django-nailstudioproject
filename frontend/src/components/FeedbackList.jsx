@@ -12,7 +12,7 @@ const FeedbackList = ({ newFeedback }) => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const response = await api.get("appointment/feedbacks/");
+        const response = await api.get("/appointment/feedbacks/");
         setFeedbacks(response.data);
       } catch (err) {
         toast.error("Feedbacks could not be loaded. 🤷‍♂️");
