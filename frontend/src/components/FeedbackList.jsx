@@ -100,9 +100,11 @@ const FeedbackList = ({ newFeedback }) => {
                         <div className="w-1/2 h-1/2">
                           <img
                             src={
-                              feedback.image.startsWith("http://")
-                                ? feedback.image.replace("http://", "https://")
-                                : feedback.image
+                              feedback.image.startsWith("http")
+                                ? feedback.image
+                                : `${"https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev"}${
+                                    feedback.image
+                                  }`
                             }
                             alt="Feedback"
                             className="w-full h-full rounded-md"
