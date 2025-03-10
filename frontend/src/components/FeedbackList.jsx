@@ -98,7 +98,11 @@ const FeedbackList = ({ newFeedback }) => {
                       {feedback?.image && (
                         <div className="w-1/2 h-1/2">
                           <img
-                            src={`${feedback.image}`}
+                            src={
+                              feedback.image.startsWith("http://")
+                                ? feedback.image.replace("http://", "https://")
+                                : feedback.image
+                            }
                             alt="Feedback"
                             className="w-full h-full rounded-md"
                           />
