@@ -95,6 +95,7 @@ const FeedbackList = ({ newFeedback }) => {
                   >
                     <div className="p-4">
                       <p>{feedback?.comment || "No comment provided"}</p>
+                      <p>{feedback.image}</p>
                       {feedback?.image && (
                         <div className="w-1/2 h-1/2">
                           <img
