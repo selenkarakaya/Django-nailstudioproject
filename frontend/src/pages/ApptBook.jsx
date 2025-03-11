@@ -8,9 +8,11 @@ function ApptBook() {
   return (
     <div>
       <section className="flex flex-col items-center">
-        <h1>What do you need help with?</h1>
-        <p>Please choose from an option below</p>
-        <h1 className="mb-4">Fresh Nail • Fresh You</h1>
+        <h1>How can we make your day better?</h1>
+        <h4>Please choose an option below to get started</h4>
+        <h1 className="mb-4 text-darkBlue italic tracking-[4px] font-bold">
+          Fresh Nail • Fresh You
+        </h1>
       </section>
       {user ? (
         <ApptForm />

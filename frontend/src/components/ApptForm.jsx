@@ -73,35 +73,46 @@ function ApptForm() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="w-3/4 mx-auto">
-      <div className="flex">
-        <div className="form-group w-1/2">
-          <label htmlFor="name">Your Name</label>
+    <div className="w-full max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold text-center mb-6">
+        Book an Appointment
+      </h2>
+      <div className="flex space-x-4 mb-6">
+        <div className="form-group w-full sm:w-1/2">
+          <label htmlFor="name" className="text-sm font-semibold">
+            Your Name
+          </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             value={user?.username || ""}
             readOnly
           />
         </div>
-        <div className="form-group w-1/2">
-          <label htmlFor="email">Your Email</label>
+        <div className="form-group w-full sm:w-1/2">
+          <label htmlFor="email" className="text-sm font-semibold">
+            Your Email
+          </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             value={user?.email || ""}
             readOnly
           />
         </div>
       </div>
+
       <form onSubmit={createAppointment}>
-        <div className="form-group">
-          <label htmlFor="product">Services</label>
+        <div className="form-group mb-4">
+          <label htmlFor="product" className="text-sm font-semibold">
+            Services
+          </label>
           <select
             name="product"
             id="product"
             onChange={(e) => setService(e.target.value)}
             value={service}
+            className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
           >
             <option value="Select service">Select service</option>
             <option value="Gel nail extensions full set">
@@ -126,37 +137,45 @@ function ApptForm() {
             </option>
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="message">Message</label>
+
+        <div className="form-group mb-4">
+          <label htmlFor="message" className="text-sm font-semibold">
+            Message
+          </label>
           <textarea
             name="message"
             id="message"
-            className="form-control"
+            className="form-control w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             placeholder="Message"
             onChange={(e) => setMessage(e.target.value)}
             value={message}
           ></textarea>
         </div>
-        <div className="flex space-x-2">
-          <div className="form-group w-1/2">
-            <label htmlFor="appointmentDate">Appointment Date</label>
+
+        <div className="flex space-x-4 mb-4">
+          <div className="form-group w-full sm:w-1/2">
+            <label htmlFor="appointmentDate" className="text-sm font-semibold">
+              Appointment Date
+            </label>
             <input
               type="date"
               id="appointmentDate"
               name="appointmentDate"
-              className="form-control"
+              className="form-control w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
               onChange={handleAppointmentDateChange}
               value={appointmentDate}
               min={new Date().toISOString().split("T")[0]}
               required
             />
           </div>
-          <div className="form-group w-1/2">
-            <label htmlFor="appointmentTime">Appointment Time</label>
+          <div className="form-group w-full sm:w-1/2">
+            <label htmlFor="appointmentTime" className="text-sm font-semibold">
+              Appointment Time
+            </label>
             <select
               id="appointmentTime"
               name="appointmentTime"
-              className="form-control"
+              className="form-control w-full p-3 mt-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
               onChange={(e) => setAppointmentTime(e.target.value)}
               value={appointmentTime}
               required
@@ -175,8 +194,14 @@ function ApptForm() {
             </select>
           </div>
         </div>
+
         <div className="text-center">
-          <Button text="Submit" onClick={createAppointment} />
+          <button
+            type="submit"
+            className="px-6 py-3 mt-4 text-white bg-darkBlue rounded-lg focus:ring-4 focus:ring-blue-300"
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api";
 import Button from "../components/Button";
+import { FaCheck } from "react-icons/fa";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ function Register() {
     capital: false,
     symbol: false,
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -59,13 +61,23 @@ function Register() {
 
     try {
       const response = await api.post("/user/register/", userData);
+      console.log("Registration Success:", response.data);
       toast.success(
         "You’ve successfully registered! 🎉 Feel free to log in now."
       );
       navigate("/login");
-      // console.log(response.data); //Check the response from the backend
     } catch (error) {
-      toast.error(`Not quite there yet. Check and try again! 🚦`);
+      if (error.response && error.response.data) {
+        const errorData = error.response.data;
+        if (errorData.username) {
+          toast.error(errorData.username[0]);
+        }
+        if (errorData.email) {
+          toast.error(errorData.email[0]); //
+        } else {
+          toast.error("Something went wrong. Please check your connection. 🚦");
+        }
+      }
       console.error("Registration failed:", error.response); //Check the error message.
       console.error("Registration failed:", error.response?.data);
     }
@@ -124,17 +136,46 @@ function Register() {
             value={password2}
             onChange={(e) => setPassword2(e.target.value)}
           />
-          <ul className="password-rules">
-            <li style={{ color: passwordRules.length ? "blue" : "gray" }}>
-              At least 8 characters
-            </li>
-            <li style={{ color: passwordRules.capital ? "blue" : "gray" }}>
-              Include a capital letter
-            </li>
-            <li style={{ color: passwordRules.symbol ? "blue" : "gray" }}>
-              Include a special symbol (!@#$%^&*)
-            </li>
-          </ul>
+          <div id="password-rules-container">
+            <ul className="password-rules space-y-4 list-inside pl-5">
+              <li
+                style={{ color: passwordRules.length ? "#5168C4" : "gray" }}
+                className="flex items-center text-lg font-medium"
+              >
+                <FaCheck
+                  style={{ color: passwordRules.length ? "#5168C4" : "gray" }}
+                  className={`mr-2 ${
+                    passwordRules.length ? "animate-shake" : ""
+                  }`} // Shake when fulfilled
+                />
+                At least 8 characters
+              </li>
+              <li
+                style={{ color: passwordRules.capital ? "#5168C4" : "gray" }}
+                className="flex items-center text-lg font-medium"
+              >
+                <FaCheck
+                  style={{ color: passwordRules.capital ? "#5168C4" : "gray" }}
+                  className={`mr-2 ${
+                    passwordRules.capital ? "animate-shake" : ""
+                  }`} // Shake when fulfilled
+                />
+                Include a capital letter
+              </li>
+              <li
+                style={{ color: passwordRules.symbol ? "#5168C4" : "gray" }}
+                className="flex items-center text-lg font-medium"
+              >
+                <FaCheck
+                  style={{ color: passwordRules.symbol ? "#5168C4" : "gray" }}
+                  className={`mr-2 ${
+                    passwordRules.symbol ? "animate-shake" : ""
+                  }`} // Shake when fulfilled
+                />
+                Include a special symbol (!@#$%^&*)
+              </li>
+            </ul>
+          </div>
           <p className="mb-4 text-right">
             <Link to="/login" className="text-darkBlue text-sm italic">
               Sign In
