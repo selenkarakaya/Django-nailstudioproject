@@ -170,3 +170,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = "https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev/media/"
 # MEDIA_ROOT = "/app/media/"  # Choreo içindeki dosya yolu (gerekli değilse kaldırılabilir)
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
+
