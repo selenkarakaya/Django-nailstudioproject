@@ -45,7 +45,7 @@ function Appointments() {
         Your Appointments
       </h1>
 
-      <table className="table-fixed w-3/4 mx-auto">
+      <table className="table-fixed md:w-3/4 w-full mx-auto">
         <thead className="border-b-2 border-darkBlue">
           <tr>
             <th>Service</th>

@@ -17,27 +17,27 @@ function Profile() {
       <BackButton />
       <div className="mb-5">
         <header className="flex items-center space-x-8">
-          <p className="pl-2 text-xl">My Account • </p>
+          <p className="pl-2 md:text-xl text-sm">My Account • </p>
+
           <Link
             to="/feedbackForm"
-            className="text-xl text-greens flex items-center space-x-2"
+            className="md:text-xl text-sm text-greens flex items-center space-x-2"
           >
             <GoCommentDiscussion />
             <p>Help us improve •</p>
           </Link>
           <Link
             to="/Contact"
-            className="text-xl text-greens flex items-center space-x-2"
+            className="md:text-xl text-sm text-greens flex items-center space-x-2"
           >
             <BiEditAlt />
             <p> Contact •</p>
           </Link>
-          <p className="cursor-pointer text-greens text-xl">changeDetails</p>
         </header>
         <main>
           <div className="flex flex-col mt-6">
             <h1 className="text-2xl text-center mb-6">My details</h1>
-            <div className="bg-indigo-200 md:w-3/4 mx-auto">
+            <div className="bg-indigo-200 md:w-3/4 w-full mx-auto">
               <form className="flex flex-col justify-center items-center my-4 space-y-4 p-6">
                 <div className="w-1/2">
                   <label

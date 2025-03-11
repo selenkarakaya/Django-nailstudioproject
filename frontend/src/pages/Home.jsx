@@ -21,40 +21,44 @@ function Home() {
   return (
     <>
       <div className="home-main h-[35rem] bg-cover bg-center bg-no-repeat"></div>
-
       <div className="flex justify-center">
         <Link
           to="/appointmentBook"
-          className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white mt-4"
+          className="bg-darkBlue  hover:bg-opacity-80 w-1/3 p-4 rounded-lg text-center text-white mt-4"
         >
           Book Here
         </Link>
       </div>
       <section id="contact">
-        <div className="flex md:flex-row flex-col md:space-y-1 space-y-6 mt-4 mx-24 space-x-6">
-          <div className="md:w-1/2 flex justify-center">
+        <div className="flex flex-col md:flex-row md:space-y-0 space-y-6 mt-4 mx-4 md:mx-24 space-x-0 md:space-x-6">
+          {/* Image Section */}
+          <div className="flex justify-center w-full">
             <img
               src={Contact}
               alt="contact"
-              className="object-cover h-96 w-96"
+              className="object-cover h-96 w-full md:w-96 md:h-auto rounded-lg"
             />
           </div>
-          <div className="md:w-1/2 flex flex-col items-center h-auto justify-center space-y-10">
-            <h1 className="text-center py-4">GOT ANY QUESTIONS?</h1>
-            <p>
+          {/* Text Section */}
+          <div className="flex flex-col items-center h-auto justify-center space-y-6 w-full px-4 md:w-1/2">
+            <h1 className="text-center text-2xl font-semibold py-4">
+              GOT ANY QUESTIONS?
+            </h1>
+            <p className="text-center text-gray-600">
               If you have any questions regarding our services and products,
               please get in touch with a member of our team so we can talk about
               it.
             </p>
             <Link
               to="/contact"
-              className="bg-darkBlue bg-opacity-80 hover:bg-mediumBlue w-1/3 p-4 rounded-lg text-center text-white"
+              className="bg-darkBlue hover:bg-opacity-80 w-full md:w-1/3 p-4 rounded-lg text-center text-white"
             >
               Contact
             </Link>
           </div>
         </div>
       </section>
+
       <FeedbackList newFeedback={newFeedback} />
 
       {user ? (
@@ -70,7 +74,7 @@ function Home() {
         <div className="flex justify-center">
           <Link
             to="/login"
-            className="bg-darkBlue border-2 border-darkBlue w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent hover:text-darkBlue transition duration-1000 delay-150"
+            className="bg-green border-4 border-green w-1/3 p-4 rounded-lg text-center text-white hover:bg-transparent hover:text-green transition duration-1000 delay-150"
           >
             Post Review
           </Link>

@@ -12,6 +12,10 @@ function Login() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
   const { email, password } = formData;
 
   const onChange = (e) => {
@@ -21,33 +25,71 @@ function Login() {
     }));
   };
 
+  const validateForm = () => {
+    const newErrors = { email: "", password: "" };
+    if (!email) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!password) {
+      newErrors.password = "Password is required.";
+    }
+    setErrors(newErrors);
+
+    // Clear errors after 2 seconds (3000ms)
+    setTimeout(() => {
+      setErrors({
+        email: "",
+        password: "",
+      });
+    }, 2000);
+
+    return !newErrors.email && !newErrors.password;
+  };
+
   const loginUser = async (e) => {
     e.preventDefault();
-    const loginData = {
-      email,
-      password,
-    };
+
+    if (!validateForm()) {
+      return;
+    }
+    const loginData = { email, password };
     try {
       const response = await api.post("/login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
-      // ✅ Fetch and update user data
+
+      // Fetch and update user data
       const userResponse = await api.get("/profile/");
       setUser(userResponse.data); // Updates the user state in context
       navigate("/"); // Redirects to the homepage
     } catch (error) {
-      toast.error(`Whoops! Looks like something’s off. Try again, champ! 💪`);
+      if (error.response) {
+        const errorData = error.response.data;
+        // Handle invalid credentials error
+        if (errorData.non_field_errors) {
+          toast.error(
+            `Invalid credentials. Please check your email and password.`
+          );
+        } else {
+          toast.error(
+            "Whoops! Looks like something’s off. Try again, champ! 💪"
+          );
+        }
+      }
       console.error(error);
     }
   };
+
   return (
-    <div className="flex flex-col items-center mt-10 bg-lightBg w-2/3 mx-auto rounded-xl">
-      <header className="flex flex-col items-center my-4 text-darkBlue">
+    <div className="flex flex-col items-center mt-10 bg-lightBg md:w-2/3 w-4/5 mx-auto rounded-xl">
+      <header className="flex flex-col items-center my-4 text-darkBlue p-4">
         <h1 className="font-bold">Sign in</h1>
         <p className="italic text-sm">
-          Sign in with your email or sign up to become a our member.
+          Sign in with your email or sign up to become a member.
         </p>
       </header>
-      <form className="p-4" onSubmit={loginUser}>
+      <form className="p-4">
         <div>
           <input
             type="email"
@@ -58,7 +100,9 @@ function Login() {
             required
             value={email}
             onChange={onChange}
+            autoComplete="email"
           />
+
           <input
             type="password"
             className="w-full p-4 ps-10 text-sm rounded-lg text-darkBlue focus:outline-darkBlue focus:outline-4"
@@ -70,6 +114,13 @@ function Login() {
             onChange={onChange}
             autoComplete="current-password"
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
+          {errors.password && (
+            <p className="text-red-500 text-sm">{errors.password}</p>
+          )}
+
           <p className="mb-4">
             <Link to="/register" className="text-darkBlue text-sm italic">
               Sign Up

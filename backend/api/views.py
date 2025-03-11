@@ -202,5 +202,5 @@ class FeedbackDelete(generics.DestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Feedback.objects.filter(author=user)
+        return Feedback.objects.filter(user=user)
 

@@ -160,3 +160,56 @@ Appointment status  */
 .animate-shake {
   animation: shake 0.5s ease-in-out;
 }
+@keyframes scaleUp {
+  0% {
+    transform: scale(2); /* Start with text being twice as large */
+  }
+  100% {
+    transform: scale(1); /* End with normal size */
+  }
+}
+
+.animate-scaleUp {
+  animation: scaleUp 1s ease-out; /* Animation duration and easing */
+}
+/* Carousel.css */
+
+.full-width-carousel {
+  width: 100%;
+  margin: 0 auto;
+}
+.full-width-slide-group {
+  display: flex !important;
+  flex-direction: row;
+  margin-bottom: 3rem;
+}
+.full-width-slide {
+  width: 100vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-dots.custom-dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex !important; /* Her zaman göster */
+  justify-content: center;
+}
+
+.slick-dots.custom-dots li {
+  margin: 0 5px;
+}
+
+.slick-dots.custom-dots li button:before {
+  font-size: 12px;
+  color: gray;
+  opacity: 1 !important; /* Her zaman görünür yap */
+}
+
+.slick-dots.custom-dots li.slick-active button:before {
+  color: black;
+}

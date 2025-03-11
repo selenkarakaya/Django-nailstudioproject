@@ -1,6 +1,7 @@
 import selena from "../assets/image/aboutSelena.png";
 import sophia from "../assets/image/aboutSophia.png";
 import jess from "../assets/image/aboutJess.png";
+
 const About = () => {
   const experts = [
     {
@@ -27,11 +28,12 @@ const About = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-semibold text-center text-gray-800 mb-8">
+    <div className="max-w-7xl mx-auto px-4 py-16 bg-gradient-to-r from-lightBlue to-darkBlue">
+      {/* Section Title */}
+      <h1 className="text-4xl font-semibold text-center text-white mb-8">
         Welcome to Selena Nail Studio
       </h1>
-      <p className="text-xl text-center text-gray-600 mb-8">
+      <p className="text-xl text-center text-gray-200 mb-12 leading-relaxed max-w-2xl mx-auto">
         At Selena Nail Studio, we are dedicated to providing you with
         exceptional nail care services in a welcoming and relaxing environment.
         Whether you're looking for a classic manicure, trendy nail art, or a
@@ -41,29 +43,30 @@ const About = () => {
         feeling pampered and confident.
       </p>
 
+      {/* Meet Our Experts */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-semibold text-gray-800">
-          Meet Our Experts
-        </h2>
+        <h2 className="text-3xl font-semibold text-white">Meet Our Experts</h2>
       </div>
 
-      <div className="space-y-16 w-3/4 mx-auto">
+      {/* Expert Cards */}
+      <div className="space-y-16 sm:space-y-8 md:space-y-16 w-full lg:w-3/4 mx-auto">
         {experts.map((expert, index) => (
           <div
             key={index}
-            className={`flex items-center justify-between ${
-              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-            } space-x-8`}
+            className="flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-500 transform hover:scale-105 sm:flex-col sm:space-y-6 sm:text-center md:flex-col md:space-y-6 md:text-center"
           >
-            <div className="flex-shrink-0 w-48 h-48">
+            {/* Image Section */}
+            <div className="flex-shrink-0 w-48 h-48 p-4 mx-auto sm:w-36 sm:h-36">
               <img
                 src={expert.image}
                 alt={expert.name}
-                className="w-full h-full rounded-full object-cover"
+                className="w-full h-full rounded-full object-cover shadow-lg"
               />
             </div>
-            <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gray-800">
+
+            {/* Text Section */}
+            <div className="flex-1 p-6">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {expert.name}
               </h3>
               <p className="text-center text-gray-600 mb-2">{expert.role}</p>
