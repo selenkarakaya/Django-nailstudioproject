@@ -40,36 +40,6 @@ const FeedbackList = ({ newFeedback }) => {
   const handleDelete = (id) => {
     setFeedbacks(feedbacks.filter((feedback) => feedback.id !== id)); // Remove the deleted feedback from the list
   };
-  // Calculate items per page based on screen size
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      const screenWidth = window.innerWidth;
-      const itemsVisible = Math.floor(screenWidth / 300); // 300px, the approximate width of each item.
-      setItemsPerPage(itemsVisible > 0 ? itemsVisible : 1); // Display at least 1 item.
-    };
-
-    updateItemsPerPage(); // Calculate initially.
-    window.addEventListener("resize", updateItemsPerPage); // Recalculate if the screen size changes.
-
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
-
-  // Handlers for navigation
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex > 0
-        ? prevIndex - 1
-        : Math.ceil(feedbacks.length / itemsPerPage) - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 < Math.ceil(feedbacks.length / itemsPerPage)
-        ? prevIndex + 1
-        : 0
-    );
-  };
 
   // Loading or Error State
   if (loading) {
@@ -82,49 +52,9 @@ const FeedbackList = ({ newFeedback }) => {
       <h1 className="text-center text-lg italic font-bold my-6">
         Reviews from Those Who Trust Us
       </h1>
-      <Carousel feedbacks={feedbacks} onDelete={handleDelete} />
 
       {feedbacks.length > 0 ? (
-        <>
-          <div className="relative flex items-center justify-center mx-6">
-            {/* Feedback Container */}
-            <div className="overflow-hidden w-full max-w-full">
-              <div
-                className="flex space-x-2 transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(-${
-                    currentIndex * (100 / itemsPerPage)
-                  }%)`, // Adjusted for correct movement
-                  width: `${feedbacks.length * (100 / itemsPerPage)}%`, // Width of all feedbacks to fit into carousel
-                }}
-              >
-                {feedbacks.map((feedback) => (
-                  <Feedback
-                    key={feedback.id}
-                    feedback={feedback}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center justify-center space-x-4 my-4">
-            {/* Left Arrow Button */}
-            <button
-              onClick={goToPrevious}
-              className="  bg-green text-white p-2 rounded-full z-10"
-            >
-              &lt; {/* Left Arrow */}
-            </button>
-            {/* Right Arrow Button */}
-            <button
-              onClick={goToNext}
-              className=" bg-green text-white p-2 rounded-full z-10"
-            >
-              &gt; {/* Right Arrow */}
-            </button>
-          </div>
-        </>
+        <Carousel feedbacks={feedbacks} onDelete={handleDelete} />
       ) : (
         <p>Be the first to share feedback! 💬🌟</p>
       )}

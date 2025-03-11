@@ -1,5 +1,3 @@
-// //Carousel.jsx
-
 // import React from "react";
 // import Slider from "react-slick";
 
@@ -7,10 +5,6 @@
 // import "slick-carousel/slick/slick-theme.css";
 
 // const Carousel = ({ feedbacks }) => {
-//   const chunkedFeedbacks = [];
-//   for (let i = 0; i < feedbacks.length; i += 4) {
-//     chunkedFeedbacks.push(feedbacks.slice(i, i + 4));
-//   }
 //   const settings = {
 //     dots: true,
 //     infinite: true,
@@ -26,8 +20,7 @@
 //             padding: "0px",
 //           }}
 //         >
-//           {" "}
-//           {dots}{" "}
+//           {dots}
 //         </ul>
 //       </div>
 //     ),
@@ -54,45 +47,20 @@
 //   };
 
 //   return (
-//     <>
-//       <div className="full-width-carousel">
-//         <Slider {...settings}>
-//           {chunkedFeedbacks.map((chunk, index) => (
-//             <div
-//               key={index}
-//               className="full-width-slide flex justify-between space-x-4"
-//             >
-//               {chunk.map((feedback, idx) => (
-//                 <div
-//                   key={idx}
-//                   className="w-full p-4 text-center bg-gray-100 rounded-lg"
-//                 >
-//                   <p>{feedback}</p>
-//                 </div>
-//               ))}
-//             </div>
-//           ))}
-//           {/* <div className="full-width-slide">
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
+//     <div className="full-width-carousel">
+//       <Slider {...settings}>
+//         {/* Map through feedbacks and render each feedback */}
+//         {feedbacks.map((feedback, index) => (
+//           <div key={index} className="full-width-slide bg-lightBg">
+//             {/* Assuming feedback is an object with a 'text' or 'message' field */}
+//             <p>{feedback?.comment || "No comment provided"}</p>
+//             <p className="text-end italic">
+//               {feedback?.user?.username || "Anonymous"}
+//             </p>
 //           </div>
-//           <div className="full-width-slide">
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//           </div>
-//           <div className="full-width-slide">
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//             <h1>selen</h1>
-//           </div> */}
-//         </Slider>
-//       </div>
-//     </>
+//         ))}
+//       </Slider>
+//     </div>
 //   );
 // };
 
@@ -102,24 +70,30 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // React Icons'dan ok ikonları
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { MdCancelPresentation } from "react-icons/md";
-import { toast } from "react-toastify";
 import api from "../api";
+import { toast } from "react-toastify";
 
 const Carousel = ({ feedbacks, onDelete }) => {
   const settings = {
-    dots: true,
+    dots: false, // Noktaları devre dışı bırakıyoruz
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
-    dotsClass: "slick-dots custom-dots",
 
-    appendDots: (dots) => (
-      <div>
-        <ul style={{ margin: "0px", padding: "0px" }}>{dots}</ul>
+    // Ok ikonları için prevArrow ve nextArrow ayarları
+    prevArrow: (
+      <div className="slick-prev">
+        <FaChevronLeft size={30} style={{ color: "black" }} />
+      </div>
+    ),
+    nextArrow: (
+      <div className="slick-next">
+        <FaChevronRight size={30} style={{ color: "black" }} />
       </div>
     ),
 
@@ -130,7 +104,6 @@ const Carousel = ({ feedbacks, onDelete }) => {
           slidesToShow: 1,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
         },
       },
       {
@@ -143,14 +116,19 @@ const Carousel = ({ feedbacks, onDelete }) => {
       },
     ],
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      weekday: "short", // Hafta günü
+      year: "numeric", // Yıl
+      month: "short", // Ay (kısa formatta)
+      day: "numeric", // Gün
+      hour: "2-digit", // Saat
+      minute: "2-digit", // Dakika
+    });
+  };
   const { user } = useContext(UserContext);
-  const chunks = [];
-  for (let i = 0; i < feedbacks.length; i += 4) {
-    chunks.push(feedbacks.slice(i, i + 4));
-  }
-
   const onDeleteHandler = (id) => {
-    console.log(id);
     api
       .delete(`/appointment/feedback/delete/${id}/`)
       .then((res) => {
@@ -161,37 +139,35 @@ const Carousel = ({ feedbacks, onDelete }) => {
       })
       .catch((err) => toast.error(`Oops! Something went wrong.`));
   };
+
   return (
-    <>
-      <div className="full-width-carousel">
-        <Slider {...settings}>
-          {chunks.map((chunk, index) => (
-            <div
-              key={index}
-              className="full-width-slide-group space-x-4 bg-darkBlue"
-            >
-              {chunk.map((feedback, idx) => (
-                <div
-                  className="full-width-slide  bg-lightBg rounded-lg"
-                  key={idx}
-                >
-                  {user && feedback.user.username == user.username && (
-                    <button onClick={() => onDeleteHandler(feedback.id)}>
-                      <MdCancelPresentation />
-                    </button>
-                  )}
-                  <h3>{feedback.user.username}</h3>{" "}
-                  {/* Kullanıcı adını göster */}
-                  <p>{feedback.comment}</p> {/* Yorum metnini göster */}
-                  <small>{feedback.created_at}</small>{" "}
-                  {/* Yorumun oluşturulma tarihini göster */}
-                </div>
-              ))}
+    <div className="">
+      <Slider {...settings}>
+        {feedbacks.map((feedback, index) => (
+          <div key={index} className="full-width-slide flex bg-lightBg mx-auto">
+            {user && feedback.user.username == user.username && (
+              <button
+                className="m-1"
+                onClick={() => onDeleteHandler(feedback.id)}
+              >
+                <MdCancelPresentation />
+              </button>
+            )}
+            <div>
+              <p className="text-center">
+                {feedback?.comment || "No comment provided"}
+              </p>
+              <p className="text-end italic mr-3">
+                {feedback?.user?.username || "Anonymous"}
+              </p>
+              <p className="text-end italic mr-3">
+                {formatDate(feedback?.created_at)}
+              </p>
             </div>
-          ))}
-        </Slider>
-      </div>
-    </>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 

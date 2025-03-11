@@ -174,42 +174,47 @@ Appointment status  */
 }
 /* Carousel.css */
 
-.full-width-carousel {
-  width: 100%;
-  margin: 0 auto;
-}
-.full-width-slide-group {
-  display: flex !important;
-  flex-direction: row;
-  margin-bottom: 3rem;
-}
 .full-width-slide {
-  width: 100vw;
+  width: 40vw !important;
   height: 30vh;
-  display: flex;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
 }
 
-.slick-dots.custom-dots {
+/* Ok ikonlarını slider'ın alt kısmına yerleştirme */
+/* Slider'ın alt kısmındaki ok ikonları */
+/* Slider'ın içinde okların düzgün bir şekilde yerleşmesi için */
+.slick-prev,
+.slick-next {
   position: absolute;
-  bottom: 10px;
-  width: 100%;
-  display: flex !important; /* Her zaman göster */
-  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%); /* Okları dikeyde ortala */
+  z-index: 1000;
+  cursor: pointer;
 }
 
-.slick-dots.custom-dots li {
-  margin: 0 5px;
+/* Sol ok için */
+.slick-prev {
+  left: 10px;
 }
 
-.slick-dots.custom-dots li button:before {
-  font-size: 12px;
-  color: gray;
-  opacity: 1 !important; /* Her zaman görünür yap */
+/* Sağ ok için */
+.slick-next {
+  right: 10px;
 }
 
-.slick-dots.custom-dots li.slick-active button:before {
-  color: black;
+/* Slider'ın altındaki ok ikonları */
+.slick-prev,
+.slick-next {
+  color: black; /* Okların siyah renk olması için */
+  font-size: 30px;
+}
+
+/* Slider’ın alt kısmındaki ok ikonları */
+.slick-prev,
+.slick-next {
+  display: block;
+  background: transparent;
+  border: none;
 }
