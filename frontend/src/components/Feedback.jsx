@@ -1,5 +1,5 @@
 import { MdCancelPresentation } from "react-icons/md";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { toast } from "react-toastify";
 import api from "../api";
@@ -22,7 +22,7 @@ function Feedback({ feedback, onDelete }) {
   return (
     <div>
       <div className="p-4 bg-lightBg rounded-lg">
-        {feedback.user.username == user.username && (
+        {user && feedback.user.username == user.username && (
           <button onClick={() => onDeleteHandler(feedback.id)}>
             <MdCancelPresentation />
           </button>

@@ -175,7 +175,7 @@ const Carousel = ({ feedbacks, onDelete }) => {
                   className="full-width-slide  bg-lightBg rounded-lg"
                   key={idx}
                 >
-                  {feedback.user.username == user.username && (
+                  {user && feedback.user.username == user.username && (
                     <button onClick={() => onDeleteHandler(feedback.id)}>
                       <MdCancelPresentation />
                     </button>
