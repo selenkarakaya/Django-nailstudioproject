@@ -79,13 +79,12 @@ import { toast } from "react-toastify";
 
 const Carousel = ({ feedbacks, onDelete }) => {
   const settings = {
-    dots: false, // Noktaları devre dışı bırakıyoruz
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
 
-    // Ok ikonları için prevArrow ve nextArrow ayarları
     prevArrow: (
       <div className="slick-prev">
         <FaChevronLeft size={30} style={{ color: "black" }} />
@@ -119,12 +118,12 @@ const Carousel = ({ feedbacks, onDelete }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB", {
-      weekday: "short", // Hafta günü
-      year: "numeric", // Yıl
-      month: "short", // Ay (kısa formatta)
-      day: "numeric", // Gün
-      hour: "2-digit", // Saat
-      minute: "2-digit", // Dakika
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
   const { user } = useContext(UserContext);
@@ -144,7 +143,10 @@ const Carousel = ({ feedbacks, onDelete }) => {
     <div className="">
       <Slider {...settings}>
         {feedbacks.map((feedback, index) => (
-          <div key={index} className="full-width-slide flex bg-lightBg mx-auto">
+          <div
+            key={index}
+            className="full-width-slide flex bg-lightBg mx-auto p-10"
+          >
             {user && feedback.user.username == user.username && (
               <button
                 className="m-1"

@@ -1,3 +1,8 @@
+'''
+Defines the structure of the application's database by creating various models (tables). 
+Each model represents a specific entity in the application, such as a user, appointment, feedback, or other related data.
+'''
+
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
@@ -5,9 +10,25 @@ import datetime
 # Create your models here.
 
 class Appt(models.Model):
-    '''
-    apppointment model
-    '''
+    """
+    Appointment Model
+
+    This model allows users to book an appointment for a specific service.
+    It stores essential appointment details and tracks the associated user.
+
+    Fields:
+    -------
+    - `service` (CharField): Specifies the name of the service for the appointment. Maximum length is 50 characters.
+    - `message` (TextField): An optional message from the user. Maximum length is 200 characters.
+    - `appointment_date` (DateTimeField): Stores the date and time of the appointment. Defaults to the current date and time.
+    - `status` (CharField): Indicates the status of the appointment. Defaults to 'open'.
+    - `created_at` (DateTimeField): Automatically records the appointment creation timestamp.
+    - `author` (ForeignKey): Refers to the user who created the appointment. If the user is deleted, the appointment is also removed.
+
+    Methods:
+    --------
+    - `__str__()`: Returns key appointment details in a readable format for easy display in the admin panel and other views.
+    """
     service= models.CharField(max_length=50)
     message=models.TextField(max_length=200,blank=True, null=True)
     appointment_date = models.DateTimeField(default=datetime.datetime.now)
@@ -20,7 +41,24 @@ class Appt(models.Model):
     
 
 class Feedback(models.Model):
-    ''' feedback model '''
+    """
+    Feedback Model
+
+    This model is used to store feedback submitted by users. It allows users to leave comments
+    and optionally upload images related to their feedback. Each feedback entry is associated with
+    a specific user, and the creation timestamp is automatically recorded.
+
+    Fields:
+    -------
+    - `user` (ForeignKey): A reference to the user who provided the feedback. If the user is deleted, their feedback is also deleted.
+    - `comment` (TextField): The comment or text feedback provided by the user.
+    - `image` (ImageField): An optional image uploaded by the user. Stored in the 'feedback_images/' directory.
+    - `created_at` (DateTimeField): The timestamp of when the feedback was created. Automatically set when the feedback is created.
+
+    Methods:
+    --------
+    - `__str__()`: Returns a string representation of the feedback, showing the username of the user who provided it and the creation time.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)  #user information
     comment = models.TextField()  #comment from the user
     image = models.ImageField(upload_to='feedback_images/', null=True, blank=True)  #Image from the user
@@ -29,28 +67,3 @@ class Feedback(models.Model):
         return f"Feedback from {self.user.username} at {self.created_at}"
 
 
-'''
-user = User.objects.get(id=1)
-appointments = user.appointment.all()  # Access all appointments of the user
-
-models.ForeignKey:
-This defines a foreign key relationship, linking the current model to another model (User in this case).
-
-User:
-The model being referenced by this foreign key. Typically, User is the built-in Django model used for user authentication.
-
-on_delete=models.CASCADE:
-This specifies what should happen when the referenced User is deleted.
-models.CASCADE means that if the user is deleted, all associated Appointment (or whatever model this field is part of) instances will also be deleted automatically.
-
-related_name="appointment":
-This defines the reverse relationship from the User model to the model containing this foreign key.
-
-You can use user.appointment to access all Appointment instances that are related to a specific user. If the related_name is not provided, Django automatically uses the lowercase model name as the reverse relationship (e.g., appointment_set).
-
-
-In Django, the __str__ method is used to represent an instance of a model as a string. This means that when the model instance is printed using print() or displayed in the Django admin interface, the string returned by __str__ will be shown. The purpose of this method is to provide a human-readable representation of the model instance.
-
-For example, in the case of an Appt model, you might want to display the service name, the user who created the appointment, and the creation date in a clear and readable format. The __str__ method ensures that whenever an Appt instance is printed or displayed, this meaningful string representation will be used.
-
-'''    

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import api from "../api";
 import Button from "../components/Button";
 import UserContext from "../context/UserContext";
+import Spinner from "../components/Spinner";
 
 function Login() {
   const { setUser } = useContext(UserContext);
@@ -12,11 +13,12 @@ function Login() {
     email: "",
     password: "",
   });
+  const { email, password } = formData;
   const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
-  const { email, password } = formData;
+  const [loading, setLoading] = useState(false);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -54,6 +56,9 @@ function Login() {
     if (!validateForm()) {
       return;
     }
+
+    setLoading(true);
+
     const loginData = { email, password };
     try {
       const response = await api.post("/login/", loginData);
@@ -78,6 +83,8 @@ function Login() {
         }
       }
       console.error(error);
+    } finally {
+      setLoading(false); // Stop loading after the request is complete
     }
   };
 
@@ -130,6 +137,7 @@ function Login() {
 
         <div className="text-center">
           <Button text="Submit" onClick={loginUser} />
+          {loading && <Spinner />}
         </div>
       </form>
     </div>

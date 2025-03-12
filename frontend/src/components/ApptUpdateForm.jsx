@@ -1,7 +1,6 @@
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import React, { useState, useEffect } from "react";
-import BackButton from "../components/BackButton";
 import Button from "./Button";
 import api from "../api";
 
@@ -50,7 +49,6 @@ function ApptUpdateForm({}) {
     <div>Loading...</div>
   ) : (
     <div>
-      <BackButton />
       <h1 className="text-center">Update Appointment</h1>
       <form onSubmit={updateAppointment} className="form">
         <div className="form-group">

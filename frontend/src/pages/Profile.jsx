@@ -3,18 +3,17 @@ import { useContext } from "react";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
-import BackButton from "../components/BackButton";
 import UserContext from "../context/UserContext";
+import Spinner from "../components/Spinner";
 
 function Profile() {
   const { user } = useContext(UserContext);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   return (
     <div>
-      <BackButton />
       <div className="mb-5">
         <header className="flex items-center space-x-8">
           <p className="pl-2 md:text-xl text-sm">My Account • </p>

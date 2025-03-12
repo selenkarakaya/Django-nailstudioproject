@@ -10,6 +10,6 @@ urlpatterns=[
     path("appointment/feedback/", views.FeedbackCreate.as_view(), name='feedback-create'),
     path("appointment/feedbacks/",views.FeedbackListView.as_view(), name="feedback-list"),
     path("appointment/feedback/delete/<int:pk>/",views.FeedbackDelete.as_view(), name="feedback-delete"),
-    ]
+]
 
 
