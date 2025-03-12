@@ -32,7 +32,7 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
           setSuccess(false);
           onFeedbackSubmit(response.data); // Send the new feedback to the parent component
           onClose(); // Close the modal
-        }, 1500);
+        }, 1000);
       }
     } catch (err) {
       console.error("Error submitting feedback:", err.response?.data);
