@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../api";
-import Feedback from "./Feedback";
 import Carousel from "./Carousel";
+import Spinner from "./Spinner";
 
 const FeedbackList = ({ newFeedback }) => {
   const [feedbacks, setFeedbacks] = useState([]); // State for storing feedback data
   const [loading, setLoading] = useState(true); // State for indicating loading status
-  const [currentIndex, setCurrentIndex] = useState(0); // State for tracking current carousel position
-  const [itemsPerPage, setItemsPerPage] = useState(4); // Number of feedbacks to display at a time
 
   // Fetch feedbacks from API
   useEffect(() => {
@@ -43,7 +41,7 @@ const FeedbackList = ({ newFeedback }) => {
 
   // Loading or Error State
   if (loading) {
-    return <p>Loading feedbacks...</p>;
+    return <Spinner />;
   }
 
   // Feedback List Rendering
