@@ -49,7 +49,7 @@ const FeedbackList = ({ newFeedback }) => {
       {feedbacks.length > 0 ? (
         <Carousel feedbacks={feedbacks} onDelete={handleDelete} />
       ) : (
-        <p>Be the first to share feedback! 💬🌟</p>
+        <p>Be the first to share feedbacks! 💬🌟</p>
       )}
       {loading && <Spinner />}
     </div>
