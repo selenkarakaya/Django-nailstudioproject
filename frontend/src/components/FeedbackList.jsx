@@ -39,11 +39,6 @@ const FeedbackList = ({ newFeedback }) => {
     setFeedbacks(feedbacks.filter((feedback) => feedback.id !== id)); // Remove the deleted feedback from the list
   };
 
-  // Loading or Error State
-  if (loading) {
-    return <Spinner />;
-  }
-
   // Feedback List Rendering
   return (
     <div className="relative w-full">
@@ -56,6 +51,7 @@ const FeedbackList = ({ newFeedback }) => {
       ) : (
         <p>Be the first to share feedback! 💬🌟</p>
       )}
+      {loading && <Spinner />}
     </div>
   );
 };
