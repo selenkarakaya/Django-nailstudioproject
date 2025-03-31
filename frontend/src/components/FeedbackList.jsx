@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import api from "../api";
 import Carousel from "./Carousel";
 import Spinner from "./Spinner";
