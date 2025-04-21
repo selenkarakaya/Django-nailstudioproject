@@ -53,7 +53,12 @@ Through this project, my first experience with Django, I gained valuable insight
 - **Responsive Design with Tailwind CSS**: I enhanced my front-end skills by utilizing Tailwind CSS to create a responsive and visually appealing user interface that works well across different screen sizes.
 - **User Feedback**: I learned how to implement a feedback system where users can add and remove their comments, improving user interaction and experience.
 - This project strengthened my foundational understanding of Django and full-stack development, and it has fueled my passion for building secure, user-friendly web applications.
-  
+
+## Demo 🔗
+
+ 👉 [**You can check out a live demo! **](https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev) 
+
+
 ### 🏗️ Setup & Installation
 
 1. **Clone the repository**:
