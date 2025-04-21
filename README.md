@@ -56,7 +56,7 @@ Through this project, my first experience with Django, I gained valuable insight
 
 ## Demo 🔗
 
- 👉 [**You can check out a live demo! **](https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev) 
+ 👉 [** You can check out a live demo! **](https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev) 
 
 
 ### 🏗️ Setup & Installation
