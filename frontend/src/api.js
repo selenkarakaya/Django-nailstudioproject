@@ -1,9 +1,9 @@
 import axios from "axios";
-const apiURL = "/choreo-apis/selenanailstudio/backend/v1/api/";
+const apiURL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 const VITE_API_URL = "http://localhost:8000/api/";
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
-  baseURL: apiURL,
+  baseURL: `${API_BASE_URL}/api/`
   withCredentials: true,
 });
 
