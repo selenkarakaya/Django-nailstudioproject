@@ -90,7 +90,7 @@ class LoginView(TokenObtainPairView):
             value= access_token,
             httponly=True,
             secure=True,
-            samesite="Strict",
+            samesite="None",
             max_age=60*60*24
         )
 
@@ -99,7 +99,7 @@ class LoginView(TokenObtainPairView):
             refresh_token,
             httponly=True,
             secure=True,
-            samesite="Strict",
+            samesite="None",
             max_age=60*60*24
         )
         print(f"Tokens set: access_token={access_token}, refresh_token={refresh_token}")  # Debug log
