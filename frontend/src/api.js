@@ -12,7 +12,7 @@ api.interceptors.request.use(
   async (config) => {
     try {
       // Request access token from the backend
-      const response = await axios.get("token/get/", {
+      const response = await axios.get("/token/get/", {
         withCredentials: true,
       });
 
@@ -31,7 +31,7 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
-        await api.post("token/refresh/", {}); // backend: /api/token/refresh/
+        await api.post("/token/refresh/", {}); // backend: /api/token/refresh/
         return api(error.config);
       } catch {
         // refresh fail -> logout/redirect
