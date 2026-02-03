@@ -3,7 +3,7 @@ const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 // Create an Axios instance with base URL and credentials enabled
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  baseURL: `${API_BASE_URL}/api/`,
   withCredentials: true,
 });
 
@@ -19,9 +19,7 @@ api.interceptors.request.use(
       if (response.data.access_token) {
         config.headers.Authorization = `Bearer ${response.data.access_token}`;
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
     return config;
   },
   (error) => Promise.reject(error)
@@ -29,20 +27,14 @@ api.interceptors.request.use(
 
 // Axios response interceptor: Handle token expiration and refresh the token
 api.interceptors.response.use(
-  (response) => response,
+  (res) => res,
   async (error) => {
-    if (error.response && error.response.status === 401) {
-      
-
+    if (error.response?.status === 401) {
       try {
-        // Attempt to refresh the token using the refresh token stored in HttpOnly cookie
-        await axios.post("token/refresh/", {}, { withCredentials: true });
-
-        // Retry the original request
+        await api.post("token/refresh/", {}); // backend: /api/token/refresh/
         return api(error.config);
-      } catch (refreshError) {
-        
-        // Redirect the user to the login page or handle logout
+      } catch {
+        // refresh fail -> logout/redirect
       }
     }
     return Promise.reject(error);
