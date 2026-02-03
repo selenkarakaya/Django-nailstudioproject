@@ -20,7 +20,7 @@ api.interceptors.request.use(
         config.headers.Authorization = `Bearer ${response.data.access_token}`;
       }
     } catch (error) {
-      console.error("Access token could not be retrieved");
+      
     }
     return config;
   },
@@ -32,7 +32,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
-      console.log("Unauthorized request, attempting to refresh token...");
+      
 
       try {
         // Attempt to refresh the token using the refresh token stored in HttpOnly cookie
@@ -41,7 +41,7 @@ api.interceptors.response.use(
         // Retry the original request
         return api(error.config);
       } catch (refreshError) {
-        console.error("Token refresh failed, redirecting to login...");
+        
         // Redirect the user to the login page or handle logout
       }
     }
