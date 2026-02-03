@@ -7,24 +7,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Axios request interceptor: Automatically add the access token if available
-api.interceptors.request.use(
-  async (config) => {
-    try {
-      // Request access token from the backend
-      const response = await axios.get("/token/get/", {
-        withCredentials: true,
-      });
-
-      if (response.data.access_token) {
-        config.headers.Authorization = `Bearer ${response.data.access_token}`;
-      }
-    } catch (error) {}
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
 // Axios response interceptor: Handle token expiration and refresh the token
 api.interceptors.response.use(
   (res) => res,
