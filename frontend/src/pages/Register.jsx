@@ -72,7 +72,7 @@ function Register() {
 
     try {
       const response = await api.post("/user/register/", userData);
-      console.log("Registration Success:", response.data);
+
       toast.success(
         "You’ve successfully registered! 🎉 Feel free to log in now."
       );
@@ -89,8 +89,6 @@ function Register() {
           toast.error("Something went wrong. Please check your connection. 🚦");
         }
       }
-      console.error("Registration failed:", error.response);
-      console.error("Registration failed:", error.response?.data);
     }
   };
 
