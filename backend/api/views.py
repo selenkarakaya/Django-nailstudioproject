@@ -91,7 +91,8 @@ class LoginView(TokenObtainPairView):
             httponly=True,
             secure=True,
             samesite="None",
-            max_age=60*60*24
+            max_age=60*60*24,
+            path="/",
         )
 
         response.set_cookie(
@@ -100,7 +101,8 @@ class LoginView(TokenObtainPairView):
             httponly=True,
             secure=True,
             samesite="None",
-            max_age=60*60*24
+            max_age=60*60*24,
+            path="/",
         )
         print(f"Tokens set: access_token={access_token}, refresh_token={refresh_token}")  # Debug log
         return response

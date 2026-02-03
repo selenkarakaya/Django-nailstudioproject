@@ -55,7 +55,11 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
     >
       {/* Close button */}
       <div className="flex justify-end">
-        <button onClick={onClose} className="text-2xl text-gray-600">
+        <button
+          onClick={onClose}
+          type="button"
+          className="text-2xl text-gray-600"
+        >
           <AiOutlineClose /> {/* Close icon */}
         </button>
       </div>
