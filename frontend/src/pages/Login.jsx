@@ -61,11 +61,11 @@ function Login() {
 
     const loginData = { email, password };
     try {
-      const response = await api.post("login/", loginData);
+      const response = await api.post("/login/", loginData);
       toast.success(`Hey there! 🎉 You’re logged in. Let’s get started!`);
 
       // Fetch and update user data
-      const userResponse = await api.get("profile/");
+      const userResponse = await api.get("/profile/");
       setUser(userResponse.data); // Updates the user state in context
       navigate("/"); // Redirects to the homepage
     } catch (error) {
