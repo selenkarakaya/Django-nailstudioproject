@@ -82,11 +82,10 @@ function Home() {
       )}
 
       {/* FeedbackForm as a section under FeedbackList */}
-
       {isFormVisible && (
         <section className="mt-8">
           <FeedbackForm
-            onClose={() => setIsFormVisible(false)}
+            onClose={toggleFormVisibility}
             onFeedbackSubmit={handleFeedbackSubmit}
           />
         </section>
