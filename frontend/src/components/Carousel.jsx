@@ -16,7 +16,6 @@ const Carousel = ({ feedbacks, onDelete }) => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
-    arrows: false,
 
     prevArrow: (
       <div className="slick-prev">

@@ -218,3 +218,8 @@ Appointment status  */
   background: transparent;
   border: none;
 }
+
+.slick-prev:before,
+.slick-next:before {
+  display: none !important;
+}
