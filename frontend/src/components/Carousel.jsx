@@ -77,7 +77,7 @@ const Carousel = ({ feedbacks, onDelete }) => {
         {feedbacks.map((feedback, index) => (
           <div
             key={index}
-            className="full-width-slide bg-lightBg mx-auto p-6 rounded-lg shadow-sm"
+            className="full-width-slide bg-lightBg mx-auto p-6 rounded-lg shadow-sm h-full"
           >
             {user && feedback.user.username == user.username && (
               <button
@@ -96,7 +96,7 @@ const Carousel = ({ feedbacks, onDelete }) => {
                   loading="lazy"
                 />
               )}
-              <div className="flex flex-col gap-2 min-w-0 flex-1">
+              <div className="flex flex-col gap-2 min-w-0 flex-1 h-full">
                 <p className="break-words">
                   {feedback?.comment || "No comment provided"}
                 </p>
