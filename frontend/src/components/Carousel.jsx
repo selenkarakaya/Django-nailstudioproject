@@ -1,71 +1,3 @@
-// import React from "react";
-// import Slider from "react-slick";
-
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-
-// const Carousel = ({ feedbacks }) => {
-//   const settings = {
-//     dots: true,
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 1,
-//     slidesToScroll: 1,
-
-//     appendDots: (dots) => (
-//       <div>
-//         <ul
-//           style={{
-//             margin: "0px",
-//             padding: "0px",
-//           }}
-//         >
-//           {dots}
-//         </ul>
-//       </div>
-//     ),
-
-//     responsive: [
-//       {
-//         breakpoint: 1024,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//           infinite: true,
-//           dots: true,
-//         },
-//       },
-//       {
-//         breakpoint: 600,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//           initialSlide: 1,
-//         },
-//       },
-//     ],
-//   };
-
-//   return (
-//     <div className="full-width-carousel">
-//       <Slider {...settings}>
-//         {/* Map through feedbacks and render each feedback */}
-//         {feedbacks.map((feedback, index) => (
-//           <div key={index} className="full-width-slide bg-lightBg">
-//             {/* Assuming feedback is an object with a 'text' or 'message' field */}
-//             <p>{feedback?.comment || "No comment provided"}</p>
-//             <p className="text-end italic">
-//               {feedback?.user?.username || "Anonymous"}
-//             </p>
-//           </div>
-//         ))}
-//       </Slider>
-//     </div>
-//   );
-// };
-
-// export default Carousel;
-
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -84,6 +16,7 @@ const Carousel = ({ feedbacks, onDelete }) => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
+    arrows: false,
 
     prevArrow: (
       <div className="slick-prev">
