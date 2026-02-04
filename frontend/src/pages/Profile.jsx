@@ -9,6 +9,15 @@ import Spinner from "../components/Spinner";
 function Profile() {
   const { user } = useContext(UserContext);
 
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+
+  const openFeedback = () => setIsFeedbackOpen(true);
+  const closeFeedback = () => setIsFeedbackOpen(false);
+
+  const handleFeedbackSubmit = (feedback) => {
+    closeFeedback();
+  };
+
   if (!user) {
     return <Spinner />;
   }
@@ -17,14 +26,21 @@ function Profile() {
       <div className="mb-5">
         <header className="flex items-center space-x-8">
           <p className="pl-2 md:text-xl text-sm">My Account • </p>
-
-          <Link
+          <button
+            type="button"
+            onClick={openFeedback}
+            className="md:text-xl text-sm text-greens flex items-center space-x-2"
+          >
+            <GoCommentDiscussion />
+            <p>Help us improve •</p>
+          </button>
+          {/* <Link
             to="/feedbackForm"
             className="md:text-xl text-sm text-greens flex items-center space-x-2"
           >
             <GoCommentDiscussion />
             <p>Help us improve •</p>
-          </Link>
+          </Link> */}
           <Link
             to="/Contact"
             className="md:text-xl text-sm text-greens flex items-center space-x-2"
@@ -71,6 +87,14 @@ function Profile() {
           </div>
         </main>
       </div>
+      {isFeedbackOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <FeedbackForm
+            onClose={closeFeedback}
+            onFeedbackSubmit={handleFeedbackSubmit}
+          />
+        </div>
+      )}
       <Appointments />
     </div>
   );
