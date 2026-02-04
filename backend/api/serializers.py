@@ -179,11 +179,12 @@ class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         fields = ["id", "user", "comment", "image", "image_url", "created_at"]
-  def get_image_url(self, obj):
+    def get_image_url(self, obj):
         if not obj.image:
             return None
         try:
-            return obj.image.url
+            url = obj.image.url
+            return url.replace("http://", "https://")
         except Exception:
             return str(obj.image)
     def create(self, validated_data):
