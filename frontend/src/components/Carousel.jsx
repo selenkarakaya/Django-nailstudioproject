@@ -97,7 +97,7 @@ const Carousel = ({ feedbacks, onDelete }) => {
                   loading="lazy"
                 />
               )}
-              <div className="flex flex-col gap-2 min-w-0">
+              <div className="flex flex-col gap-2 min-w-0 flex-1">
                 <p className="break-words">
                   {feedback?.comment || "No comment provided"}
                 </p>
