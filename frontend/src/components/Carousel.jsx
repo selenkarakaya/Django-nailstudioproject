@@ -162,9 +162,9 @@ const Carousel = ({ feedbacks, onDelete }) => {
               <p className="text-center">
                 {feedback?.comment || "No comment provided"}
               </p>
-              {feedback?.image && (
+              {feedback.image_url && (
                 <img
-                  src={feedback.image}
+                  src={feedback.image_url}
                   alt="feedback"
                   className="w-32 h-32 object-cover rounded-lg shadow-md"
                   loading="lazy"
