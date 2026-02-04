@@ -121,15 +121,11 @@ class LogoutView(APIView):
         # Clear the cookies
         response.delete_cookie(
             'access_token',
-            path="/",
-            samesite="None",
-            secure=True,
+            path="/"
         )
         response.delete_cookie(
             'refresh_token',
-            path="/",
-            samesite="None",
-            secure=True,
+            path="/"
         )
         
         return response
