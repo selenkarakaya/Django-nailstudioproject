@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
+import FeedbackForm from "../components/FeedbackForm";
 import { GoCommentDiscussion } from "react-icons/go";
 import { BiEditAlt } from "react-icons/bi";
 import Appointments from "../components/Appointments";
