@@ -29,45 +29,36 @@ Selena Nail Studio is a web application designed to manage appointments and prov
 - **Backend**: Django
 - **Database**: PostgreSQL
   
-### Usage 🔧
+## 🔧 Usage
 
 1. **Register or log in** to your account.
-2. Once logged in, you can **book a new appointment**.
-3. You can view your **profile** and manage your appointments. If an appointment date has passed, the "Cancel" and "Edit" options will be disabled.
-4. You can **leave feedback** on your experience at the nail studio. 
-    - To provide feedback, go to the **Feedback** section and submit your review.
-    - If you wish to delete your feedback, you can do so via the **Manage Feedback** section.
+2. **Book an appointment** after logging in.
+3. Visit your **Profile Page** to:
+   - View upcoming appointments  
+   - Edit or cancel future bookings  
+4. **Leave feedback** about your experience with image.
+5.  **Delete** your feedback.
 
-### Feedback Feature 💬
-
-Users can leave feedback about their experience at Selena Nail Studio. Feedback is stored in the database and can be deleted by the user if desired.
-
-#### To Leave Feedback:
-1. Go to the **Feedback** section in your profile page.
-2. Write and submit your feedback.
-
-#### To Delete Feedback:
-1. In the **Manage Feedback** section, click the "Delete" button next to your feedback to remove it.
-
+---
 ## 📚 Learning & Insights
 
-Through this project, my first experience with Django, I gained valuable insights and skills, including:
+This project represents my **first hands-on experience with Django**, where I gained practical knowledge in full-stack development:
 
-- **User Authentication**: I learned how to implement user registration, login, and logout functionalities, allowing users to create accounts and manage their sessions securely.
-- **Models, Serializers, and Views**: I gained hands-on experience working with Django models, serializers, and views to structure and manage data efficiently within the application.
-- **Creating and Managing User-Related Data**: I learned how to associate new objects with users, allowing them to create, edit, and delete entries related to their profile.
-- **CRUD Operations**: I gained the ability to perform CRUD (Create, Read, Update, Delete) operations for user-related objects, enabling users to manage their data effectively.
-- **Django REST Framework**: Through the use of serializers and views, I deepened my understanding of how to build APIs and handle data serialization for efficient communication between the frontend and backend.
-- **Responsive Design with Tailwind CSS**: I enhanced my front-end skills by utilizing Tailwind CSS to create a responsive and visually appealing user interface that works well across different screen sizes.
-- **User Feedback**: I learned how to implement a feedback system where users can add and remove their comments, improving user interaction and experience.
-- This project strengthened my foundational understanding of Django and full-stack development, and it has fueled my passion for building secure, user-friendly web applications.
+- User authentication (register, login, logout)
+- Working with **Django Models, Serializers, and Views**
+- Associating data with authenticated users
+- Full **CRUD operations**
+- Building RESTful APIs using **Django REST Framework**
+- Managing frontend–backend communication
+- Creating responsive UI with **Tailwind CSS**
+- Implementing user-generated feedback systems
 
-## Demo 🔗
+This project significantly strengthened my Django fundamentals and increased my confidence in building secure, scalable web applications.
 
- 👉 [**You can check out a live demo!**](https://f0cd3c7e-6ff3-490c-b642-a2b916772aa2.e1-eu-north-azure.choreoapps.dev) 
+---
 
 
-### 🏗️ Setup & Installation
+## 🏗️ Setup & Installation
 
 1. **Clone the repository**:
 
@@ -80,42 +71,42 @@ Through this project, my first experience with Django, I gained valuable insight
 
 - Navigate to the frontend directory:
 
-```bash
-   cd frontend
-```
+  ```bash
+     cd frontend
+  ```
 
 - Install dependencies:
 
-```bash
-   npm install
-```
+  ```bash
+     npm install
+  ```
 
 - Run the development server:
 
-```bash
-    npm run dev
-```
+  ```bash
+      npm run dev
+  ```
 
 3. **Backend Setup**:
 
 - Navigate to the frontend directory:
 
-```bash
-   source env/bin/activate
-   cd backend
-```
+  ```bash
+     source env/bin/activate
+     cd backend
+  ```
 
 - Install dependencies:
 
-```bash
-   pip install -r requirements.txt
-```
+  ```bash
+     pip install -r requirements.txt
+  ```
 
 - Start the Django server:
 
-```bash
-   python manage.py runserver
-```
+  ```bash
+     python manage.py runserver
+  ```
 
 ## 📄 License
 
