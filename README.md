@@ -2,6 +2,14 @@
 
 Selena Nail Studio is a web application designed to manage appointments and provide a user-friendly interface for clients. Users can register, log in, book appointments, and manage their profiles and bookings. The platform also provides the functionality to edit or cancel appointments, with disabled options for past appointments. Additionally, users can leave feedback on their experience and delete it if they choose to.
 
+### 🚀 Live Demo
+
+| 🌐  Live Application | 🔑  Test Account |
+|--------------------|----------------|
+| 👉 [Click here](https://nailstudio-frontend-production.up.railway.app/) | 👉 Email: test@nail.com, Password: 123456S? |
+
+</div>
+
 ## Features ✨
 
 - **Home Page** 🏠: Introduction to Selena Nail Studio.
