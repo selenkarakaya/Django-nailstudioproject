@@ -119,8 +119,18 @@ class LogoutView(APIView):
         response = Response({"message": "Logout successful"}, status=200)
         
         # Clear the cookies
-        response.delete_cookie('access_token')
-        response.delete_cookie('refresh_token')
+        response.delete_cookie(
+            'access_token',
+            path="/",
+            samesite="None",
+            secure=True,
+        )
+        response.delete_cookie(
+            'refresh_token',
+            path="/",
+            samesite="None",
+            secure=True,
+        )
         
         return response
 
