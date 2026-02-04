@@ -139,6 +139,8 @@ const Carousel = ({ feedbacks, onDelete }) => {
       .catch((err) => toast.error(`Oops! Something went wrong.`));
   };
 
+  feedbacks.map((feedback, index) => console.log(feedback));
+
   return (
     <div className="">
       <Slider {...settings}>
@@ -155,10 +157,19 @@ const Carousel = ({ feedbacks, onDelete }) => {
                 <MdCancelPresentation />
               </button>
             )}
+
             <div>
               <p className="text-center">
                 {feedback?.comment || "No comment provided"}
               </p>
+              {feedback?.image && (
+                <img
+                  src={feedback.image}
+                  alt="feedback"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md"
+                  loading="lazy"
+                />
+              )}
               <p className="text-end italic mr-3">
                 {feedback?.user?.username || "Anonymous"}
               </p>
