@@ -15,12 +15,14 @@ from ..authentication  import CookieJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import render
 from rest_framework.decorators import api_view
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class FeedbackCreate(generics.CreateAPIView):
     serializer_class = FeedbackSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [CookieJWTAuthentication]
-
+    parser_classes = [MultiPartParser, FormParser]
+    
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
