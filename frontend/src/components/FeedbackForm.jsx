@@ -92,7 +92,7 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
           />
         </div>
 
-        {/* Image upload
+        {/* Image upload */}
         <div>
           <label
             htmlFor="image"
@@ -107,7 +107,7 @@ const FeedbackForm = ({ onFeedbackSubmit, onClose }) => {
             onChange={(e) => setImage(e.target.files[0])}
             className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
-        </div> */}
+        </div>
 
         {/* Submit button */}
         <div className="text-center">
