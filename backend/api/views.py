@@ -20,13 +20,13 @@ from rest_framework import status
 
 
 @api_view(['GET'])
-class verify_token(APIView):
+class VerifyTokenView(APIView):
     authentication_classes = [CookieJWTAuthentication]
     permission_classes = [AllowAny]
 
     def get(self, request):
         if request.user and request.user.is_authenticated:
-            return Response({"isAuthenticated": True}, status=200)
+            return Response({"isAuthenticated": True}, status=status.HTTP_200_OK)
         return Response({"isAuthenticated": False}, status=status.HTTP_401_UNAUTHORIZED)
     
 
@@ -116,8 +116,8 @@ class LogoutView(APIView):
     Handles user logout by deleting the access and refresh tokens from cookies.
     Only authenticated users can log out.
     """
-    authentication_classes = [CookieJWTAuthentication] 
-    permission_classes = [IsAuthenticated]  # Only authenticated users can log out
+
+    permission_classes = [AllowAny]  
 
     def post(self, request):
         response = Response({"message": "Logout successful"}, status=200)
