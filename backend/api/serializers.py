@@ -175,20 +175,16 @@ class FeedbackSerializer(serializers.ModelSerializer):
    
     image = serializers.ImageField(required=False, allow_null=True)
 
-   
     image_url = serializers.SerializerMethodField()
     class Meta:
         model = Feedback
-        fields = ['id', 'user', 'comment', 'image', 'created_at']
-    def get_image(self, obj):
- 
+        fields = ["id", "user", "comment", "image", "image_url", "created_at"]
+    def get_image_url(self, obj):
         if not obj.image:
             return None
- 
         try:
             return obj.image.url
         except Exception:
-           
             return str(obj.image)
     def create(self, validated_data):
         #While creating the feedback, we verify the user's information and save the feedback.
