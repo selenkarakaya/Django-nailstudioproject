@@ -11,3 +11,5 @@ python-dotenv
 Pillow
 gunicorn
 dj-database-url
+cloudinary
+django-cloudinary-storage
