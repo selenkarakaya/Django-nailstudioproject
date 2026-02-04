@@ -139,43 +139,49 @@ const Carousel = ({ feedbacks, onDelete }) => {
       .catch((err) => toast.error(`Oops! Something went wrong.`));
   };
 
-  feedbacks.map((feedback, index) => console.log(feedback));
-
   return (
     <div className="">
       <Slider {...settings}>
-        {feedbacks.map((feedback, index) => (
+        {feedbacks.map((feedback) => (
           <div
-            key={index}
-            className="full-width-slide flex bg-lightBg mx-auto p-10"
+            key={feedback.id}
+            className="full-width-slide bg-lightBg mx-auto p-6 rounded-lg shadow-sm"
           >
-            {user && feedback.user.username == user.username && (
+            {user && feedback?.user?.username === user?.username && (
               <button
-                className="m-1"
+                className="mb-2"
                 onClick={() => onDeleteHandler(feedback.id)}
               >
                 <MdCancelPresentation />
               </button>
             )}
 
-            <div>
-              <p className="text-center">
-                {feedback?.comment || "No comment provided"}
-              </p>
+            {/* TWO COLUMN LAYOUT */}
+            <div className="flex gap-4 items-start">
+              {/* IMAGE – LEFT */}
               {feedback.image_url && (
                 <img
                   src={feedback.image_url}
                   alt="feedback"
-                  className="w-32 h-32 object-cover rounded-lg shadow-md"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md flex-shrink-0"
                   loading="lazy"
                 />
               )}
-              <p className="text-end italic mr-3">
-                {feedback?.user?.username || "Anonymous"}
-              </p>
-              <p className="text-end italic mr-3">
-                {formatDate(feedback?.created_at)}
-              </p>
+
+              {/* TEXT – RIGHT */}
+              <div className="flex flex-col gap-2 min-w-0">
+                <p className="break-words">
+                  {feedback?.comment || "No comment provided"}
+                </p>
+
+                <p className="italic text-sm self-end">
+                  {feedback?.user?.username || "Anonymous"}
+                </p>
+
+                <p className="italic text-sm self-end">
+                  {formatDate(feedback?.created_at)}
+                </p>
+              </div>
             </div>
           </div>
         ))}
