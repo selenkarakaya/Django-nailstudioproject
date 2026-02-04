@@ -172,9 +172,20 @@ class FeedbackSerializer(serializers.ModelSerializer):
     - The `user` field is marked as `read_only=True`, meaning it will be included when reading feedback but cannot be modified when creating or updating feedback.
     """
     user = UserSerializer(read_only=True, required=False)  #We retrieve the user only for reading.
+    image = serializers.SerializerMethodField()
     class Meta:
         model = Feedback
         fields = ['id', 'user', 'comment', 'image', 'created_at']
+    def get_image(self, obj):
+ 
+        if not obj.image:
+            return None
+ 
+        try:
+            return obj.image.url
+        except Exception:
+           
+            return str(obj.image)
     def create(self, validated_data):
         #While creating the feedback, we verify the user's information and save the feedback.
         user = self.context['request'].user if self.context['request'].user.is_authenticated else None
