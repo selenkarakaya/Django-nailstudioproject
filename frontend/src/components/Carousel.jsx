@@ -176,25 +176,6 @@ const Carousel = ({ feedbacks, onDelete }) => {
                 </p>
               </div>
             </div>
-            <div>
-              <p className="text-center">
-                {feedback?.comment || "No comment provided"}
-              </p>
-              {feedback.image_url && (
-                <img
-                  src={feedback.image_url}
-                  alt="feedback"
-                  className="w-32 h-32 object-cover rounded-lg shadow-md"
-                  loading="lazy"
-                />
-              )}
-              <p className="text-end italic mr-3">
-                {feedback?.user?.username || "Anonymous"}
-              </p>
-              <p className="text-end italic mr-3">
-                {formatDate(feedback?.created_at)}
-              </p>
-            </div>
           </div>
         ))}
       </Slider>
