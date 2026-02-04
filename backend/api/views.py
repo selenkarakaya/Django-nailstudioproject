@@ -16,14 +16,18 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .authentication import CookieJWTAuthentication
 from rest_framework.decorators import api_view
+from rest_framework import status
+
 
 @api_view(['GET'])
-def verify_token(request):
-    # Bu view, HttpOnly cookie'den access token'ı kontrol eder.
-    if request.user.is_authenticated:
-        return Response({"isAuthenticated": True})
-    else:
-        return Response({"isAuthenticated": False}, status=401) 
+class VerifyTokenView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        if request.user and request.user.is_authenticated:
+            return Response({"isAuthenticated": True}, status=200)
+        return Response({"isAuthenticated": False}, status=status.HTTP_401_UNAUTHORIZED)
     
 
 class CreateUserView(generics.CreateAPIView):
