@@ -19,7 +19,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 
-@api_view(['GET'])
+
 class VerifyTokenView(APIView):
     authentication_classes = [CookieJWTAuthentication]
     permission_classes = [AllowAny]
