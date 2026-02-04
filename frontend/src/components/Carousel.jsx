@@ -142,33 +142,26 @@ const Carousel = ({ feedbacks, onDelete }) => {
   return (
     <div className="">
       <Slider {...settings}>
-        {feedbacks.map((feedback) => (
+        {feedbacks.map((feedback, index) => (
           <div
-            key={feedback.id}
+            key={index}
             className="full-width-slide bg-lightBg mx-auto p-6 rounded-lg shadow-sm"
           >
-            {user && feedback?.user?.username === user?.username && (
+            {user && feedback.user.username == user.username && (
               <button
-                className="mb-2"
+                className="m-1"
                 onClick={() => onDeleteHandler(feedback.id)}
               >
                 <MdCancelPresentation />
               </button>
             )}
-
-            {/* TWO COLUMN LAYOUT */}
             <div className="flex gap-4 items-start">
-              {/* IMAGE – LEFT */}
-              {feedback.image_url && (
-                <img
-                  src={feedback.image_url}
-                  alt="feedback"
-                  className="w-32 h-32 object-cover rounded-lg shadow-md flex-shrink-0"
-                  loading="lazy"
-                />
-              )}
-
-              {/* TEXT – RIGHT */}
+              <img
+                src={feedback.image_url}
+                alt="feedback"
+                className="w-32 h-32 object-cover rounded-lg shadow-md flex-shrink-0"
+                loading="lazy"
+              />
               <div className="flex flex-col gap-2 min-w-0">
                 <p className="break-words">
                   {feedback?.comment || "No comment provided"}
@@ -182,6 +175,25 @@ const Carousel = ({ feedbacks, onDelete }) => {
                   {formatDate(feedback?.created_at)}
                 </p>
               </div>
+            </div>
+            <div>
+              <p className="text-center">
+                {feedback?.comment || "No comment provided"}
+              </p>
+              {feedback.image_url && (
+                <img
+                  src={feedback.image_url}
+                  alt="feedback"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md"
+                  loading="lazy"
+                />
+              )}
+              <p className="text-end italic mr-3">
+                {feedback?.user?.username || "Anonymous"}
+              </p>
+              <p className="text-end italic mr-3">
+                {formatDate(feedback?.created_at)}
+              </p>
             </div>
           </div>
         ))}
