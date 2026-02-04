@@ -20,7 +20,7 @@ from rest_framework import status
 
 
 @api_view(['GET'])
-class VerifyTokenView(APIView):
+class verify_token(APIView):
     authentication_classes = [CookieJWTAuthentication]
     permission_classes = [AllowAny]
 
