@@ -156,12 +156,14 @@ const Carousel = ({ feedbacks, onDelete }) => {
               </button>
             )}
             <div className="flex gap-4 items-start">
-              <img
-                src={feedback.image_url}
-                alt="feedback"
-                className="w-32 h-32 object-cover rounded-lg shadow-md flex-shrink-0"
-                loading="lazy"
-              />
+              {feedback.image_url && (
+                <img
+                  src={feedback.image_url}
+                  alt="feedback"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md flex-shrink-0"
+                  loading="lazy"
+                />
+              )}
               <div className="flex flex-col gap-2 min-w-0">
                 <p className="break-words">
                   {feedback?.comment || "No comment provided"}

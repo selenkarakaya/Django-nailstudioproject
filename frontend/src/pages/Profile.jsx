@@ -35,13 +35,7 @@ function Profile() {
             <GoCommentDiscussion />
             <p>Help us improve •</p>
           </button>
-          {/* <Link
-            to="/feedbackForm"
-            className="md:text-xl text-sm text-greens flex items-center space-x-2"
-          >
-            <GoCommentDiscussion />
-            <p>Help us improve •</p>
-          </Link> */}
+
           <Link
             to="/Contact"
             className="md:text-xl text-sm text-greens flex items-center space-x-2"
