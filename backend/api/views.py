@@ -269,7 +269,7 @@ class FeedbackListView(generics.ListAPIView):
 
     serializer_class = FeedbackSerializer
     permission_classes = [AllowAny]  #Everyone can access it, no verification is required.
-  
+    authentication_classes = []
     def get_queryset(self):        
         return Feedback.objects.all()
 
